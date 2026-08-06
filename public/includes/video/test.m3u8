@@ -1,0 +1,11 @@
+#EXTM3U
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=324000,RESOLUTION=480x270,CODECS="avc1.66.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://olympic-vh.akamaihd.net/i/Assets/MediaPlayer/Videos/Streaming/2008/08/23/lot1-2008%20ath%20800m%20m/2008_ath_800m_m_,0200,0400,0600,1200,1800,.mp4.csmil/index_0_av.m3u8
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=525000,RESOLUTION=480x270,CODECS="avc1.66.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://olympic-vh.akamaihd.net/i/Assets/MediaPlayer/Videos/Streaming/2008/08/23/lot1-2008%20ath%20800m%20m/2008_ath_800m_m_,0200,0400,0600,1200,1800,.mp4.csmil/index_1_av.m3u8
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=725000,RESOLUTION=630x350,CODECS="avc1.66.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://olympic-vh.akamaihd.net/i/Assets/MediaPlayer/Videos/Streaming/2008/08/23/lot1-2008%20ath%20800m%20m/2008_ath_800m_m_,0200,0400,0600,1200,1800,.mp4.csmil/index_2_av.m3u8
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1323000,RESOLUTION=630x350,CODECS="avc1.66.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://olympic-vh.akamaihd.net/i/Assets/MediaPlayer/Videos/Streaming/2008/08/23/lot1-2008%20ath%20800m%20m/2008_ath_800m_m_,0200,0400,0600,1200,1800,.mp4.csmil/index_3_av.m3u8
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1925000,RESOLUTION=960x540,CODECS="avc1.77.30, mp4a.40.2",CLOSED-CAPTIONS=NONE
+https://olympic-vh.akamaihd.net/i/Assets/MediaPlayer/Videos/Streaming/2008/08/23/lot1-2008%20ath%20800m%20m/2008_ath_800m_m_,0200,0400,0600,1200,1800,.mp4.csmil/index_4_av.m3u8
