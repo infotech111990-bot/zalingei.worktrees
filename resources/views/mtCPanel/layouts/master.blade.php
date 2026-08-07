@@ -20,21 +20,21 @@
 
 
 		<!-- CORE CSS -->
-		<link href="{{ asset('public/assets/admin/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('public/assets/admin/plugins/bootstrap/RTL/bootstrap-rtl.min.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/admin/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/admin/plugins/bootstrap/RTL/bootstrap-rtl.min.css') }}" rel="stylesheet" type="text/css" />
 		
 		<!-- THEME CSS -->
-		<link href="{{ asset('public/assets/admin/css/essentials.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('public/assets/admin/css/layout.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('public/assets/admin/css/layout-RTL.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('public/assets/admin/css/color_scheme/blue.css') }}" rel="stylesheet" type="text/css" id="color_scheme" />
+		<link href="{{ asset('assets/admin/css/essentials.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/admin/css/layout.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/admin/css/layout-RTL.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/admin/css/color_scheme/blue.css') }}" rel="stylesheet" type="text/css" id="color_scheme" />
 		
 		<!-- Include one of jTable styles. -->
-		<link href="{{Request::root()}}/public/assets/mtCPanel/jtable/themes/redmond/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
-		<link href="{{Request::root()}}/public/assets/mtCPanel/jtable/themes/metro/lightgray/jtable.css" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/mtCPanel/jtable/themes/redmond/jquery-ui-1.8.16.custom.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/mtCPanel/jtable/themes/metro/lightgray/jtable.css') }}" rel="stylesheet" type="text/css" />
 		
 		<!-- Dropzone styles. -->
-		<link href="{{ asset('public/assets/admin/plugins/dropzone/css/dropzone.css') }}" rel="stylesheet" type="text/css" id="color_scheme" />
+		<link href="{{ asset('assets/admin/plugins/dropzone/css/dropzone.css') }}" rel="stylesheet" type="text/css" id="color_scheme" />
 		
 
 	</head>
@@ -78,7 +78,7 @@
 
 				<!-- Logo -->
 				<span class="logo pull-right">
-					<img src="{{request()->root()}}/public/assets/admin/images/logo_light.png" alt="admin panel" height="35" />
+					<img src="{{ asset('assets/admin/images/logo_light.png') }}" alt="admin panel" height="35" />
 				</span>
 
 				<nav>
@@ -92,7 +92,7 @@
 								@if(isset(auth()->guard('admin')->user()->picture))
 									<img class="user-avatar" alt="" src="{{ auth()->guard('admin')->user()->picture }}" height="34" /> 
 								@else
-									<img class="user-avatar" alt="" src="{{ request()->root() }}/public/assets/images/user.png" height="34" width="34" /> 
+									<img class="user-avatar" alt="" src="{{ asset('assets/images/user.png') }}" height="34" width="34" /> 
 								@endif
 								
 								<span class="user-name">
@@ -103,7 +103,7 @@
 							</a>
 							<ul class="dropdown-menu hold-on-click">
 								<li><!-- settings -->
-									<a href="{{ request()->root() }}/userAccount/profile"><i class="fa fa-user"></i> البروفايل</a>
+									<a href="{{ url('userAccount/profile') }}"><i class="fa fa-user"></i> البروفايل</a>
 								</li>
 
 								<li class="divider"></li>
@@ -159,18 +159,18 @@
 
 	
 		<!-- JAVASCRIPT FILES -->
-		<script type="text/javascript">var plugin_path = '{{ request()->root() }}/public/assets/admin/plugins/';</script>
-		<script type="text/javascript" src="{{ asset('public/assets/admin/plugins/jquery/jquery-2.2.3.min.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('public/assets/admin/js/app.js') }}"></script>
+		<script type="text/javascript">var plugin_path = '{{ asset('assets/admin/plugins/') }}/';</script>
+		<script type="text/javascript" src="{{ asset('assets/admin/plugins/jquery/jquery-2.2.3.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/admin/js/app.js') }}"></script>
 
-		<script src="{{Request::root()}}/public/assets/mtCPanel/jtable/jquery-ui-1.10.0.min.js"></script>
+		<script src="{{ asset('assets/mtCPanel/jtable/jquery-ui-1.10.0.min.js') }}"></script>
 
 		<!-- Include jTable script file. -->
-		<script src="{{Request::root()}}/public/assets/mtCPanel/jtable/jquery.jtable.js" type="text/javascript"></script>
-		<script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/jtable/localization/jquery.jtable.ar.js"></script>
-		<script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/ckeditor/ckeditor.js"></script>
-		<script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/ckeditor/adapters/jquery.js"></script>
-		<script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/ckeditor/bootstrap-ckeditor-fix.js"></script>
+		<script src="{{ asset('assets/mtCPanel/jtable/jquery.jtable.js') }}" type="text/javascript"></script>
+		<script type="text/javascript" src="{{ asset('assets/mtCPanel/jtable/localization/jquery.jtable.ar.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/mtCPanel/ckeditor/ckeditor.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/mtCPanel/ckeditor/adapters/jquery.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/mtCPanel/ckeditor/bootstrap-ckeditor-fix.js') }}"></script>
 
 		<!-- Sweet Alert -->
 		<script src="{{ asset('public/assets/sweetalert/js/sweetalert.all.js') }}"></script>

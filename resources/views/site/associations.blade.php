@@ -1,7 +1,7 @@
 @extends('site.layouts.master')
 @section('content')
 {{--  <section class="page-header page-header-color page-header-primary">  --}}
-<section class="page-header page-header-custom-background" style="background-image: url({{request()->root()}}/public/assets/porto/img/@lang('site.getContent',['ar'=>'custom-header-bg.jpg','en'=>'custom-header-bg.en.jpg']));">
+<section class="page-header page-header-custom-background" style="background-image: url({{ asset('assets/porto/img/'.Lang::get('site.getContent',['ar'=>'custom-header-bg.jpg','en'=>'custom-header-bg.en.jpg'])) }});">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">

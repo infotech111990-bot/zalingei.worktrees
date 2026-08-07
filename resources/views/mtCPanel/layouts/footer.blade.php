@@ -1,22 +1,22 @@
     <!-- Javascript -->          
 
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/plugins/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/mtCPanel/plugins/jquery-1.11.1.min.js') }}"></script>
 
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/plugins/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/mtCPanel/plugins/jquery-migrate-1.2.1.min.js') }}"></script>
 
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/plugins/bootstrap/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="{{ asset('assets/mtCPanel/plugins/bootstrap/js/bootstrap.min.js') }}"></script> 
 
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/plugins/bootstrap-hover-dropdown.min.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/mtCPanel/plugins/bootstrap-hover-dropdown.min.js') }}"></script>
 
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/plugins/back-to-top.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/mtCPanel/plugins/back-to-top.js') }}"></script>
 
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/plugins/jquery-placeholder/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/mtCPanel/plugins/jquery-placeholder/jquery.placeholder.js') }}"></script>
 
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/plugins/FitVids/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/mtCPanel/plugins/FitVids/jquery.fitvids.js') }}"></script>
 
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/plugins/flexslider/jquery.flexslider-min.js"></script>     
+    <script type="text/javascript" src="{{ asset('assets/mtCPanel/plugins/flexslider/jquery.flexslider-min.js') }}"></script>     
 
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/js/main.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/mtCPanel/js/main.js') }}"></script>
 
     
 

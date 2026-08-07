@@ -1,6 +1,6 @@
 @extends('site.layouts.master')
 @section('css')
-<link href="{{Request::root()}}/assets/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="{{ asset('assets/datatables/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" />
 @stop
 @section('content')
 <section class="my-breadcrumb">

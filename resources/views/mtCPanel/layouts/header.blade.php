@@ -32,23 +32,23 @@
 
     @if(Session::get('lang') == 'en') 
 
-		<link rel="stylesheet" href="{{Request::root()}}/public/assets/mtCPanel/css/bootstrap.css">   
+		<link rel="stylesheet" href="{{ asset('assets/mtCPanel/css/bootstrap.css') }}">   
 
-		<link id="theme-style" rel="stylesheet" href="{{Request::root()}}/public/assets/mtCPanel/css/styles.css">
+		<link id="theme-style" rel="stylesheet" href="{{ asset('assets/mtCPanel/css/styles.css') }}">
 
 	@else
 
-		<link rel="stylesheet" href="{{Request::root()}}/public/assets/mtCPanel/css/bootstrap-ar.css">   
+		<link rel="stylesheet" href="{{ asset('assets/mtCPanel/css/bootstrap-ar.css') }}">   
 
-		<link id="theme-style" rel="stylesheet" href="{{Request::root()}}/public/assets/mtCPanel/css/styles.ar.css">
+		<link id="theme-style" rel="stylesheet" href="{{ asset('assets/mtCPanel/css/styles.ar.css') }}">
 
 	@endif
 
     <!-- Plugins CSS -->    
 
-    <link rel="stylesheet" href="{{Request::root()}}/public/assets/mtCPanel/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="{{ asset('assets/mtCPanel/plugins/font-awesome/css/font-awesome.css') }}">
 
-    <link rel="stylesheet" href="{{Request::root()}}/public/assets/mtCPanel/plugins/flexslider/flexslider.css">
+    <link rel="stylesheet" href="{{ asset('assets/mtCPanel/plugins/flexslider/flexslider.css') }}">
 
     <!-- Theme CSS -->
 
@@ -76,9 +76,9 @@
 
             <h1 class="logo1" style="width:250px;">
 
-                <a href="{{Request::root()}}/mtCPanel">
+                <a href="{{ url('mtCPanel') }}">
 
-					<img src="{{Request::root()}}/public/assets/mtCPanel/images/logo.png">
+					<img src="{{ asset('assets/mtCPanel/images/logo.png') }}">
 
 				</a>
 

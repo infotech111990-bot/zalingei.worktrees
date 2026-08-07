@@ -29,7 +29,31 @@ class Admin extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Relation to admin_colleges assignments
+     */
+    public function adminColleges()
+    {
+        return $this->hasMany(AdminCollege::class, 'admin_id');
+    }
 
+    /**
+     * Check whether admin has access to a given college.
+     * DBAs have implicit access to all.
+     *
+     * @param int|null $collegeId
+     * @return bool
+     */
+    public function hasCollegeAccess($collegeId = null)
+    {
+        if($this->isDBA()){
+            return true;
+        }
+        if($collegeId === null){
+            return false;
+        }
+        return AdminCollege::where('admin_id', $this->id)->where('college_id', $collegeId)->exists();
+    }
 
     public function getPriv(){
         $admin_priv = AdminPrivilege::where('userID','=',$this->id)->get();
@@ -47,7 +71,7 @@ class Admin extends Authenticatable
         }
         return $priv_array;
     }
-	
+    
     public function hasMainPriv($prevName){
         $prev = $this->getPriv();
         foreach ($prev as $p){

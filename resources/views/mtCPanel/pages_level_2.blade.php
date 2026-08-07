@@ -238,11 +238,11 @@
 
                         },
 
-                        'swf'               : '{{Request::root()}}/assets/uploadify/uploadify.swf',
+                        'swf'               : '{{ asset("assets/uploadify/uploadify.swf") }}',
 
-                        'uploader'  		: '{{Request::root()}}/assets/uploadify/uploadify.php',
+                        'uploader'  			: '{{ asset("assets/uploadify/uploadify.php") }}',
 
-                        'cancelImg' 		: '{{Request::root()}}/assets/uploadify/cancel.png',
+                        'cancelImg' 			: '{{ asset("assets/uploadify/cancel.png") }}',
 
                         'sizeLimit'   		: 10485760,
 

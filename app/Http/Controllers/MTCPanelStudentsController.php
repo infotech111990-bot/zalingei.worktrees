@@ -113,6 +113,18 @@ class MTCPanelStudentsController extends Controller
 
     public function addResult(Request $request, $id = null){
         $student = $this->model->findOrFail($id);
+
+        $admin = auth()->guard('admin')->user();
+
+        // Enforce college-scoped RBAC: only admins assigned to the student's college (or DBA) can add results
+        if(!$admin->isDBA() && !$admin->hasCollegeAccess($student->college_id)){
+            abort(403, 'You are not authorized to add results for this college.');
+        }
+
+        // Enforce results period
+        if(!$admin->isDBA() && !\App\Period::isOpen('results', $student->college_id)){
+            return redirect()->back()->with('error', 'Results period is currently closed.');
+        }
         
         $rules = [
             'subject_name' => 'required|max:255',
@@ -137,6 +149,21 @@ class MTCPanelStudentsController extends Controller
     public function deleteResult(Request $request, $id = null){
         $result = StudentResult::findOrFail($id);
         $student = Student::where('student_number', $result->student_number)->first();
+
+        $admin = auth()->guard('admin')->user();
+
+        if($student){
+            // Enforce college-scoped RBAC
+            if(!$admin->isDBA() && !$admin->hasCollegeAccess($student->college_id)){
+                abort(403, 'You are not authorized to delete results for this college.');
+            }
+
+            // Enforce results period
+            if(!$admin->isDBA() && !\App\Period::isOpen('results', $student->college_id)){
+                return redirect()->back()->with('error', 'Results period is currently closed.');
+            }
+        }
+
         $result->delete();
         if($student){
             return redirect()->route($this->view.'.results',['id'=>$student->id])->withInput(['deleted' => true]);

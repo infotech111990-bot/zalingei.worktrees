@@ -123,9 +123,9 @@
                             'folder'    		: "{{Config::get('mtcpanel.pagesHeadersPath')}}",
                             'fileExt'     		: '*.jpg;*.gif;*.png',
                         },
-                        'swf'               : '{{Request::root()}}/assets/uploadify/uploadify.swf',
-                        'uploader'  		: '{{Request::root()}}/assets/uploadify/uploadify.php',
-                        'cancelImg' 		: '{{Request::root()}}/assets/uploadify/cancel.png',
+                        'swf'               : '{{ asset("assets/uploadify/uploadify.swf") }}',
+                        'uploader'  			: '{{ asset("assets/uploadify/uploadify.php") }}',
+                        'cancelImg' 			: '{{ asset("assets/uploadify/cancel.png") }}',
                         'sizeLimit'   		: 10485760,
                         'auto'      		: true,
                         'onSelect'	     : function() {

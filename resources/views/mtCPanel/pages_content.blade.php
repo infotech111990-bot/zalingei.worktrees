@@ -42,7 +42,7 @@
                                             edit: false,
                                             create: false,
                                             display: function(){
-                                                return '<img src="{{Request::root()}}/assets/jtable/images/rules-16am8kv.png" width="32" height="32" />'
+                                                return '<img src="{{ asset("assets/jtable/images/rules-16am8kv.png") }}" width="32" height="32" />'
                                             }
                                         },
                         contentID: {
@@ -69,9 +69,9 @@
                             type: 'textarea',
                             display: function(data){
                                 if(data.record.contentText > ""){
-                                    return "<img src='{{Request::root()}}/assets/jtable/images/icn_alert_success.png' />";
+                                    return "<img src='{{ asset(\"assets/jtable/images/icn_alert_success.png\") }}' />";
                                 }else{
-                                    return "<img src='{{Request::root()}}/assets/jtable/images/icn_alert_error.png' />";
+                                    return "<img src='{{ asset(\"assets/jtable/images/icn_alert_error.png\") }}' />";
                                 }
                             }
                         },
@@ -81,9 +81,9 @@
                             type: 'textarea',
                             display: function(data){
                                 if(data.record.contentTextEn > ""){
-                                    return "<img src='{{Request::root()}}/assets/jtable/images/icn_alert_success.png' />";
+                                    return "<img src='{{ asset(\"assets/jtable/images/icn_alert_success.png\") }}' />";
                                 }else{
-                                    return "<img src='{{Request::root()}}/assets/jtable/images/icn_alert_error.png' />";
+                                    return "<img src='{{ asset(\"assets/jtable/images/icn_alert_error.png\") }}' />";
                                 }
                             }
                         },
