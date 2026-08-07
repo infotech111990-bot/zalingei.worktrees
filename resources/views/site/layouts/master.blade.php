@@ -19,6 +19,28 @@
     <link rel="stylesheet" href="{{ asset('css/mt.css') }}">
     <link rel="stylesheet" href="{{ asset('universo/assets/css/zalingei-redesign.css') }}">
 
+    <style>
+        /* Topbar text color and logo sizing (can be overridden in CSS files) */
+        .zr-topbar .zr-topbar-links a {
+            color: #ffffff !important;
+            margin-right: 12px;
+            display: inline-block;
+        }
+        .zr-topbar .zr-topbar-links a i {
+            color: #ffffff !important;
+            margin-right: 6px;
+        }
+        .zr-topbar .zr-topbar-brand img {
+            height: 30px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        .zr-topbar .zr-topbar-links a.active {
+            font-weight: 700;
+            text-decoration: underline;
+        }
+    </style>
+
     <title>@lang('site.siteName')</title>
 </head>
 
@@ -27,24 +49,22 @@
 
     <div class="zr-topbar">
         <div class="container">
-            <div class="zr-topbar-inner">
-                <div class="zr-topbar-links">
-                    <a href="{{ url('lang/'.Lang::get('site.getContent',['ar'=>'en','en'=>'ar'])) }}">
-                        <i class="fa fa-language"></i>
-                        @lang('site.getContent',['ar'=>'English','en'=>'العربية'])
+            <div class="zr-topbar-inner" style="display:flex;align-items:center;justify-content:space-between;">
+                <div class="zr-topbar-left" style="display:flex;align-items:center;">
+                    <a href="{{ url('/') }}" class="zr-topbar-brand" aria-label="@lang('site.siteName')">
+                        <img src="{{ asset('universo/assets/img/logo-top.png') }}" alt="@lang('site.siteName')">
                     </a>
-                    <a href="{{ url('webmail') }}" target="_blank">
-                        <i class="fa fa-envelope-o"></i> بريد الموظفين
-                    </a>
-                    <a href="https://me.classera.com/" target="_blank" rel="noopener">
-                        <i class="fa fa-laptop"></i> E-Learning
-                    </a>
-                    <a href="https://www.facebook.com/zalingei.university" target="_blank" rel="noopener">
-                        <i class="fa fa-facebook"></i> Facebook
-                    </a>
-                    <a href="https://www.youtube.com/channel/UCf0rdG0JaJk_VHnxNlnYogQ" target="_blank" rel="noopener">
-                        <i class="fa fa-youtube-play"></i> YouTube
-                    </a>
+                    <div class="zr-topbar-links" style="margin-left:10px;">
+                        <a href="{{ url('lang/ar') }}" class="{{ Config::get('app.locale')=='ar' ? 'active' : '' }}">العربية</a>
+                        <a href="{{ url('lang/en') }}" class="{{ Config::get('app.locale')=='en' ? 'active' : '' }}">English</a>
+                        <a href="{{ url('webmail') }}" target="_blank"><i class="fa fa-envelope-o"></i> بريد الموظفين</a>
+                        <a href="https://me.classera.com/" target="_blank" rel="noopener"><i class="fa fa-laptop"></i> E-Learning</a>
+                        <a href="https://www.facebook.com/zalingei.university" target="_blank" rel="noopener"><i class="fa fa-facebook"></i> Facebook</a>
+                        <a href="https://www.youtube.com/channel/UCf0rdG0JaJk_VHnxNlnYogQ" target="_blank" rel="noopener"><i class="fa fa-youtube-play"></i> YouTube</a>
+                    </div>
+                </div>
+                <div class="zr-topbar-right">
+                    <!-- right-side reserved -->
                 </div>
             </div>
         </div>
