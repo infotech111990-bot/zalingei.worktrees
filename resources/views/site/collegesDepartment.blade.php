@@ -5,7 +5,7 @@
     <!-- Breadcrumb -->
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="{{ request()->root() }}">@lang('site.home')</a></li>
+            <li><a href="{{ url('/') }}">@lang('site.home')</a></li>
             <li><a href="{{ $college->getUrl() }}">@lang('site.getContent',['ar'=>$college->title,'en'=>$college->titleEn])</a></li>
             <li><a class="active">@lang('site.getContent',['ar'=>$dept->title,'en'=>$dept->titleEn])</a></li>
         </ol>
@@ -43,7 +43,7 @@
                             </style>
                             <div class="row" id="box-search">
                                 <div class="thumbnail text-center">
-                                    <img src="{{ request()->root() }}/public/includes/colleges/departments/1/zunv-department-bg.jpg" alt="" class="img-responsive btn-block">
+                                    <img src="{{ asset('includes/colleges/departments/1/zunv-department-bg.jpg') }}" alt="" class="img-responsive btn-block">
                                     <div class="caption">
                                         <p>@lang('site.getContent',['ar'=>$dept->title,'en'=>$dept->titleEn])</p>
                                     </div>

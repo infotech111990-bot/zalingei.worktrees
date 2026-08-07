@@ -19,7 +19,7 @@
                 </article><!-- /article -->
                 @endforeach
         </div><!-- /.section-content -->
-        <a href="{{ request()->root() }}/news" class="read-more">@lang('site.allNews')</a>
+        <a href="{{ url('/') }}/news" class="read-more">@lang('site.allNews')</a>
     </aside><!-- /.news-small -->
 
 @endif

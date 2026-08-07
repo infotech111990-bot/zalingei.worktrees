@@ -9,7 +9,7 @@
 @section('breadcrumb')
 		<li>
 			<i class="fa fa-home"></i>
-			<a href="{{  request()->root() }}/mtCPanel">@lang('admin.cpanel')</a>
+			<a href="{{ url('/') }}/mtCPanel">@lang('admin.cpanel')</a>
 		</li>
 		<li><a href="{{ mtGetRoute('index','mtCPanel.'.$page) }}">@lang('admin.'.$page)</a></li>
 		<li class="active">@lang('admin.show')</li>
@@ -104,7 +104,7 @@
                 <div class="row margin-top-20">
                     <div class="col-md-12">
                         <a href="{{ mtGetRoute('edit','mtCPanel.'.$page, $data->id) }}" class="btn btn-yellow btn-3d btn-reveal"><i class="fa fa-edit white"></i> <span>@lang('admin.edit')</span> </a>
-                        <a href="{{ request()->root() }}/mtCPanel/students/{{ $data->id }}/results" class="btn btn-success btn-3d btn-reveal"><i class="fa fa-list white"></i> <span>@lang('admin.results')</span> </a>
+                        <a href="{{ url('/') }}/mtCPanel/students/{{ $data->id }}/results" class="btn btn-success btn-3d btn-reveal"><i class="fa fa-list white"></i> <span>@lang('admin.results')</span> </a>
                     </div>
                 </div>
 

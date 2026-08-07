@@ -1,7 +1,7 @@
 @extends('site.layouts.master')
 @section('content')
 <!-- Start Page header -->
-<div class="page-header parallax" style="background-image:url({{request()->root()}}/public/autostars/images/@lang('site.getContent',['ar'=>'custom-header-bg.jpg','en'=>'custom-header-bg.en.jpg']));">
+<div class="page-header parallax" style="background-image:url({{ asset('autostars/images/' . Lang::get('site.getContent',['ar'=>'custom-header-bg.jpg','en'=>'custom-header-bg.en.jpg'])) }}));">
 	<div class="container">
 			<h1 class="page-title">@lang('site.contactUs')</h1>
 		</div>
@@ -12,7 +12,7 @@
 		<div class="row">
 			<div class="col-md-8 col-sm-6 col-xs-8">
 				<ol class="breadcrumb">
-					<li><a href="{{request()->root()}}/">@lang('site.home')</a></li>
+					<li><a href="{{ url('/') }}/">@lang('site.home')</a></li>
 					<li class="active">@lang('site.contactUs')</li>
 				</ol>
 			</div>
@@ -81,7 +81,7 @@
 			// 	address: "السودان - الخرطوم - شارع علي عبد اللطيف",
 			// 	html: "<strong>شركة الفيصل للأوراق المالية المحدودة</strong><br> عمارة الفيحاء - الطابق الثالث",
 			// 	icon: {
-			// 		image: "{{request()->root()}}/public/assets/porto/img/pin.png",
+			// 		image: "{{ asset('assets/porto/img/pin.png') }}",
 			// 		iconsize: [46, 46],
 			// 		iconanchor: [12, 46]
 			// 	},

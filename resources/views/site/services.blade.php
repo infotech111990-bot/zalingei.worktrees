@@ -1,7 +1,7 @@
 @extends('site.layouts.master')
 @section('content')
 	    <!-- Start Page header -->
-	    <div class="page-header parallax" style="background-image:url({{request()->root()}}/public/autostars/images/@lang('site.getContent',['ar'=>'custom-header-bg.jpg','en'=>'custom-header-bg.en.jpg']));">
+	    <div class="page-header parallax" style="background-image:url({{ asset('autostars/images/' . Lang::get('site.getContent',['ar'=>'custom-header-bg.jpg','en'=>'custom-header-bg.en.jpg'])) }}));">
 			<div class="container">
 				<h1 class="page-title">@lang('site.services')</h1>
 			   </div>
@@ -12,7 +12,7 @@
 				<div class="row">
 					<div class="col-md-8 col-sm-6 col-xs-8">
 						<ol class="breadcrumb">
-								<li><a href="{{request()->root()}}/">@lang('site.home')</a></li>
+								<li><a href="{{ url('/') }}/">@lang('site.home')</a></li>
 								<li class="active">@lang('site.aboutUs')</li>
 						</ol>
 					</div>
@@ -38,7 +38,7 @@
 													<div class="vehicle-block-content">
 														<span class="label label-default vehicle-age">2014</span>
 														<span class="label label-success premium-listing">Premium Listing</span>
-														<h5 class="vehicle-title"><a href="{{request()->root()}}/services/{{$service->id}}">@lang('site.getContent', ['ar'=>$service->name, 'en'=>$service->nameEn ])</a></h5>
+														<h5 class="vehicle-title"><a href="{{ url('/') }}/services/{{$service->id}}">@lang('site.getContent', ['ar'=>$service->name, 'en'=>$service->nameEn ])</a></h5>
 														<span class="vehicle-meta">@lang('site.getContent', ['ar'=>Str::words(strip_tags($service->txt),30), 'en'=>Str::words(strip_tags($service->txtEn),30)])</span>
 														<a href="results-list.html" title="View all Sedans" class="vehicle-body-type">@lang('site.readMore')</a>
 													</div>
@@ -61,8 +61,8 @@
 							  <article class="post format-standard col-md-6 col-sm-6">
 								<div class="row">
 									  <div class="col-md-12 col-sm-12">
-											<h3 class="post-title"><a href="{{request()->root()}}/services/{{$service->id}}">@lang('site.getContent', ['ar'=>$service->name, 'en'=>$service->nameEn ])</a></h3>
-											<a href="{{request()->root()}}/services/{{$service->id}}"><img src="{{$service->getImage()}}" alt="" class="img-responsive"></a>
+											<h3 class="post-title"><a href="{{ url('/') }}/services/{{$service->id}}">@lang('site.getContent', ['ar'=>$service->name, 'en'=>$service->nameEn ])</a></h3>
+											<a href="{{ url('/') }}/services/{{$service->id}}"><img src="{{$service->getImage()}}" alt="" class="img-responsive"></a>
 											<!-- <p>@lang('site.getContent', ['ar'=>Str::words(strip_tags($service->txt),30), 'en'=>Str::words(strip_tags($service->txtEn),30)])</p> -->
 									  </div>
 								</div>

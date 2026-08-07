@@ -150,9 +150,9 @@
                             'folder'    		: "{{Config::get('mtcpanel.managersPath')}}",
                             'fileExt'     		: '*.jpg;*.gif;*.png',
                         },
-                        'swf'               : '{{ asset("/public/assets/uploadify/uploadify.swf") }}',
-                        'uploader'  		: '{{ asset("/public/assets/uploadify/uploadify.php") }}',
-                        'cancelImg' 		: '{{ asset("/public/assets/uploadify/cancel.png") }}',
+                        'swf'               : '{{ asset('assets/uploadify/uploadify.swf') }}',
+                        'uploader'  		: '{{ asset('assets/uploadify/uploadify.php') }}',
+                        'cancelImg' 		: '{{ asset('assets/uploadify/cancel.png') }}',
                         'sizeLimit'   		: 10485760,
                         'auto'      		: true,
                         'onSelect'	     : function() {

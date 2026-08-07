@@ -16,14 +16,14 @@
         <link href="http://fonts.googleapis.com/css2?family=Tajawal:wght@200;400&display=swap" rel="stylesheet">
 
 		<!-- CORE CSS -->
-		<link href="{{ asset('public/assets/admin/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('public/assets/admin/plugins/bootstrap/RTL/bootstrap-rtl.min.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/admin/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/admin/plugins/bootstrap/RTL/bootstrap-rtl.min.css') }}" rel="stylesheet" type="text/css" />
 		
 		<!-- THEME CSS -->
-		<link href="{{ asset('public/assets/admin/css/essentials-RTL.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('public/assets/admin/css/layout.css') }}" rel="stylesheet" type="text/css" />
-		<link href="{{ asset('public/assets/admin/css/layout-RTL.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset('public/assets/admin/css/blue.css') }}" rel="stylesheet" type="text/css" id="color_scheme" />
+		<link href="{{ asset('assets/admin/css/essentials-RTL.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/admin/css/layout.css') }}" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/admin/css/layout-RTL.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('assets/admin/css/blue.css') }}" rel="stylesheet" type="text/css" id="color_scheme" />
         
 	</head>
 	<!--
@@ -37,8 +37,8 @@
         @show
 	
 		<!-- JAVASCRIPT FILES -->
-		<script type="text/javascript">var plugin_path = '{{ request()->root() }}/public/assets/admin/plugins/';</script>
-		<script type="text/javascript" src="{{ asset('public/assets/admin/plugins/jquery/jquery-2.2.3.min.js') }}"></script>
-		<script type="text/javascript" src="{{ asset('public/assets/admin/js/app.js') }}"></script>
+		<script type="text/javascript">var plugin_path = '{{ asset('assets/admin/plugins/';</script>') }}
+		<script type="text/javascript" src="{{ asset('assets/admin/plugins/jquery/jquery-2.2.3.min.js') }}"></script>
+		<script type="text/javascript" src="{{ asset('assets/admin/js/app.js') }}"></script>
 	</body>
 </html>

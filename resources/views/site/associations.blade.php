@@ -23,7 +23,7 @@
                                     <li class="col-md-4 col-sm-6 col-xs-12 isotope-item">
                                         <span class="thumb-info thumb-info-hide-wrapper-bg mb-xlg">
                                             <span class="thumb-info-wrapper">
-                                                <a href="{{request()->root()}}/associations/{{$association->id}}">
+                                                <a href="{{ url('/') }}/associations/{{$association->id}}">
                                                     <img src="{{$association->getLogo()}}" class="img-responsive" alt="">
                                                     <span class="thumb-info-title">
                                                         <span class="thumb-info-inner" style="letter-spacing:1px;">@lang('site.getContent', ['ar'=>$association->title, 'en'=>$association->titleEn ])</span>

@@ -5,9 +5,9 @@
 <!-- Breadcrumb -->
 <div class="container">
     <ol class="breadcrumb">
-        <li><a href="{{ request()->root() }}">@lang('site.home')</a></li>
+        <li><a href="{{ url('/') }}">@lang('site.home')</a></li>
         <li><a href="{{ $college->getUrl() }}">@lang('site.getContent',['ar'=>$college->title,'en'=>$college->titleEn])</a></li>
-        <li><a href="{{ request()->root() }}/{{ $college->slug }}/news">@lang('site.collegeNews',['ar'=>$college->type->titleSingle, 'en'=>$college->type->titleSingleEn])</a></li>
+        <li><a href="{{ url('/') }}/{{ $college->slug }}/news">@lang('site.collegeNews',['ar'=>$college->type->titleSingle, 'en'=>$college->type->titleSingleEn])</a></li>
         <li><a class="active">@lang('site.getContent',['ar'=>$news->title,'en'=>$news->titleEn])</a></li>
     </ol>
 </div>

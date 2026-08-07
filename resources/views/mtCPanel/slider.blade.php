@@ -13,8 +13,8 @@
 @stop
 @section('scripts')
 	<?php $timestamp = time();?>
-	<link rel="stylesheet" type="text/css" href="{{request()->root()}}/public/uploadifive/uploadifive.css">
-	<script src="{{request()->root()}}/public/uploadifive/jquery.uploadifive.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="{{ asset('uploadifive/uploadifive.css') }}">
+	<script src="{{ asset('uploadifive/jquery.uploadifive.min.js') }}" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document).ready(function () {
             $.ajaxSetup({
@@ -131,7 +131,7 @@
 								'token'     : '<?php echo md5('unique_salt' . time());?>',
 								'folder'	: '{{Config::get('mtcpanel.sliderPath')}}/'
 							},
-							'uploadScript'  : '{{request()->root()}}/public/uploadifive/uploadifive.php',
+							'uploadScript'  : '{{ asset('uploadifive/uploadifive.php',') }}
 							'buttonText'    : 'Browse...',
 							'fileTypeDesc'  : 'Page Headers',
 							'fileTypeExts'  : '*.gif; *.jpg; *.jpeg; *.png',

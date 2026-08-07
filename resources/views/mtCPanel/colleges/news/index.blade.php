@@ -14,7 +14,7 @@
 @section('breadcrumb')
 		<li>
 			<i class="fa fa-home"></i>
-			<a href="{{  request()->root() }}/mtCPanel">@lang('admin.cpanel')</a>
+			<a href="{{ url('/') }}/mtCPanel">@lang('admin.cpanel')</a>
 		</li>
 		<li> <a href="{{ mtGetRoute('index','mtCPanel.'.$parentPage) }}">@lang('admin.'.$parentPage_title)</a> </li>
 		<li> <a href="{{ mtGetRoute('show','mtCPanel.'.$parentPage,$parent->id) }}">{{ $parent->title }}</a> </li>
@@ -70,7 +70,7 @@
 										@endif
 										@if(auth()->guard('admin')->user()->hasActionPriv($priv,'delete'))
 											<a 	data-route="{{ route('mtCPanel.'.$page.'.destroy', ['parent_id' => $parent->id, 'id' => $d->id]) }}" 
-												data-afterdeleteurl="{{ request()->root() }}/mtCPanel/{{ $parentPage }}/{{ $parent->id }}/{{ $childPage }}" 
+												data-afterdeleteurl="{{ url('/') }}/mtCPanel/{{ $parentPage }}/{{ $parent->id }}/{{ $childPage }}" 
 												class="deleteBtn btn btn-danger btn-xs btn-3d btn-reveal">
 												<i class="fa fa-times white"></i> <span>حذف</span>
 											</a>

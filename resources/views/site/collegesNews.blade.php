@@ -5,7 +5,7 @@
 <!-- Breadcrumb -->
 <div class="container">
     <ol class="breadcrumb">
-        <li><a href="{{ request()->root() }}">@lang('site.home')</a></li>
+        <li><a href="{{ url('/') }}">@lang('site.home')</a></li>
         <li><a href="{{ $college->getUrl() }}">@lang('site.getContent',['ar'=>$college->title,'en'=>$college->titleEn])</a></li>
         <li><a class="active">@lang('site.collegeNews',['ar'=>$college->type->titleSingle, 'en'=>$college->type->titleSingleEn])</a></li>
     </ol>
@@ -29,14 +29,14 @@
                                 @foreach($college->news as $cnews)
                                     <article class="blog-post">
                                         <div class="blog-post-image">
-                                            <a href="{{ request()->root() }}/{{ $college->slug }}/news/{{ $cnews->id }}">
+                                            <a href="{{ url('/') }}/{{ $college->slug }}/news/{{ $cnews->id }}">
                                                 <img src="{{ $cnews->getPicture() }}" alt="">
                                             </a>
                                         </div>
                                         <div class="blog-post-content">
-                                            <h3><a href="{{ request()->root() }}/{{ $college->slug }}/news/{{ $cnews->id }}">@lang('site.getContent',['ar'=>$cnews->title,'en'=>$cnews->titleEn])</a></h3>
+                                            <h3><a href="{{ url('/') }}/{{ $college->slug }}/news/{{ $cnews->id }}">@lang('site.getContent',['ar'=>$cnews->title,'en'=>$cnews->titleEn])</a></h3>
                                             <p>{!! Str::words(strip_tags(Lang::get('site.getContent', ['ar'=>$cnews->txt, 'en' => $cnews->txtEn])),40) !!}</p>
-                                            <a href="{{ request()->root() }}/{{ $college->slug }}/news/{{ $cnews->id }}" class="read-more">@lang('site.more')</a>
+                                            <a href="{{ url('/') }}/{{ $college->slug }}/news/{{ $cnews->id }}" class="read-more">@lang('site.more')</a>
                                         </div>
                                     </article>
                                 @endforeach

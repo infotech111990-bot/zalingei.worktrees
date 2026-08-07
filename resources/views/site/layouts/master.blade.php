@@ -52,7 +52,7 @@
             <div class="zr-topbar-inner" style="display:flex;align-items:center;justify-content:space-between;">
                 <div class="zr-topbar-left" style="display:flex;align-items:center;">
                     <a href="{{ url('/') }}" class="zr-topbar-brand" aria-label="@lang('site.siteName')">
-                        <img src="{{ asset('universo/assets/img/logo-top.png') }}" alt="@lang('site.siteName')">
+                        <img src="{{ asset('universo/assets/img/logo.png') }}" alt="@lang('site.siteName')">
                     </a>
                     <div class="zr-topbar-links" style="margin-left:10px;">
                         <a href="{{ url('lang/ar') }}" class="{{ Config::get('app.locale')=='ar' ? 'active' : '' }}">العربية</a>

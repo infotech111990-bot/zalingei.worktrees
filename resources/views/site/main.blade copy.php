@@ -31,14 +31,14 @@
     		<div class="container">
                	<div class="row">
                   	<ul class="owl-carousel carousel-alt" data-columns="6" data-autoplay="" data-pagination="no" data-arrows="yes" data-single-item="no" data-items-desktop="6" data-items-desktop-small="4" data-items-mobile="3" data-items-tablet="4">
-                    	<li class="item"> <a href="results-list.html"><img src="{{request()->root()}}/public/autostars/images/body-types/wagon.png" alt=""> <span>Wagon</span></a></li>
-                    	<li class="item"> <a href="results-list.html"><img src="{{request()->root()}}/public/autostars/images/body-types/minivan.png" alt=""> <span>Minivan</span></a></li>
-                    	<li class="item"> <a href="results-list.html"><img src="{{request()->root()}}/public/autostars/images/body-types/coupe.png" alt=""> <span>Coupe</span></a></li>
-                    	<li class="item"> <a href="results-list.html"><img src="{{request()->root()}}/public/autostars/images/body-types/convertible.png" alt=""> <span>Convertible</span></a></li>
-                    	<li class="item"> <a href="results-list.html"><img src="{{request()->root()}}/public/autostars/images/body-types/crossover.png" alt=""> <span>Crossover</span></a></li>
-                    	<li class="item"> <a href="results-list.html"><img src="{{request()->root()}}/public/autostars/images/body-types/suv.png" alt=""> <span>SUV</span></a></li>
-                    	<li class="item"> <a href="results-list.html#"><img src="{{request()->root()}}/public/autostars/images/body-types/minicar.png" alt=""> <span>Minicar</span></a></li>
-                    	<li class="item"> <a href="results-list.html"><img src="{{request()->root()}}/public/autostars/images/body-types/sedan.png" alt=""> <span>Sedan</span></a></li>
+                    	<li class="item"> <a href="results-list.html"><img src="{{ asset('autostars/images/body-types/wagon.png') }}" alt=""> <span>Wagon</span></a></li>
+                    	<li class="item"> <a href="results-list.html"><img src="{{ asset('autostars/images/body-types/minivan.png') }}" alt=""> <span>Minivan</span></a></li>
+                    	<li class="item"> <a href="results-list.html"><img src="{{ asset('autostars/images/body-types/coupe.png') }}" alt=""> <span>Coupe</span></a></li>
+                    	<li class="item"> <a href="results-list.html"><img src="{{ asset('autostars/images/body-types/convertible.png') }}" alt=""> <span>Convertible</span></a></li>
+                    	<li class="item"> <a href="results-list.html"><img src="{{ asset('autostars/images/body-types/crossover.png') }}" alt=""> <span>Crossover</span></a></li>
+                    	<li class="item"> <a href="results-list.html"><img src="{{ asset('autostars/images/body-types/suv.png') }}" alt=""> <span>SUV</span></a></li>
+                    	<li class="item"> <a href="results-list.html#"><img src="{{ asset('autostars/images/body-types/minicar.png') }}" alt=""> <span>Minicar</span></a></li>
+                    	<li class="item"> <a href="results-list.html"><img src="{{ asset('autostars/images/body-types/sedan.png') }}" alt=""> <span>Sedan</span></a></li>
                   	</ul>
                	</div>
             </div>
@@ -65,7 +65,7 @@
                     <div class="col-md-8 col-sm-6">
                         <section class="listing-block latest-news">
                             <div class="listing-header">
-                            	<a href="{{ request()->root() }}/news" class="btn btn-sm btn-default pull-right">@lang('site.allNews')</a>
+                            	<a href="{{ url('/') }}/news" class="btn btn-sm btn-default pull-right">@lang('site.allNews')</a>
                                 <h3>@lang('site.news')</h3>
                             </div>
                             <div class="listing-container">
@@ -80,12 +80,12 @@
 											@foreach($lastNews as $ln)
 												<li class="item">
 													<div class="post-block format-standard">
-														<a href="{{request()->root()}}/news/{{$ln->id}}" class="media-box post-image"><img style="width:100%; height:200px;" src="{{$ln->getPicture()}}" alt=""></a>
+														<a href="{{ url('/') }}/news/{{$ln->id}}" class="media-box post-image"><img style="width:100%; height:200px;" src="{{$ln->getPicture()}}" alt=""></a>
 														<div class="post-actions">
 															<div class="post-date"> {{date('M', strtotime($ln->newsDate))}} {{date('d', strtotime($ln->newsDate))}}, {{date('Y', strtotime($ln->newsDate))}}</div>
-															<div class="comment-count"><a href="{{request()->root()}}/news/{{$ln->id}}"><i class="icon-eye"></i> {{$ln->views}}</a></div>
+															<div class="comment-count"><a href="{{ url('/') }}/news/{{$ln->id}}"><i class="icon-eye"></i> {{$ln->views}}</a></div>
 														</div>
-														<h3 class="post-title"><a href="{{request()->root()}}/news/{{$ln->id}}" style="direction:ltr;">{{Str::words(strip_tags($ln->title),10)}}</a></h3>
+														<h3 class="post-title"><a href="{{ url('/') }}/news/{{$ln->id}}" style="direction:ltr;">{{Str::words(strip_tags($ln->title),10)}}</a></h3>
 														<div class="post-content">
 															<p>{{Str::words(strip_tags($ln->txt),20)}}</p>
 														</div>
@@ -130,7 +130,7 @@
                     <div class="col-md-4 col-sm-6 sidebar">
                         <section class="listing-block latest-reviews">
                             <div class="listing-header">
-                            	<a href="{{ request()->root() }}/polls" class="btn btn-sm btn-default pull-right">@lang('site.allPolls')</a>
+                            	<a href="{{ url('/') }}/polls" class="btn btn-sm btn-default pull-right">@lang('site.allPolls')</a>
                                 <h3>@lang('site.polls')</h3>
                             </div>
                             <div class="listing-container">

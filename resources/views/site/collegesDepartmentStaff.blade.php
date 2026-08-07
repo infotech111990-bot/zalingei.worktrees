@@ -5,7 +5,7 @@
 <!-- Breadcrumb -->
 <div class="container">
     <ol class="breadcrumb">
-        <li><a href="{{ request()->root() }}">@lang('site.home')</a></li>
+        <li><a href="{{ url('/') }}">@lang('site.home')</a></li>
         <li><a href="{{ $college->getUrl() }}">@lang('site.getContent',['ar'=>$college->title,'en'=>$college->titleEn])</a></li>
         <li><a class="active">@lang('site.staff')</a></li>
     </ol>
@@ -31,17 +31,17 @@
                                         <div class="col-md-4 col-sm-6">
                                             <article class="professor-thumbnail">
                                                 <figure class="professor-image">
-                                                    <a href="{{ request()->root() }}/staff/{{ $member->id }}">
+                                                    <a href="{{ url('/') }}/staff/{{ $member->id }}">
                                                         <img src="{{ $member->getPicture() }}" alt="">
                                                     </a>
                                                 </figure>
                                                 <aside>
                                                     <header>
-                                                        <a href="{{ request()->root() }}/staff/{{ $member->id }}">@lang('site.getContent',['ar'=>$member->name,'en'=>$member->nameEn])</a>
+                                                        <a href="{{ url('/') }}/staff/{{ $member->id }}">@lang('site.getContent',['ar'=>$member->name,'en'=>$member->nameEn])</a>
                                                         <div class="divider"></div>
                                                         <figure class="professor-description">@lang('site.getContent',['ar'=>$member->sp,'en'=>$member->spEn])</figure>
                                                     </header>
-                                                    <a href="{{ request()->root() }}/staff/{{ $member->id }}" class="show-profile">@lang('site.more')</a>
+                                                    <a href="{{ url('/') }}/staff/{{ $member->id }}" class="show-profile">@lang('site.more')</a>
                                                 </aside>
                                             </article>
                                         </div>

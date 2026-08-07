@@ -28,7 +28,7 @@
                 <span class="zr-kicker">@lang('site.getContent',['ar'=>'جامعة زالنجي','en'=>'University of Zalingei'])</span>
                 <h1>@lang('site.siteName')</h1>
                 <p>@lang('site.aboutUsDesc')</p>
-                <a href="{{ request()->root() }}/page/4/about-university-of-zalingie" class="zr-btn zr-btn-light">@lang('site.aboutUs') <i class="fa fa-arrow-left"></i></a>
+                <a href="{{ url('/') }}/page/4/about-university-of-zalingie" class="zr-btn zr-btn-light">@lang('site.aboutUs') <i class="fa fa-arrow-left"></i></a>
             </div>
         </div>
     @endif

@@ -1,19 +1,19 @@
 <div class="widget">
     <ul class="nav nav-list mb-xlg">
             <li>
-                <a href="{{request()->root()}}/associations/{{$association->id}}">
+                <a href="{{ url('/') }}/associations/{{$association->id}}">
                     @lang('site.aboutAssociation')
                 </a>
             </li>
             <li>
-                <a href="{{request()->root()}}/associations/{{$association->id}}/news">
+                <a href="{{ url('/') }}/associations/{{$association->id}}/news">
                     @lang('site.assocNews')
                 </a>
             </li>
         @if($association->details->count() > 0)
             @foreach($association->details as $details)
                 <li>
-                    <a href="{{request()->root()}}/associations/{{$association->id}}/details/{{$details->id}}">
+                    <a href="{{ url('/') }}/associations/{{$association->id}}/details/{{$details->id}}">
                         @lang('site.getContent',['ar'=>$details->title,'en'=>$details->titleEn])
                     </a>
                 </li>
@@ -33,7 +33,7 @@
             @foreach($association->news->take(2) as $assocNews)
             <li class="col-md-12 col-sm-12 col-xs-12">
                 <div class="portfolio-item">
-                    <a href="{{request()->root()}}/associations/{{$association->id}}/news/{{$assocNews->id}}">
+                    <a href="{{ url('/') }}/associations/{{$association->id}}/news/{{$assocNews->id}}">
                         <span class="thumb-info thumb-info-lighten">
                             <span class="thumb-info-wrapper">
                                 <img src="{{$association->getLogo()}}" class="img-responsive" alt="">

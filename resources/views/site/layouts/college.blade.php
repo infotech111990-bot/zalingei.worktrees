@@ -11,16 +11,16 @@
     
         <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Tajawal:400,700' rel='stylesheet' type='text/css'>
-        <link href="{{request()->root()}}/public/universo/assets/css/font-awesome.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="{{request()->root()}}/public/universo/assets/bootstrap/css/@lang('site.getContent',['ar'=>'bootstrap.ar.css','en'=>'bootstrap.css'])" type="text/css">
-        <link rel="stylesheet" href="{{request()->root()}}/public/universo/assets/bootstrap/css/@lang('site.getContent',['ar'=>'bootstrap-rtl.min.css','en'=>''])" type="text/css">
-        <link rel="stylesheet" href="{{request()->root()}}/public/universo/assets/css/selectize.css" type="text/css">
-        <link rel="stylesheet" href="{{request()->root()}}/public/universo/assets/css/@lang('site.getContent',['ar'=>'owl.carousel.css','en'=>'owl.carousel.css'])" type="text/css">
-        <link rel="stylesheet" href="{{request()->root()}}/public/universo/assets/css/vanillabox/vanillabox.css" type="text/css">
-        <link rel="stylesheet" href="{{request()->root()}}/public/universo/assets/css/layerslider.css" type="text/css">
+        <link href="{{ asset('universo/assets/css/font-awesome.css') }}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{ asset('universo/assets/bootstrap/css/' . Lang::get('site.getContent',['ar'=>'bootstrap.ar.css','en'=>'bootstrap.css'])) }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('universo/assets/bootstrap/css/' . Lang::get('site.getContent',['ar'=>'bootstrap-rtl.min.css','en'=>''])) }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('universo/assets/css/selectize.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('universo/assets/css/' . Lang::get('site.getContent',['ar'=>'owl.carousel.css','en'=>'owl.carousel.css'])) }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('universo/assets/css/vanillabox/vanillabox.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('universo/assets/css/layerslider.css') }}" type="text/css">
         
-        <link rel="stylesheet" href="{{request()->root()}}/public/universo/assets/css/@lang('site.getContent',['ar'=>'style-rtl.css','en'=>'style.css'])" type="text/css">
-        <link rel="stylesheet" href="{{request()->root()}}/public/css/@lang('site.getContent',['ar'=>'mt-rtl.css','en'=>'mt.css'])" type="text/css">
+        <link rel="stylesheet" href="{{ asset('universo/assets/css/' . Lang::get('site.getContent',['ar'=>'style-rtl.css','en'=>'style.css'])) }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('css/' . Lang::get('site.getContent',['ar'=>'mt-rtl.css','en'=>'mt.css'])) }}" type="text/css">
     
         <title>@lang('site.siteName') - {{ $college->title }}</title>
     
@@ -34,7 +34,7 @@
         <div class="secondary-navigation-wrapper">
             <div class="container">
                 <div class="navigation-contact pull-@lang('site.getContent',['ar'=>'right','en'=>'left'])">@lang('site.language'):
-                    <span class="opacity-70"><a href="{{ request()->root() }}/lang/@lang('site.getContent', ['ar'=>'en','en'=>'ar'])" target="_self" class="search-trigger"> @lang('site.getContent', ['ar'=>'English','en'=>'عربي']) </a></span>
+                    <span class="opacity-70"><a href="{{ url('/') }}/lang/@lang('site.getContent', ['ar'=>'en','en'=>'ar'])" target="_self" class="search-trigger"> @lang('site.getContent', ['ar'=>'English','en'=>'عربي']) </a></span>
                 </div>
             </div>
         </div><!-- /.secondary-navigation -->
@@ -42,7 +42,7 @@
         <div class="branding">
             <div class="container">
                 <div class="navbar-brand nav" id="brand">
-                    <a href="{{ request()->root() }}"><img src="{{request()->root()}}/public/universo/assets/img/logo.png" alt="brand"></a>
+                    <a href="{{ url('/') }}"><img src="{{ asset('universo/assets/img/logo.png') }}" alt="brand"></a>
                 </div>
                 
                 <div class="search pull-right">
@@ -67,7 +67,7 @@
                 <div class="row">
                     <div class="col-md-3 col-sm-12">
                         <aside class="logo">
-                            <img src="{{request()->root()}}/public/universo/assets/img/logo-white.png" class="vertical-center img-responsive">
+                            <img src="{{ asset('universo/assets/img/logo-white.png') }}" class="vertical-center img-responsive">
                         </aside>
                     </div><!-- /.col-md-3 -->
                     <div class="col-md-3 col-sm-4">
@@ -127,22 +127,22 @@
     </div>
     <!-- end Wrapper -->
     
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/js/jquery-2.1.0.min.js"></script>
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/js/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/js/selectize.min.js"></script>
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/js/owl.carousel.min.js"></script>
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/js/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/js/jquery.placeholder.js"></script>
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/js/jQuery.equalHeights.js"></script>
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/js/icheck.min.js"></script>
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/js/jquery.vanillabox-0.1.5.min.js"></script>
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/js/jquery.tablesorter.min.js"></script>
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/js/jquery.flexslider-min.js"></script>
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/js/retina-1.1.0.min.js"></script>
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/js/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/js/jquery-2.1.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/js/jquery-migrate-1.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/js/selectize.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/js/owl.carousel.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/js/jquery.placeholder.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/js/jQuery.equalHeights.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/js/icheck.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/js/jquery.vanillabox-0.1.5.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/js/jquery.tablesorter.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/js/jquery.flexslider-min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/js/retina-1.1.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/js/fullcalendar.min.js') }}"></script>
     
-    <script type="text/javascript" src="{{request()->root()}}/public/universo/assets/js/custom.js"></script>
+    <script type="text/javascript" src="{{ asset('universo/assets/js/custom.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var url = window.location;

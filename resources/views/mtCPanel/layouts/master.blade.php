@@ -173,12 +173,12 @@
 		<script type="text/javascript" src="{{ asset('assets/mtCPanel/ckeditor/bootstrap-ckeditor-fix.js') }}"></script>
 
 		<!-- Sweet Alert -->
-		<script src="{{ asset('public/assets/sweetalert/js/sweetalert.all.js') }}"></script>
+		<script src="{{ asset('assets/sweetalert/js/sweetalert.all.js') }}"></script>
 
         <!-- PAGE LEVEL SCRIPT -->
         @if(auth()->guard('admin')->user()->unreadNotifications->count() > 0)
             <script type="text/javascript">
-			    _toastr("لديك عدد {{ auth()->guard('admin')->user()->unreadNotifications->count() }} تنبيهات جديدة","top-left","success","{{ request()->root() }}/userAccount/notifications");
+			    _toastr("لديك عدد {{ auth()->guard('admin')->user()->unreadNotifications->count() }} تنبيهات جديدة","top-left","success","{{ url('/') }}/userAccount/notifications");
             </script>
         @endif
 		<script type="text/javascript">

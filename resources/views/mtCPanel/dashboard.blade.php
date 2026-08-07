@@ -46,7 +46,7 @@
                                 <div class="col-md-3 col-sm-3 col-lg-3">
                                     <div class="box default"><!-- default, danger, warning, info, success -->
                                         <div class="box-title"><!-- add .noborder class if box-body is removed -->
-                                            <h4><a href="{{Request::root()}}/mtCPanel/{{$DBMItem['menuID']}}">{{Lang::get("admin.".$DBMItem['menuID'])}}</a></h4>
+                                            <h4><a href="{{ url('/') }}/mtCPanel/{{$DBMItem['menuID']}}">{{Lang::get("admin.".$DBMItem['menuID'])}}</a></h4>
                                             <span class="block">{{Lang::get("admin.".$DBMItem['menuID'])}}</span>
                                             <i class="fa fa-{{$DBMItem['menuIcon']}}" aria-hidden="true"></i>
                                         </div>

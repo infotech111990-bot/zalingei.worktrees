@@ -4,7 +4,7 @@
 <div class="widget">
     <ul class="nav nav-list mb-xlg">
         @foreach($polls as $poll)
-        <li><a href="{{request()->root()}}/polls/{{$poll->id}}">@lang('site.getContent',['ar'=>$poll->title,'en'=>$poll->titleEn])</a></libxml_clear_errors>
+        <li><a href="{{ url('/') }}/polls/{{$poll->id}}">@lang('site.getContent',['ar'=>$poll->title,'en'=>$poll->titleEn])</a></libxml_clear_errors>
             @endforeach
     </ul>
 </div>
@@ -16,7 +16,7 @@
 <div class="widget">
     <ul class="nav nav-list mb-xlg">
         @foreach($endPolls as $poll)
-        <li><a href="{{request()->root()}}/polls/{{$poll->id}}">@lang('site.getContent',['ar'=>$poll->title,'en'=>$poll->titleEn])</a></libxml_clear_errors>
+        <li><a href="{{ url('/') }}/polls/{{$poll->id}}">@lang('site.getContent',['ar'=>$poll->title,'en'=>$poll->titleEn])</a></libxml_clear_errors>
             @endforeach
     </ul>
 </div>

@@ -17,8 +17,8 @@
     <!-- Breadcrumb -->
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="{{ request()->root() }}">@lang('site.home')</a></li>
-            <li><a href="{{ request()->root() }}/staff">@lang('site.staff')</a></li>
+            <li><a href="{{ url('/') }}">@lang('site.home')</a></li>
+            <li><a href="{{ url('/') }}/staff">@lang('site.staff')</a></li>
             <li><a class="active">@lang('site.getContent',['ar'=>$staff->name, 'en'=>$staff->nameEn])</a></li>
         </ol>
     </div>

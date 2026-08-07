@@ -20,10 +20,10 @@
                 <li><a href="{{ url($college->slug.'/programs') }}"> <i class="fa fa-fw"></i> @lang('site.programs')</a></li>
             @endif
             @if($college->type->id == 1 && $college->details('calendar'))
-                <li><a href="{{Request::root()}}/{{$college->slug}}/calendar"> <i class="fa fa-fw"></i> @lang('site.calendar')</a></li>
+                <li><a href="{{ url('/') }}/{{$college->slug}}/calendar"> <i class="fa fa-fw"></i> @lang('site.calendar')</a></li>
             @endif
             @if($college->type->id == 1 && $college->details('admission'))
-                <li><a href="{{Request::root()}}/{{$college->slug}}/admission"><i class="fa fa-fw"></i> @lang('site.admission')</a></li>
+                <li><a href="{{ url('/') }}/{{$college->slug}}/admission"><i class="fa fa-fw"></i> @lang('site.admission')</a></li>
             @endif    
         </ul>
     </li>
@@ -38,17 +38,17 @@
         </li>
     @endif
     @if($college->staff->count() > 0)
-        <li class="list-group-item"><a href="{{Request::root()}}/{{$college->slug}}/staff"><strong>@lang('site.staff')</strong></a></li>
+        <li class="list-group-item"><a href="{{ url('/') }}/{{$college->slug}}/staff"><strong>@lang('site.staff')</strong></a></li>
     @endif
     @if($college->type->id == 1 && $college->professors->count() > 0)
-        <li class="list-group-item"><a href="{{Request::root()}}/{{$college->slug}}/prof"><strong>@lang('site.professors')</strong></a></li>
+        <li class="list-group-item"><a href="{{ url('/') }}/{{$college->slug}}/prof"><strong>@lang('site.professors')</strong></a></li>
     @endif
     @if($college->extraDetails->count() > 0)
         <li class="list-group-item">
             <a href="javascript: return(0);"><strong>{{Lang::get('site.more')}}</strong></a>
             <ul class="list-links">
                 @foreach ($college->extraDetails as $ed)
-                    <li> <i class="fa fa-fw"></i> <a href="{{Request::root()}}/{{$college->slug}}/content/{{$ed->id}}">@lang('site.getContent',['ar'=>$ed->title,'en'=>$ed->titleEn])</a></li>
+                    <li> <i class="fa fa-fw"></i> <a href="{{ url('/') }}/{{$college->slug}}/content/{{$ed->id}}">@lang('site.getContent',['ar'=>$ed->title,'en'=>$ed->titleEn])</a></li>
                 @endforeach
             </ul>
         </li>

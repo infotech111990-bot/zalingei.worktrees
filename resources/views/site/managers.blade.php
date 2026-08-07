@@ -2,7 +2,7 @@
 <?php $page = App\Page::find(16); ?>
 @section('content')
     <!-- Start Page header -->
-    <div class="page-header parallax" style="background-image:url({{ request()->root()}}/public/autostars/images/@lang('site.getContent',['ar'=>'custom-header-bg.jpg','en'=>'custom-header-bg.en.jpg']));">
+    <div class="page-header parallax" style="background-image:url({{ asset('autostars/images/' . Lang::get('site.getContent',['ar'=>'custom-header-bg.jpg','en'=>'custom-header-bg.en.jpg'])) }}));">
         <div class="container">
             <h1 class="page-title">@lang('site.executiveManagers')</h1>
             </div>
@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-md-8 col-sm-6 col-xs-8">
                     <ol class="breadcrumb">
-                            <li><a href="{{request()->root()}}/">@lang('site.home')</a></li>
+                            <li><a href="{{ url('/') }}/">@lang('site.home')</a></li>
                             <li class="active">@lang('site.aboutUs')</li>
                             <li class="active">@lang('site.executiveManagers')</li>
                     </ol>

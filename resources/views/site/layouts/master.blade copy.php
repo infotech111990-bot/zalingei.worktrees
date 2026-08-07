@@ -15,22 +15,22 @@
 <meta name="format-detection" content="telephone=no">
 <!-- CSS
   ================================================== -->
-<link href="{{request()->root()}}/public/autostars/css/bootstrap.css" rel="stylesheet" type="text/css">
-{{-- <link href="{{request()->root()}}/public/autostars/css/bootstrap-rtl.css" rel="stylesheet" type="text/css"> --}}
-<link href="{{request()->root()}}/public/autostars/css/bootstrap-theme.css" rel="stylesheet" type="text/css">
-<link href="{{request()->root()}}/public/autostars/css/style.css" rel="stylesheet" type="text/css">
-{{-- <link href="{{request()->root()}}/public/autostars/css/rtl.css" rel="stylesheet" type="text/css"> --}}
-<link href="{{request()->root()}}/public/autostars/vendor/prettyphoto/css/prettyPhoto.css" rel="stylesheet" type="text/css">
-<link href="{{request()->root()}}/public/autostars/vendor/owl-carousel/css/owl.carousel.css" rel="stylesheet" type="text/css">
-<link href="{{request()->root()}}/public/autostars/vendor/owl-carousel/css/owl.theme.css" rel="stylesheet" type="text/css">
-<!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="{{request()->root()}}/public/autostars/css/ie.css" media="screen" /><![endif]-->
+<link href="{{ asset('autostars/css/bootstrap.css') }}" rel="stylesheet" type="text/css">
+{{-- <link href="{{ asset('autostars/css/bootstrap-rtl.css') }}" rel="stylesheet" type="text/css"> --}}
+<link href="{{ asset('autostars/css/bootstrap-theme.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ asset('autostars/css/style.css') }}" rel="stylesheet" type="text/css">
+{{-- <link href="{{ asset('autostars/css/rtl.css') }}" rel="stylesheet" type="text/css"> --}}
+<link href="{{ asset('autostars/vendor/prettyphoto/css/prettyPhoto.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ asset('autostars/vendor/owl-carousel/css/owl.carousel.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ asset('autostars/vendor/owl-carousel/css/owl.theme.css') }}" rel="stylesheet" type="text/css">
+<!--[if lte IE 9]><link rel="stylesheet" type="text/css" href="{{ asset('autostars/css/ie.css') }}" media="screen" /><![endif]-->
 
 @if(Config::get('app.locale') == 'ar') 
-    <link href="{{request()->root()}}/public/autostars/css/custom.css" rel="stylesheet" type="text/css"><!-- CUSTOM STYLESHEET FOR STYLING -->
+    <link href="{{ asset('autostars/css/custom.css') }}" rel="stylesheet" type="text/css"><!-- CUSTOM STYLESHEET FOR STYLING -->
 @endif
 
 <!-- Color Style -->
-<link href="{{request()->root()}}/public/autostars/colors/color13.css" rel="stylesheet" type="text/css">
+<link href="{{ asset('autostars/colors/color13.css') }}" rel="stylesheet" type="text/css">
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Changa" rel="stylesheet">
 @section('css')
@@ -72,7 +72,7 @@
 </style>
 <!-- SCRIPTS
   ================================================== -->
-<script src="{{request()->root()}}/public/autostars/js/modernizr.js"></script><!-- Modernizr -->
+<script src="{{ asset('autostars/js/modernizr.js') }}"></script><!-- Modernizr -->
 </head>
 <body class="home">
 <!--[if lt IE 7]>
@@ -84,7 +84,7 @@
         <header class="site-header">
             <div class="container sp-cont">
                 <div class="site-logo">
-                    <h1><a href="index.html"><img src="{{request()->root()}}/public/autostars/images/logo.png" alt="Logo"></a></h1>
+                    <h1><a href="index.html"><img src="{{ asset('autostars/images/logo.png') }}" alt="Logo"></a></h1>
                     <span class="site-tagline">
                         <span style="font-family: Changa; font-size:25px; color:#000; line-height:1.5em;">@lang('site.itsco')</span><br>
                         <span style="font-family: Changa; font-size:20px; color:#000;">@lang('site.oneOfFIBSCompanies')</span></span>
@@ -97,7 +97,7 @@
         <div class="navbar">
             <div class="container sp-cont">
                 <div class="search-function">
-                    <a href="{{ request()->root() }}/lang/@lang('site.getContent', ['ar'=>'en','en'=>'ar'])" target="_self" class="search-trigger"> @lang('site.getContent', ['ar'=>'English','en'=>'عربي']) </a>
+                    <a href="{{ url('/') }}/lang/@lang('site.getContent', ['ar'=>'en','en'=>'ar'])" target="_self" class="search-trigger"> @lang('site.getContent', ['ar'=>'English','en'=>'عربي']) </a>
                     <span><i class="fa fa-envelope"></i> @lang('site.contactUs'): <strong><span dir="ltr"> <a href="mailto://info@itsco.sd" target="_blank">info@itsco.sd</a> </span></strong> 
                     </span>
                 </div>
@@ -132,7 +132,7 @@
                         @endif
                         <ul>
                             @foreach($lastFooterNews as $lfn)
-                                <li><a href="{{request()->root()}}/news/{{$lfn->id}}">{{Str::words(strip_tags($lfn->title),6)}}</a></li>
+                                <li><a href="{{ url('/') }}/news/{{$lfn->id}}">{{Str::words(strip_tags($lfn->title),6)}}</a></li>
                             @endforeach
                         </ul>
                     </div>
@@ -197,15 +197,15 @@
         </div>
     </div>
 </div>
-<script src="{{request()->root()}}/public/autostars/js/jquery-2.0.0.min.js"></script> <!-- Jquery Library Call -->
-<script src="{{request()->root()}}/public/autostars/vendor/prettyphoto/js/prettyphoto.js"></script> <!-- PrettyPhoto Plugin -->
-<script src="{{request()->root()}}/public/autostars/js/ui-plugins.js"></script> <!-- UI Plugins -->
-<script src="{{request()->root()}}/public/autostars/js/helper-plugins.js"></script> <!-- Helper Plugins -->
-<script src="{{request()->root()}}/public/autostars/vendor/owl-carousel/js/owl.carousel.min.js"></script> <!-- Owl Carousel -->
-<script src="{{request()->root()}}/public/autostars/vendor/password-checker.js"></script> <!-- Password Checker -->
-<script src="{{request()->root()}}/public/autostars/js/bootstrap.js"></script> <!-- UI -->
-<script src="{{request()->root()}}/public/autostars/js/init.js"></script> <!-- All Scripts -->
-<script src="{{request()->root()}}/public/autostars/vendor/flexslider/js/jquery.flexslider.js"></script> <!-- FlexSlider -->
+<script src="{{ asset('autostars/js/jquery-2.0.0.min.js') }}"></script> <!-- Jquery Library Call -->
+<script src="{{ asset('autostars/vendor/prettyphoto/js/prettyphoto.js') }}"></script> <!-- PrettyPhoto Plugin -->
+<script src="{{ asset('autostars/js/ui-plugins.js') }}"></script> <!-- UI Plugins -->
+<script src="{{ asset('autostars/js/helper-plugins.js') }}"></script> <!-- Helper Plugins -->
+<script src="{{ asset('autostars/vendor/owl-carousel/js/owl.carousel.min.js') }}"></script> <!-- Owl Carousel -->
+<script src="{{ asset('autostars/vendor/password-checker.js') }}"></script> <!-- Password Checker -->
+<script src="{{ asset('autostars/js/bootstrap.js') }}"></script> <!-- UI -->
+<script src="{{ asset('autostars/js/init.js') }}"></script> <!-- All Scripts -->
+<script src="{{ asset('autostars/vendor/flexslider/js/jquery.flexslider.js') }}"></script> <!-- FlexSlider -->
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 @section('scripts')
 @show

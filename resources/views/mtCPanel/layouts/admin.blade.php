@@ -26,19 +26,19 @@
 
     @if(Session::get('lang') == 'en') 
 
-		<link rel="stylesheet" href="{{ asset('public/assets/userAccount/css/bootstrap.css') }}">   
+		<link rel="stylesheet" href="{{ asset('assets/userAccount/css/bootstrap.css') }}">   
 
-		<link href="{{ asset('public/assets/userAccount/css/sb-admin-ar.css') }}" rel="stylesheet">
+		<link href="{{ asset('assets/userAccount/css/sb-admin-ar.css') }}" rel="stylesheet">
 
 	@else
 
-		<link rel="stylesheet" href="{{ asset('public/assets/userAccount/css/bootstrap-ar.css') }}">   
+		<link rel="stylesheet" href="{{ asset('assets/userAccount/css/bootstrap-ar.css') }}">   
 
-		<link href="{{ asset('public/assets/userAccount/css/sb-admin-2ar.css') }}" rel="stylesheet">
+		<link href="{{ asset('assets/userAccount/css/sb-admin-2ar.css') }}" rel="stylesheet">
 
 	@endif
 
-    <link rel="stylesheet" href="{{ asset('public/assets/userAccount/plugins/font-awesome/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/userAccount/plugins/font-awesome/css/font-awesome.css') }}">
 
 
 
@@ -46,14 +46,14 @@
 
 	<!-- Optional theme -->
 
-	<link rel="stylesheet" href="{{ asset('public/assets/userAccount/css/bootstrap-theme.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/userAccount/css/bootstrap-theme.min.css') }}">
 
     <!-- Custom CSS -->
 
 @yield('css')
 
 
-    <link href="{{ asset('public/assets/userAccount/uploadify/uploadify.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/userAccount/uploadify/uploadify.css') }}" rel="stylesheet">
 
 
 
@@ -347,7 +347,7 @@
 
                 </button>
 
-                <a class="navbar-brand" href="{{Request::root()}}/userAccount"><img src="{{Request::root()}}/public/assets/userAccount/images/logo.jpg" width="150" alt="" style="margin: -5px;"> </a>
+                <a class="navbar-brand" href="{{ url('/') }}/userAccount"><img src="{{ asset('assets/userAccount/images/logo.jpg') }}" width="150" alt="" style="margin: -5px;"> </a>
 
                 <a class="navbar-brand"><i class="fa fa-user"></i> {{ auth()->guard('admin')->user()->name }}</a>
 
@@ -381,7 +381,7 @@
 
                         <li>
 
-                            <a href="{{Request::root()}}/language/ar">
+                            <a href="{{ url('/') }}/language/ar">
 
                                 <div>
 
@@ -460,7 +460,7 @@
 
                                 <h4 class="panel-title">
 
-                                    <a href="{{Request::root()}}/admin">
+                                    <a href="{{ url('/') }}/admin">
 
                                         <span class="fa fa-fw fa-home"></span> {{Lang::get('site.home')}}</a>
 
@@ -480,7 +480,7 @@
                             <div id="activities" class="panel-collapse collapse">
                                 <div class="panel-body menuPanelBody">
                                     <table class="table">
-                                        <tr><td><a href="{{request()->root()}}/admin/activities"><i class="fa fa-fw fa-comments"></i> قائمة الأنشطة والفعاليات </a></td></tr>
+                                        <tr><td><a href="{{ url('/') }}/admin/activities"><i class="fa fa-fw fa-comments"></i> قائمة الأنشطة والفعاليات </a></td></tr>
                                     </table>
                                 </div>
                             </div>
@@ -532,7 +532,7 @@
 
 
 
-        <div id="page-wrapper" style="padding-bottom:50px; background:url('{{Request::root()}}/public/assets/userAccount/images/mainAreaBG.jpg') #FFF no-repeat left top;">
+        <div id="page-wrapper" style="padding-bottom:50px; background:url('{{ asset('assets/userAccount/images/mainAreaBG.jpg'') }}) #FFF no-repeat left top;">
             <div class="row">
 	            <div class="col-lg-12">
                     @yield('content')
@@ -550,31 +550,31 @@
 
     <!-- script src="//code.jquery.com/jquery-2.1.0.min.js"></script -->
 
-    <script src="{{Request::root()}}/public/assets/userAccount/jtable/jquery-1.9.1.min.js"></script>
+    <script src="{{ asset('assets/userAccount/jtable/jquery-1.9.1.min.js') }}"></script>
 
-    <script src="{{Request::root()}}/public/assets/userAccount/js/bootstrap.min.js"></script>
+    <script src="{{ asset('assets/userAccount/js/bootstrap.min.js') }}"></script>
 
     
 
-    <script src="{{Request::root()}}/public/assets/userAccount/jtable/jquery-ui-1.10.0.min.js"></script>
+    <script src="{{ asset('assets/userAccount/jtable/jquery-ui-1.10.0.min.js') }}"></script>
 
     <!-- Include jTable script file. -->
 
-    <script src="{{Request::root()}}/public/assets/userAccount/jtable/jquery.jtable.js" type="text/javascript"></script>
+    <script src="{{ asset('assets/userAccount/jtable/jquery.jtable.js') }}" type="text/javascript"></script>
 
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/userAccount/jtable/localization/jquery.jtable.ar.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/userAccount/jtable/localization/jquery.jtable.ar.js') }}"></script>
 
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/userAccount/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/userAccount/ckeditor/ckeditor.js') }}"></script>
 
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/userAccount/ckeditor/adapters/jquery.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/userAccount/ckeditor/adapters/jquery.js') }}"></script>
     
     
 
 
 
-    <script src="{{Request::root()}}/public/assets/userAccount/uploadify/jquery.uploadify.min.js"></script>
+    <script src="{{ asset('assets/userAccount/uploadify/jquery.uploadify.min.js') }}"></script>
 
-    <script src="{{Request::root()}}/public/assets/photoGallery/js/photo-gallery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('assets/photoGallery/js/photo-gallery.js') }}" type="text/javascript" charset="utf-8"></script>
 
     
 

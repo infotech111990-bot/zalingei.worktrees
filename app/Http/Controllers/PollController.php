@@ -45,7 +45,7 @@ class PollController extends Controller
         $pollAns = PollAns::find($ansID);
         $pollAns->increment('count');
         $pollAns->save();
-        return request()->root().'/polls/'.$pollID;
+        return url('polls/'.$pollID);
     }
 
 }

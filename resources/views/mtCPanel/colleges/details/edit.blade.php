@@ -16,7 +16,7 @@
 @section('breadcrumb')
         <li>
             <i class="fa fa-home"></i>
-            <a href="{{  request()->root() }}/mtCPanel">@lang('admin.cpanel')</a>
+            <a href="{{ url('/') }}/mtCPanel">@lang('admin.cpanel')</a>
         </li>
         <li> <a href="{{ mtGetRoute('index','mtCPanel.'.$parentPage) }}">@lang('admin.'.$parentPage_title)</a> </li>
         <li> <a href="{{ mtGetRoute('show','mtCPanel.'.$parentPage,$parent->id) }}">{{ $parent->title }}</a> </li>
@@ -321,7 +321,7 @@
         var college_id = collegeObject.val();
         if(college_id > 0) {
               $.ajax({
-                  url: '{{ request()->root() }}/mtCPanel/colleges/'+college_id+'/getDepartmentsList',
+                  url: '{{ url('/') }}/mtCPanel/colleges/'+college_id+'/getDepartmentsList',
                   type: "GET",
                   dataType: "json",
                   success:function(data) {

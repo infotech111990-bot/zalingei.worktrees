@@ -14,18 +14,18 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <!-- Custom CSS -->
-    <link href="{{Request::root()}}/public/assets/mtCPanel/css/sb-admin-2ar.css" rel="stylesheet">
+    <link href="{{ asset('assets/mtCPanel/css/sb-admin-2ar.css') }}" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <!-- <link href="{{Request::root()}}/public/assets/mtCPanel/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- <link href="{{ asset('assets/mtCPanel/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"> -->
 
     <!-- Include one of jTable styles. -->
-    <link href="{{Request::root()}}/public/assets/mtCPanel/jtable/themes/redmond/jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" />
-    <link href="{{Request::root()}}/public/assets/mtCPanel/jtable/themes/metro/lightgray/jtable.css" rel="stylesheet" type="text/css" />
-    <!-- <link href="{{Request::root()}}/assets/jtable/themes/jqueryui/jtable_jqueryui.min.css" rel="stylesheet" type="text/css" /> -->
+    <link href="{{ asset('assets/mtCPanel/jtable/themes/redmond/jquery-ui-1.8.16.custom.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/mtCPanel/jtable/themes/metro/lightgray/jtable.css') }}" rel="stylesheet" type="text/css" />
+    <!-- <link href="{{ url('/') }}/assets/jtable/themes/jqueryui/jtable_jqueryui.min.css" rel="stylesheet" type="text/css" /> -->
 
-    <link href="{{Request::root()}}/public/assets/mtCPanel/uploadify/uploadify.css" rel="stylesheet">
+    <link href="{{ asset('assets/mtCPanel/uploadify/uploadify.css') }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -58,7 +58,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{Request::root()}}/mtCPanel"><img src="{{Request::root()}}/public/assets/mtCPanel/images/logo.png" width="150" alt="" style="margin: -5px;"> </a>
+                <a class="navbar-brand" href="{{ url('/') }}/mtCPanel"><img src="{{ asset('assets/mtCPanel/images/logo.png') }}" width="150" alt="" style="margin: -5px;"> </a>
                 <a class="navbar-brand"><i class="fa fa-user"></i> {{auth()->guard('admin')->user()->name}}</a>
             </div>
             <!-- /.navbar-header -->
@@ -75,7 +75,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-messages">
                         <li>
-                            <a href="{{Request::root()}}/language/ar">
+                            <a href="{{ url('/') }}/language/ar">
                                 <div>
                                     <strong>عربي</strong>
                                     <span class="pull-right text-muted">
@@ -86,7 +86,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="{{Request::root()}}/language/en">
+                            <a href="{{ url('/') }}/language/en">
                                 <div>
                                     <strong>English</strong>
                                     <span class="pull-right text-muted">
@@ -97,7 +97,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="{{Request::root()}}/language/fr">
+                            <a href="{{ url('/') }}/language/fr">
                                 <div>
                                     <strong>French</strong>
                                     <span class="pull-right text-muted">
@@ -120,7 +120,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="{{Request::root()}}/logOut"><i class="fa fa-sign-out fa-fw"></i> Logout </a>
+                        <li><a href="{{ url('/') }}/logOut"><i class="fa fa-sign-out fa-fw"></i> Logout </a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -131,7 +131,7 @@
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="row margin-top-15">
-                        <center><img src="{{Request::root()}}/includes/adminPics/{{auth()->guard('admin')->user()->adminPic}}" class="img-circle" width="75px;" style="border: 2px solid #999;" /></center>
+                        <center><img src="{{ url('/') }}/includes/adminPics/{{auth()->guard('admin')->user()->adminPic}}" class="img-circle" width="75px;" style="border: 2px solid #999;" /></center>
                 </div>
                 <div class="panel-group" id="accordion" style="margin:15px;">
                     @foreach(Config::get("mtcpanel.dashboardMenuArr") as $DBM)
@@ -149,7 +149,7 @@
                                             @if(auth()->guard('admin')->user()->hasMainPriv($DBMItem['menuID']))
                                                 <tr>
                                                     <td>
-                                                        <a href="{{Request::root()}}/mtCPanel/{{$DBMItem['menuID']}}"><i class="fa fa-fw fa-{{$DBMItem['menuIcon']}}"></i> {{Lang::get('admin.'.$DBMItem['menuID'])}}</a>
+                                                        <a href="{{ url('/') }}/mtCPanel/{{$DBMItem['menuID']}}"><i class="fa fa-fw fa-{{$DBMItem['menuIcon']}}"></i> {{Lang::get('admin.'.$DBMItem['menuID'])}}</a>
                                                     </td>
                                                 </tr>
                                             @endif
@@ -164,7 +164,7 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-        <div id="page-wrapper" style="padding-bottom:50px; background:url('{{Request::root()}}/public/assets/mtCPanel/images/mainAreaBG.jpg') no-repeat left top;">
+        <div id="page-wrapper" style="padding-bottom:50px; background:url('{{ asset('assets/mtCPanel/images/mainAreaBG.jpg'') }}) no-repeat left top;">
             @yield('content')
         </div>
         <!-- /#page-wrapper -->
@@ -172,19 +172,19 @@
     <!-- /#wrapper -->
 
     <!-- script src="//code.jquery.com/jquery-2.1.0.min.js"></script -->
-    <script src="{{Request::root()}}/public/assets/mtCPanel/jtable/jquery-1.9.1.min.js"></script>
+    <script src="{{ asset('assets/mtCPanel/jtable/jquery-1.9.1.min.js') }}"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     
-    <script src="{{Request::root()}}/public/assets/mtCPanel/jtable/jquery-ui-1.10.0.min.js"></script>
+    <script src="{{ asset('assets/mtCPanel/jtable/jquery-ui-1.10.0.min.js') }}"></script>
 
     <!-- Include jTable script file. -->
-    <script src="{{Request::root()}}/public/assets/mtCPanel/jtable/jquery.jtable.js" type="text/javascript"></script>
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/jtable/localization/jquery.jtable.ar.js"></script>
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/ckeditor/ckeditor.js"></script>
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/ckeditor/adapters/jquery.js"></script>
-    <script type="text/javascript" src="{{Request::root()}}/public/assets/mtCPanel/ckeditor/bootstrap-ckeditor-fix.js"></script>
+    <script src="{{ asset('assets/mtCPanel/jtable/jquery.jtable.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('assets/mtCPanel/jtable/localization/jquery.jtable.ar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/mtCPanel/ckeditor/ckeditor.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/mtCPanel/ckeditor/adapters/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/mtCPanel/ckeditor/bootstrap-ckeditor-fix.js') }}"></script>
 
-    <script src="{{Request::root()}}/public/assets/mtCPanel/uploadify/jquery.uploadify.min.js"></script>
+    <script src="{{ asset('assets/mtCPanel/uploadify/jquery.uploadify.min.js') }}"></script>
 
 </body>
 

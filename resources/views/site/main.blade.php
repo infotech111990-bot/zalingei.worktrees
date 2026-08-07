@@ -15,10 +15,10 @@
     <section class="zr-quickbar">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 col-sm-6"><a href="{{ request()->root() }}/student-portal"><i class="fa fa-graduation-cap"></i><span>@lang('site.getContent',['ar'=>'بوابة الطالب','en'=>'Student Portal'])<small>@lang('site.getContent',['ar'=>'تسجيل ونتائج الطلاب','en'=>'Registration & Results'])</small></span></a></div>
-                <div class="col-md-3 col-sm-6"><a href="{{ request()->root() }}/news"><i class="fa fa-newspaper-o"></i><span>@lang('site.news')<small>@lang('site.latestNews')</small></span></a></div>
-                <div class="col-md-3 col-sm-6"><a href="{{ request()->root() }}/services"><i class="fa fa-th-large"></i><span>@lang('site.services')<small>@lang('site.universitySystems')</small></span></a></div>
-                <div class="col-md-3 col-sm-6"><a href="{{ request()->root() }}/events"><i class="fa fa-calendar"></i><span>@lang('site.events')<small>@lang('site.getContent',['ar'=>'الفعاليات والأنشطة','en'=>'Events & activities'])</small></span></a></div>
+                <div class="col-md-3 col-sm-6"><a href="{{ url('/') }}/student-portal"><i class="fa fa-graduation-cap"></i><span>@lang('site.getContent',['ar'=>'بوابة الطالب','en'=>'Student Portal'])<small>@lang('site.getContent',['ar'=>'تسجيل ونتائج الطلاب','en'=>'Registration & Results'])</small></span></a></div>
+                <div class="col-md-3 col-sm-6"><a href="{{ url('/') }}/news"><i class="fa fa-newspaper-o"></i><span>@lang('site.news')<small>@lang('site.latestNews')</small></span></a></div>
+                <div class="col-md-3 col-sm-6"><a href="{{ url('/') }}/services"><i class="fa fa-th-large"></i><span>@lang('site.services')<small>@lang('site.universitySystems')</small></span></a></div>
+                <div class="col-md-3 col-sm-6"><a href="{{ url('/') }}/events"><i class="fa fa-calendar"></i><span>@lang('site.events')<small>@lang('site.getContent',['ar'=>'الفعاليات والأنشطة','en'=>'Events & activities'])</small></span></a></div>
             </div>
         </div>
     </section>
@@ -30,7 +30,7 @@
                     <span class="zr-eyebrow">@lang('site.getContent',['ar'=>'آخر المستجدات','en'=>'LATEST UPDATES'])</span>
                     <h2>@lang('site.latestNews')</h2>
                 </div>
-                <a class="zr-link" href="{{ request()->root() }}/news">@lang('site.allNews') <i class="fa fa-arrow-left"></i></a>
+                <a class="zr-link" href="{{ url('/') }}/news">@lang('site.allNews') <i class="fa fa-arrow-left"></i></a>
             </div>
 
             <div class="row">
@@ -70,7 +70,7 @@
                         <span class="zr-eyebrow">@lang('site.getContent',['ar'=>'رسالة الجامعة','en'=>'UNIVERSITY MESSAGE'])</span>
                         <h2>{{ __('site.VCSpeachTitle') }}</h2>
                         <div class="zr-director-text">{!! __('site.VCSpeachTxt') !!}</div>
-                        <a class="zr-btn zr-btn-primary" href="{{ request()->root() }}/page/100">@lang('site.more') <i class="fa fa-arrow-left"></i></a>
+                        <a class="zr-btn zr-btn-primary" href="{{ url('/') }}/page/100">@lang('site.more') <i class="fa fa-arrow-left"></i></a>
                     </div>
                 </div>
             </div>
@@ -124,7 +124,7 @@
                 <span class="zr-eyebrow">@lang('site.getContent',['ar'=>'جامعة زالنجي','en'=>'UNIVERSITY OF ZALINGEI'])</span>
                 <h2>@lang('site.getContent',['ar'=>'معرفة، بحث، وخدمة للمجتمع','en'=>'Knowledge, research and service to the community'])</h2>
             </div>
-            <a href="{{ request()->root() }}/page/4/about-university-of-zalingie" class="zr-btn zr-btn-light">@lang('site.aboutUs') <i class="fa fa-arrow-left"></i></a>
+            <a href="{{ url('/') }}/page/4/about-university-of-zalingie" class="zr-btn zr-btn-light">@lang('site.aboutUs') <i class="fa fa-arrow-left"></i></a>
         </div>
     </section>
 </main>

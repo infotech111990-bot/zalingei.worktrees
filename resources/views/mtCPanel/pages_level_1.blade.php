@@ -148,9 +148,9 @@
                             'folder'    		: "{{Config::get('mtcpanel.pagesHeadersPath')}}",
                             'fileExt'     		: '*.jpg;*.gif;*.png',
                         },
-                        'swf'               : '{{Request::root()}}/public/assets/mtCPanel/uploadify/uploadify.swf',
-                        'uploader'  		: '{{Request::root()}}/public/assets/mtCPanel/uploadify/uploadify.php',
-                        'cancelImg' 		: '{{Request::root()}}/public/assets/mtCPanel/uploadify/cancel.png',
+                        'swf'               : '{{ asset('assets/mtCPanel/uploadify/uploadify.swf',') }}
+                        'uploader'  		: '{{ asset('assets/mtCPanel/uploadify/uploadify.php',') }}
+                        'cancelImg' 		: '{{ asset('assets/mtCPanel/uploadify/cancel.png',') }}
                         'sizeLimit'   		: 10485760,
                         'auto'      		: true,
                         'onSelect'	     : function() {

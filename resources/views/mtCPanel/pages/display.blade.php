@@ -9,7 +9,7 @@
 @section('breadcrumb')
 		<li>
 			<i class="fa fa-home"></i>
-			<a href="{{  request()->root() }}/mtCPanel">@lang('admin.cpanel')</a>
+			<a href="{{ url('/') }}/mtCPanel">@lang('admin.cpanel')</a>
 		</li>
 		<li>
 			<a href="{{  mtGetRoute('index','mtCPanel.'.$page) }}">@lang('admin.'.$page)</a>
@@ -144,7 +144,7 @@
                         "_token": "{{ csrf_token() }}"
                     },
                     success: function(result) {
-                        window.open('{{ request()->root() }}/mtCPanel/{{ $page }}','_self');
+                        window.open('{{ url('/') }}/mtCPanel/{{ $page }}','_self');
                     }
                 });
             }

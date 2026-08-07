@@ -1,13 +1,13 @@
 <nav id="sideNav"><!-- MAIN MENU -->
     <ul class="nav nav-list">
         <li>
-            <a  class="dashboard1" href="{{ request()->root() }}">
+            <a  class="dashboard1" href="{{ url('/') }}">
                 <i class="main-icon fa fa-home" aria-hidden="true"></i>
                 <span> @lang('site.home') </span>
             </a>
         </li>
         <li>
-            <a href="{{ request()->root() }}/mtCPanel">
+            <a href="{{ url('/') }}/mtCPanel">
                 <i class="main-icon fa fa-desktop" aria-hidden="true"></i>
                 <span> حسابي </span>
             </a>
@@ -23,7 +23,7 @@
                     @foreach($DBM['menuData'] as $DBMItem)
                         @if(auth()->guard('admin')->user()->hasMainPriv($DBMItem['menuID']))
                             <li class="@if(request()->segment(2) == $DBMItem['menuID']) active @endif">
-                                <a href="{{ request()->root() }}/mtCPanel/{{$DBMItem['menuID']}}">
+                                <a href="{{ url('/') }}/mtCPanel/{{$DBMItem['menuID']}}">
                                     <i class="fa fa-{{$DBMItem['menuIcon']}}" aria-hidden="true"></i>
                                     {{Lang::get('admin.'.$DBMItem['menuID'])}}
                                 </a>

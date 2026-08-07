@@ -12,9 +12,9 @@
 	<div class="row">
 		<nav class="navbar navbar-default" role="navigation">
 			<ul class="nav navbar-top-links navbar-left">
-				<li><a href="{{Request::root()}}/admin/users"><strong>Users</strong></a></li>
+				<li><a href="{{ url('/') }}/admin/users"><strong>Users</strong></a></li>
 				<li><i class="fa fa-angle-right fa-fw"></i></li>
-				<li><a href="{{Request::root()}}/admin/users/display/{{$member->ID}}"><strong>{{$member->username}}</strong></a></li>
+				<li><a href="{{ url('/') }}/admin/users/display/{{$member->ID}}"><strong>{{$member->username}}</strong></a></li>
 				<li><i class="fa fa-angle-right fa-fw"></i></li>
 				<li>Pay</li>
 			</ul>

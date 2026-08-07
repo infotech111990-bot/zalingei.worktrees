@@ -5,7 +5,7 @@
 <!-- Breadcrumb -->
 <div class="container">
     <ol class="breadcrumb">
-        <li><a href="{{ request()->root() }}">@lang('site.home')</a></li>
+        <li><a href="{{ url('/') }}">@lang('site.home')</a></li>
         <li><a href="{{ $college->getUrl() }}">@lang('site.getContent',['ar'=>$college->title,'en'=>$college->titleEn])</a></li>
         <li><a class="active">@lang('site.aboutCollege',['ar'=>$college->type->titleSingle, 'en'=>$college->type->titleSingleEn])</a></li>
     </ol>

@@ -16,7 +16,7 @@
 @section('breadcrumb')
         <li>
             <i class="fa fa-home"></i>
-            <a href="{{  request()->root() }}/mtCPanel">@lang('admin.cpanel')</a>
+            <a href="{{ url('/') }}/mtCPanel">@lang('admin.cpanel')</a>
         </li>
         <li> <a href="{{ mtGetRoute('index','mtCPanel.'.$parentPage) }}">@lang('admin.'.$parentPage_title)</a> </li>
         <li> <a href="{{ mtGetRoute('show','mtCPanel.'.$parentPage,$parent->id) }}">{{ $parent->title }}</a> </li>

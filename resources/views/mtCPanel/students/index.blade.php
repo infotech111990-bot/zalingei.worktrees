@@ -9,7 +9,7 @@
 @section('breadcrumb')
 		<li>
 			<i class="fa fa-home"></i>
-			<a href="{{  request()->root() }}/mtCPanel">@lang('admin.cpanel')</a>
+			<a href="{{ url('/') }}/mtCPanel">@lang('admin.cpanel')</a>
 		</li>
 		<li class="active">@lang('admin.'.$page)</li>
 @endsection
@@ -64,7 +64,7 @@
 									<td width="30%">
 										<a href="{{ mtGetRoute('show','mtCPanel.'.$page, $d->id) }}" class="btn btn-aqua btn-xs btn-3d btn-reveal"><i class="fa fa-eye white"></i> <span>عرض</span> </a>
 										<a href="{{ mtGetRoute('edit','mtCPanel.'.$page, $d->id) }}" class="btn btn-yellow btn-xs btn-3d btn-reveal"><i class="fa fa-edit white"></i> <span>تحرير</span> </a>
-										<a href="{{ request()->root() }}/mtCPanel/students/{{ $d->id }}/results" class="btn btn-success btn-xs btn-3d btn-reveal"><i class="fa fa-list white"></i> <span>النتائج</span> </a>
+										<a href="{{ url('/') }}/mtCPanel/students/{{ $d->id }}/results" class="btn btn-success btn-xs btn-3d btn-reveal"><i class="fa fa-list white"></i> <span>النتائج</span> </a>
 										<a data-route="{{ mtGetRoute('destroy','mtCPanel.'.$page, $d->id) }}" class="deleteBtn btn btn-red btn-xs btn-3d btn-reveal"><i class="fa fa-times white"></i> <span>حذف</span> </a>
 									</td>
 								</tr>
@@ -98,7 +98,7 @@
 							"_token": "{{ csrf_token() }}"
 						},
 						success: function(result) {
-							window.open('{{ request()->root() }}/mtCPanel/{{ $page }}','_self');
+							window.open('{{ url('/') }}/mtCPanel/{{ $page }}','_self');
 						}
 					});
 				}

@@ -90,7 +90,7 @@
                     <span class="zr-eyebrow">@lang('site.getContent',['ar'=>'مستجدات','en'=>'UPDATES'])</span>
                     <h2>@lang('site.getContent',['ar'=>'أخبار تهم الطلاب','en'=>'News for Students'])</h2>
                 </div>
-                <a class="zr-link" href="{{ request()->root() }}/news">@lang('site.allNews') <i class="fa fa-arrow-left"></i></a>
+                <a class="zr-link" href="{{ url('/') }}/news">@lang('site.allNews') <i class="fa fa-arrow-left"></i></a>
             </div>
             <div class="row">
                 @forelse($latestNews as $n)
