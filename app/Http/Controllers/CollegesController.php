@@ -44,6 +44,9 @@ class CollegesController extends Controller
                         return view('site.collegesNews',array('college' => $college));
                       }
                   break;
+                  case 'announcements' :
+                      return view('site.collegesAnnouncements', array('college' => $college));
+                  break;
                   case 'content' :
                     if(isset($id)){
                         return view('site.collegesExtraContent',array('college' => $college, 'id' => $id));

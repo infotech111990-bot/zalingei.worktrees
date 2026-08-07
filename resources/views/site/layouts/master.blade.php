@@ -59,6 +59,7 @@
                         <a href="{{ url('lang/en') }}" class="{{ Config::get('app.locale')=='en' ? 'active' : '' }}">English</a>
                         <a href="{{ url('webmail') }}" target="_blank"><i class="fa fa-envelope-o"></i> بريد الموظفين</a>
                         <a href="https://me.classera.com/" target="_blank" rel="noopener"><i class="fa fa-laptop"></i> E-Learning</a>
+                        <a href="{{ url('mtCPanel/login') }}" target="_blank" rel="noopener"><i class="fa fa-lock"></i> @lang('site.getContent',['ar'=>'دخول الإدارة','en'=>'Admin Login'])</a>
                         <a href="https://www.facebook.com/zalingei.university" target="_blank" rel="noopener"><i class="fa fa-facebook"></i> Facebook</a>
                         <a href="https://www.youtube.com/channel/UCf0rdG0JaJk_VHnxNlnYogQ" target="_blank" rel="noopener"><i class="fa fa-youtube-play"></i> YouTube</a>
                     </div>
@@ -98,6 +99,7 @@
                         <li><a href="{{ url('events') }}">@lang('site.events')</a></li>
                         <li><a href="{{ url('services') }}">@lang('site.services')</a></li>
                         <li><a href="{{ url('contactUs') }}">@lang('site.contactUs')</a></li>
+                        <li><a href="{{ url('mtCPanel/login') }}">@lang('site.getContent',['ar'=>'دخول الإدارة','en'=>'Admin Login'])</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3 col-sm-6">

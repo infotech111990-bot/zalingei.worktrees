@@ -1,26 +1,25 @@
 <!DOCTYPE html>
-
-<!DOCTYPE html>
-
-<html lang="en-US">
+<html lang="{{ Config::get('app.locale') == 'ar' ? 'ar' : 'en' }}" dir="{{ Config::get('app.locale') == 'ar' ? 'rtl' : 'ltr' }}">
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Theme Starz">
         <meta name="csrf-token" content="{{ csrf_token() }}">
     
-        <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Tajawal:400,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Tajawal:400,700' rel='stylesheet' type='text/css'>
         <link href="{{ asset('universo/assets/css/font-awesome.css') }}" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="{{ asset('universo/assets/bootstrap/css/' . Lang::get('site.getContent',['ar'=>'bootstrap.ar.css','en'=>'bootstrap.css'])) }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset('universo/assets/bootstrap/css/' . Lang::get('site.getContent',['ar'=>'bootstrap-rtl.min.css','en'=>''])) }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('universo/assets/bootstrap/css/' . (Config::get('app.locale') == 'ar' ? 'bootstrap.ar.css' : 'bootstrap.css')) }}" type="text/css">
+        @if(Config::get('app.locale') == 'ar')
+            <link rel="stylesheet" href="{{ asset('universo/assets/bootstrap/css/bootstrap-rtl.min.css') }}" type="text/css">
+        @endif
         <link rel="stylesheet" href="{{ asset('universo/assets/css/selectize.css') }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset('universo/assets/css/' . Lang::get('site.getContent',['ar'=>'owl.carousel.css','en'=>'owl.carousel.css'])) }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('universo/assets/css/owl.carousel.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('universo/assets/css/vanillabox/vanillabox.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('universo/assets/css/layerslider.css') }}" type="text/css">
         
-        <link rel="stylesheet" href="{{ asset('universo/assets/css/' . Lang::get('site.getContent',['ar'=>'style-rtl.css','en'=>'style.css'])) }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset('css/' . Lang::get('site.getContent',['ar'=>'mt-rtl.css','en'=>'mt.css'])) }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('universo/assets/css/' . (Config::get('app.locale') == 'ar' ? 'style-rtl.css' : 'style.css')) }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('css/' . (Config::get('app.locale') == 'ar' ? 'mt-rtl.css' : 'mt.css')) }}" type="text/css">
     
         <title>@lang('site.siteName') - {{ $college->title }}</title>
     
@@ -110,7 +109,7 @@
                     </div><!-- /.col-md-3 -->
                 </div><!-- /.row -->
             </div><!-- /.container -->
-            <div class="background"><img src="assets/img/background-city.png" class="" alt=""></div>
+            <div class="background"><img src="{{ asset('universo/assets/img/background-city.png') }}" class="" alt=""></div>
         </section><!-- /#footer-content -->
     
         <section id="footer-bottom">

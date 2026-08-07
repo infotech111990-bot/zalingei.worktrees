@@ -20,10 +20,10 @@
                 <li><a href="{{ url($college->slug.'/programs') }}"> <i class="fa fa-fw"></i> @lang('site.programs')</a></li>
             @endif
             @if($college->type->id == 1 && $college->details('calendar'))
-                <li><a href="{{ url('/') }}/{{$college->slug}}/calendar"> <i class="fa fa-fw"></i> @lang('site.calendar')</a></li>
+                <li><a href="{{ url($college->slug.'/calendar') }}"> <i class="fa fa-fw"></i> @lang('site.calendar')</a></li>
             @endif
             @if($college->type->id == 1 && $college->details('admission'))
-                <li><a href="{{ url('/') }}/{{$college->slug}}/admission"><i class="fa fa-fw"></i> @lang('site.admission')</a></li>
+                <li><a href="{{ url($college->slug.'/admission') }}"><i class="fa fa-fw"></i> @lang('site.admission')</a></li>
             @endif    
         </ul>
     </li>

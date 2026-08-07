@@ -59,7 +59,7 @@
                                         </header>
                                     </article><!-- /article -->
                                 @endforeach
-                                <a href="" class="read-more">@lang('site.more')</a>
+                                <a href="{{ url($college->slug.'/announcements') }}" class="read-more">@lang('site.more')</a>
                             @else
                                     <div class="alert alert-warning alert-dismissible" role="alert">
                                         <i class="fa fa-eye"></i>

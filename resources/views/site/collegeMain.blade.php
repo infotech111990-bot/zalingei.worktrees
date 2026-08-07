@@ -20,19 +20,18 @@
                                 <div class="professors">
                                     @foreach($college->professors->take(3) as $prof)
                                         <article class="professor-thumbnail">
-                                            <figure class="professor-image"><a href="member-detail.html"><img src="assets/img/professor.jpg" alt=""></a></figure>
+                                           <figure class="professor-image"><a href="{{ url($college->slug.'/prof/'.$prof->id) }}"><img src="{{ asset('universo/assets/img/professor.jpg') }}" alt="{{ $prof->trans('name','nameEn') }}"></a></figure>
                                             <aside>
                                                 <header>
-                                                    <a href="member-detail.html">{{ $prof->trans('name','nameEn') }}</a>
+                                                   <a href="{{ url($college->slug.'/prof/'.$prof->id) }}">{{ $prof->trans('name','nameEn') }}</a>
                                                     <div class="divider"></div>
                                                     <figure class="professor-description">{{ $prof->trans('sp','spEn') }}</figure>
                                                 </header>
-                                                <a href="member-detail.html" class="show-profile">Show Profile</a>
+                                               <a href="{{ url($college->slug.'/prof/'.$prof->id) }}" class="show-profile">{!! Lang::get('site.getContent',['ar'=>'عرض الملف الشخصي','en'=>'Show Profile']) !!}</a>
                                             </aside>
                                         </article><!-- /.professor-thumbnail -->
                                     @endforeach
-                                    <a href="" class="read-more">All Professors</a>
-                                </div><!-- /.professors -->
+                                    <a href="{{ url($college->slug.'/prof') }}" class="read-more">{!! Lang::get('site.getContent',['ar'=>'جميع الأساتذة','en'=>'All Professors']) !!}</a>                                </div><!-- /.professors -->
                             </div><!-- /.section-content -->
                         </aside><!-- /.our-professors -->
                     @endif
