@@ -37,7 +37,7 @@
         @show
 	
 		<!-- JAVASCRIPT FILES -->
-		<script type="text/javascript">var plugin_path = '{{ asset('assets/admin/plugins/';</script>') }}
+		<script type="text/javascript">var plugin_path = '{{ asset('assets/admin/plugins/') }}/';</script>
 		<script type="text/javascript" src="{{ asset('assets/admin/plugins/jquery/jquery-2.2.3.min.js') }}"></script>
 		<script type="text/javascript" src="{{ asset('assets/admin/js/app.js') }}"></script>
 	</body>

@@ -160,10 +160,10 @@ body.zalingei-site a:hover{color:var(--zr-teal);text-decoration:none}
 .zr-college-image{height:170px;background:#edf2f4;overflow:hidden}
 .zr-college-image img{width:100%;height:100%;object-fit:cover}
 .zr-college-body{position:relative;padding:16px 18px 20px}
-.zr-college-body>span{font-size:10px;color:var(--zr-teal);font-weight:800}
+.zr-college-body>span{font-size:10px;color:var(--zr-blue);font-weight:800}
 .zr-college-body h3{font-size:15px;line-height:1.6;margin:5px 25px 0 0;font-weight:800}
 [dir="rtl"] .zr-college-body h3{margin-right:0;margin-left:25px}
-.zr-college-body>.fa{position:absolute;inset-inline-end:18px;bottom:22px;color:var(--zr-teal)}
+.zr-college-body>.fa{position:absolute;inset-inline-end:18px;bottom:22px;color:var(--zr-blue)}
 
 .zr-cta{background:linear-gradient(120deg,var(--zr-navy),#0b638f);color:#fff;padding:55px 0}
 .zr-cta .container{display:flex;align-items:center;justify-content:space-between;gap:30px}
