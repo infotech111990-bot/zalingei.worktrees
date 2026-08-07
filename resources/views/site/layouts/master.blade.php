@@ -11,13 +11,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link href="{{ request()->root() }}/public/universo/assets/css/font-awesome.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ request()->root() }}/public/universo/assets/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="{{ request()->root() }}/public/universo/assets/css/flexslider.css">
-    <link rel="stylesheet" href="{{ request()->root() }}/public/universo/assets/css/owl.carousel.css">
-    <link rel="stylesheet" href="{{ request()->root() }}/public/universo/assets/css/style.css">
-    <link rel="stylesheet" href="{{ request()->root() }}/public/css/mt.css">
-    <link rel="stylesheet" href="{{ request()->root() }}/public/universo/assets/css/zalingei-redesign.css">
+    <link href="{{ asset('universo/assets/css/font-awesome.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('universo/assets/bootstrap/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('universo/assets/css/flexslider.css') }}">
+    <link rel="stylesheet" href="{{ asset('universo/assets/css/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('universo/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/mt.css') }}">
+    <link rel="stylesheet" href="{{ asset('universo/assets/css/zalingei-redesign.css') }}">
 
     <title>@lang('site.siteName')</title>
 </head>
@@ -29,11 +29,11 @@
         <div class="container">
             <div class="zr-topbar-inner">
                 <div class="zr-topbar-links">
-                    <a href="{{ request()->root() }}/lang/@lang('site.getContent',['ar'=>'en','en'=>'ar'])">
+                    <a href="{{ url('lang/'.Lang::get('site.getContent',['ar'=>'en','en'=>'ar'])) }}">
                         <i class="fa fa-language"></i>
                         @lang('site.getContent',['ar'=>'English','en'=>'العربية'])
                     </a>
-                    <a href="{{ request()->root() }}/webmail" target="_blank">
+                    <a href="{{ url('webmail') }}" target="_blank">
                         <i class="fa fa-envelope-o"></i> بريد الموظفين
                     </a>
                     <a href="https://www.facebook.com/zalingei.university" target="_blank" rel="noopener">
@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="col-md-4 col-sm-6">
                     <div class="zr-footer-brand">
-                        <img src="{{ request()->root() }}/public/universo/assets/img/logo-white.png" alt="@lang('site.siteName')">
+                        <img src="{{ asset('universo/assets/img/logo-white.png') }}" alt="@lang('site.siteName')">
                         <p>@lang('site.aboutUsDesc')</p>
                     </div>
                 </div>
@@ -71,10 +71,10 @@
                 <div class="col-md-2 col-sm-6">
                     <h4>@lang('site.importantLinks')</h4>
                     <ul class="zr-footer-list">
-                        <li><a href="{{ request()->root() }}/news">@lang('site.news')</a></li>
-                        <li><a href="{{ request()->root() }}/events">@lang('site.events')</a></li>
-                        <li><a href="{{ request()->root() }}/services">@lang('site.services')</a></li>
-                        <li><a href="{{ request()->root() }}/contactUs">@lang('site.contactUs')</a></li>
+                        <li><a href="{{ url('news') }}">@lang('site.news')</a></li>
+                        <li><a href="{{ url('events') }}">@lang('site.events')</a></li>
+                        <li><a href="{{ url('services') }}">@lang('site.services')</a></li>
+                        <li><a href="{{ url('contactUs') }}">@lang('site.contactUs')</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3 col-sm-6">
@@ -96,10 +96,10 @@
     </footer>
 </div>
 
-<script src="{{ request()->root() }}/public/universo/assets/js/jquery-2.1.0.min.js"></script>
-<script src="{{ request()->root() }}/public/universo/assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="{{ request()->root() }}/public/universo/assets/js/jquery.flexslider-min.js"></script>
-<script src="{{ request()->root() }}/public/universo/assets/js/owl.carousel.min.js"></script>
+<script src="{{ asset('universo/assets/js/jquery-2.1.0.min.js') }}"></script>
+<script src="{{ asset('universo/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('universo/assets/js/jquery.flexslider-min.js') }}"></script>
+<script src="{{ asset('universo/assets/js/owl.carousel.min.js') }}"></script>
 <script src="{{ request()->root() }}/public/universo/assets/js/custom.js"></script>
 <script>
 (function () {

@@ -5,8 +5,8 @@ $pages = App\Page::where('parent_id',0)->where('publish',1)
 <header class="zr-navbar">
     <div class="container">
         <div class="zr-nav-inner">
-            <a class="zr-brand" href="{{ request()->root() }}" aria-label="@lang('site.siteName')">
-                <img src="{{ request()->root() }}/public/universo/assets/img/logo.png" alt="@lang('site.siteName')">
+            <a class="zr-brand" href="{{ url('/') }}" aria-label="@lang('site.siteName')">
+                <img src="{{ asset('universo/assets/img/logo.png') }}" alt="@lang('site.siteName')">
                 <span class="zr-brand-text">
                     <strong>@lang('site.siteName')</strong>
                     <small>@lang('site.getContent',['ar'=>'جامعة زالنجي','en'=>'University of Zalingei'])</small>
@@ -20,7 +20,7 @@ $pages = App\Page::where('parent_id',0)->where('publish',1)
 
             <nav id="zr-main-nav" class="collapse navbar-collapse zr-main-nav">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ request()->root() }}"><i class="fa fa-home"></i> @lang('site.home')</a></li>
+                    <li><a href="{{ url('/') }}"><i class="fa fa-home"></i> @lang('site.home')</a></li>
                     @foreach ($pages as $page)
                         <li class="@if($page->hasChild() || in_array($page->id,[21,22,23,99])) dropdown @endif">
                             <a href="@if($page->hasChild() || in_array($page->id,[21,22,23,99])) javascript:void(0) @else {{$page->getLink()}} @endif"
@@ -54,9 +54,9 @@ $pages = App\Page::where('parent_id',0)->where('publish',1)
                             @endif
                         </li>
                     @endforeach
-                    <li><a href="{{ request()->root() }}/news"><i class="fa fa-newspaper-o"></i> @lang('site.news')</a></li>
-                    <li><a href="{{ request()->root() }}/student-portal" class="zr-nav-portal"><i class="fa fa-graduation-cap"></i> @lang('site.getContent',['ar'=>'بوابة الطالب','en'=>'Student Portal'])</a></li>
-                    <li><a href="{{ request()->root() }}/contactUs"><i class="fa fa-phone"></i> @lang('site.contactUs')</a></li>
+                    <li><a href="{{ url('news') }}"><i class="fa fa-newspaper-o"></i> @lang('site.news')</a></li>
+                    <li><a href="{{ url('student-portal') }}" class="zr-nav-portal"><i class="fa fa-graduation-cap"></i> @lang('site.getContent',['ar'=>'بوابة الطالب','en'=>'Student Portal'])</a></li>
+                    <li><a href="{{ url('contactUs') }}"><i class="fa fa-phone"></i> @lang('site.contactUs')</a></li>
                 </ul>
             </nav>
 
