@@ -36,6 +36,9 @@
                     <a href="{{ url('webmail') }}" target="_blank">
                         <i class="fa fa-envelope-o"></i> بريد الموظفين
                     </a>
+                    <a href="https://me.classera.com/" target="_blank" rel="noopener">
+                        <i class="fa fa-laptop"></i> E-Learning
+                    </a>
                     <a href="https://www.facebook.com/zalingei.university" target="_blank" rel="noopener">
                         <i class="fa fa-facebook"></i> Facebook
                     </a>
@@ -100,7 +103,7 @@
 <script src="{{ asset('universo/assets/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('universo/assets/js/jquery.flexslider-min.js') }}"></script>
 <script src="{{ asset('universo/assets/js/owl.carousel.min.js') }}"></script>
-<script src="{{ request()->root() }}/public/universo/assets/js/custom.js"></script>
+<script src="{{ asset('universo/assets/js/custom.js') }}"></script>
 <script>
 (function () {
     var nav = document.querySelector('.zr-navbar');

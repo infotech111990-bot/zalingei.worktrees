@@ -6,7 +6,7 @@ $pages = App\Page::where('parent_id',0)->where('publish',1)
     <div class="container">
         <div class="zr-nav-inner">
             <a class="zr-brand" href="{{ url('/') }}" aria-label="@lang('site.siteName')">
-                <img src="{{ asset('universo/assets/img/logo.png') }}" alt="@lang('site.siteName')">
+            <img src="{{ asset('universo/assets/img/logo.png') }}" alt="@lang('site.siteName')" style="max-height:62px; vertical-align:middle; margin-right:10px;">
                 <span class="zr-brand-text">
                     <strong>@lang('site.siteName')</strong>
                     <small>@lang('site.getContent',['ar'=>'جامعة زالنجي','en'=>'University of Zalingei'])</small>
