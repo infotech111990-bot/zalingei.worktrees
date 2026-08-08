@@ -3,7 +3,7 @@
 @section('php')
     @php
         $page = 'colleges';
-        $folder = 'public/includes/colleges/'.$data->id;
+        $folder = 'public/includes/colleges';
         $pic_dimensions =  " أبعاد الصورة (العرض:1000px - الطول:300px)";
     @endphp
 @endsection

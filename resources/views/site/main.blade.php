@@ -93,7 +93,7 @@
         </div>
     </section>
 
-    <section class="zr-section zr-colleges">
+    <section class="zr-section zr-colleges" style="background:#f7fbff;">
         <div class="container">
             <div class="zr-section-head">
                 <div>
@@ -104,12 +104,12 @@
             <div class="row">
                 @foreach($colleges as $college)
                     <div class="col-md-3 col-sm-6">
-                        <a class="zr-college-card" href="{{ $college->getUrl() }}">
-                            <div class="zr-college-image"><img src="{{ $college->getPicture() }}" alt=""></div>
-                            <div class="zr-college-body">
-                                <span>@lang('site.getContent',['ar'=>'كلية','en'=>'College'])</span>
-                                <h3>@lang('site.getContent',['ar'=>$college->name_ar,'en'=>$college->name_en])</h3>
-                                <i class="fa fa-arrow-left"></i>
+                        <a class="zr-college-card" href="{{ $college->getUrl() }}" style="display:block;background:linear-gradient(135deg,#f7fbff 0%,#edf6fc 100%);border:1px solid #cfe4f0;border-radius:18px;box-shadow:0 12px 30px rgba(12,91,143,.10);">
+                            <div class="zr-college-image" style="height:170px;background:linear-gradient(135deg,rgba(12,91,143,.16),rgba(15,139,141,.16));overflow:hidden;"><img src="{{ $college->getPicture() }}" alt="" style="width:100%;height:100%;object-fit:cover;"></div>
+                            <div class="zr-college-body" style="position:relative;padding:16px 18px 20px;">
+                                <span style="font-size:10px;color:#0c5b8f!important;font-weight:800;">@lang('site.getContent',['ar'=>'كلية','en'=>'College'])</span>
+                                <h3 style="font-size:15px;line-height:1.6;margin:5px 25px 0 0;font-weight:800;color:#082c4c!important;">@lang('site.getContent',['ar'=>$college->name_ar,'en'=>$college->name_en])</h3>
+                                <i class="fa fa-arrow-left" style="position:absolute;inset-inline-end:18px;bottom:22px;color:#0c5b8f!important;"></i>
                             </div>
                         </a>
                     </div>

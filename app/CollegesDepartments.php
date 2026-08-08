@@ -37,7 +37,7 @@ class CollegesDepartments extends Model {
 	}
 	
 	public function getUrl(){
-		return $this->college->getUrl()."/dept/".$this->id;
+		return route('college.display', ['slug' => $this->college->slug, 'section' => 'dept', 'id' => $this->id]);
 	}
 
 	public function staff(){

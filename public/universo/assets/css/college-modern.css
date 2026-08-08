@@ -1,0 +1,49 @@
+:root { --zu-blue: #01366a; --zu-blue-light: #024283; --zu-gold: #d7a736; --zu-ink: #14263d; --zu-cloud: #f4f7fb; }
+
+.college-experience { background: var(--zu-cloud); color: var(--zu-ink); }
+.college-experience .secondary-navigation-wrapper { background: #011f40; border: 0; }
+.college-experience .secondary-navigation-wrapper, .college-experience .secondary-navigation-wrapper a { color: #eaf3ff; }
+.college-experience .branding { background: #fff; box-shadow: 0 8px 24px rgba(1, 54, 106, .08); }
+.college-experience .college-title { margin: 20px 0; color: var(--zu-blue); font: 700 24px Tajawal, sans-serif; }
+.college-experience .primary-navigation-wrapper, .college-experience .primary-navigation-wrapper .navbar { background: linear-gradient(110deg, #01366a, #024f93); border: 0; }
+.college-experience .primary-navigation-wrapper .navbar-nav > li > a { color: #fff; font-weight: 700; }
+.college-experience .primary-navigation-wrapper .navbar-nav > li > a:hover, .college-experience .primary-navigation-wrapper .navbar-nav > li.open > a { background: rgba(255,255,255,.12); color: #f8d777; }
+.college-experience .primary-navigation-wrapper .child-navigation { border-radius: 0 0 12px 12px; overflow: hidden; box-shadow: 0 12px 24px rgba(1,31,64,.18); }
+.college-experience #page-footer #footer-content { background: linear-gradient(125deg, #011b36, #01366a); }
+.college-experience #page-footer #footer-bottom { background: #01152b; }
+.college-experience #page-footer .background { opacity: .12; }
+.college-hero { position: relative; overflow: hidden; padding: 62px 0 56px; color: #fff; background: linear-gradient(125deg, #011f40, var(--zu-blue-light)); }
+.college-hero:before, .college-hero:after { content: ''; position: absolute; border-radius: 50%; background: rgba(215, 167, 54, .16); }
+.college-hero:before { width: 340px; height: 340px; top: -190px; inset-inline-end: 6%; }
+.college-hero:after { width: 220px; height: 220px; bottom: -130px; inset-inline-start: 26%; }
+.college-hero .eyebrow { position: relative; z-index: 1; color: #f5d682; letter-spacing: .08em; font-size: 13px; text-transform: uppercase; }
+.college-hero h1 { position: relative; z-index: 1; margin: 12px 0; font: 700 clamp(28px, 4vw, 46px) Tajawal, sans-serif; }
+.college-hero p { position: relative; z-index: 1; max-width: 760px; margin: 0; color: rgba(255,255,255,.88); font-size: 17px; line-height: 1.9; }
+.college-content { margin-top: -30px; padding-bottom: 48px; position: relative; z-index: 2; }
+.academic-card, .staff-card, .dean-card { background: #fff; border: 1px solid rgba(1,54,106,.08); border-radius: 16px; box-shadow: 0 10px 30px rgba(23,52,85,.09); transition: transform .22s ease, box-shadow .22s ease; }
+.academic-card:hover, .staff-card:hover { transform: translateY(-6px); box-shadow: 0 18px 38px rgba(23,52,85,.16); }
+.academic-card { display: block; min-height: 132px; margin: 0 0 20px; padding: 22px; color: inherit; }
+.academic-card:hover, .academic-card:focus { color: inherit; text-decoration: none; }
+.academic-card .icon { float: inline-end; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; color: var(--zu-blue); background: #edf4fb; }
+.academic-card h3 { margin: 0 58px 8px 0; color: var(--zu-blue); font: 700 19px Tajawal, sans-serif; }
+.academic-card p { margin: 0; color: #607085; line-height: 1.7; }
+.college-section { padding: 30px; margin-bottom: 24px; }
+.college-section h2 { margin: 0 0 20px; padding-bottom: 13px; color: var(--zu-blue); border-bottom: 1px solid #e7edf4; font: 700 25px Tajawal, sans-serif; }
+.college-section h2:after { content: ''; display: block; width: 58px; margin-top: 12px; border-bottom: 3px solid var(--zu-gold); }
+.college-section .lead { color: #526276; line-height: 2; font-size: 16px; }
+.dean-card { display: flex; gap: 26px; padding: 28px; align-items: flex-start; }
+.dean-photo { flex: 0 0 122px; width: 122px; height: 122px; border: 4px solid #f4e4b0; border-radius: 50%; object-fit: cover; background: #e8eef5; }
+.dean-card h2 { margin: 0 0 5px; color: var(--zu-blue); font: 700 26px Tajawal, sans-serif; }
+.dean-card h3 { margin: 0 0 16px; color: #75849a; font-size: 15px; }
+.dean-card .dean-message { margin-top: 20px; color: #4c5e73; line-height: 2; }
+.staff-grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+.staff-card { padding: 22px; border-top: 4px solid var(--zu-gold); }
+.staff-card h3 { margin: 0 0 7px; color: var(--zu-blue); font: 700 19px Tajawal, sans-serif; }
+.staff-card p { margin: 7px 0; color: #5a6a7f; line-height: 1.65; }
+.staff-card .label { display: inline-block; margin-bottom: 8px; padding: 5px 10px; background: #edf4fb; color: var(--zu-blue); border-radius: 99px; font-size: 12px; }
+.staff-card a { color: var(--zu-blue-light); overflow-wrap: anywhere; }
+.college-quick-links { padding: 20px; }
+.college-quick-links a { display: block; padding: 12px 3px; color: #42566d; border-bottom: 1px solid #edf1f5; transition: color .2s ease, padding .2s ease; }
+.college-quick-links a:hover { padding-inline-start: 8px; color: var(--zu-blue); text-decoration: none; }
+@media (max-width: 767px) { .college-hero { padding: 42px 0; } .college-content { margin-top: -18px; } .college-section { padding: 22px; } .dean-card { display: block; } .dean-photo { display: block; margin: 0 auto 20px; } }
+@media (prefers-reduced-motion: reduce) { .academic-card, .staff-card { transition: none; } }

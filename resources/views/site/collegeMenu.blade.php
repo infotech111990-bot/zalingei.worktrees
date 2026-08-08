@@ -18,7 +18,7 @@
                         <ul class="list-unstyled child-navigation">
                             <li><a href="{{ url('/') }}/{{$college->slug}}/about">@lang('site.aboutCollege',['ar'=>$college->type->titleSingle, 'en'=>$college->type->titleSingleEn])</a></li>
                             <li><a href="{{ url('/') }}/{{$college->slug}}/vision">@lang('site.VMO')</a></li>
-                            @if($college->type->id == 1 && $college->hasDetails('deanWord'))
+                            @if($college->details && ($college->details->dean_name || $college->hasDetails('deanWord')))
                                 <li><a href="{{ url('/') }}/{{$college->slug}}/dean">@lang('site.getContent',['ar'=>$college->type->deanshipWordTitle, 'en'=>$college->type->deanshipWordTitleEn])</a></li>
                             @endif
                             @if($college->type->id == 1 && $college->hasDetails('regulations'))

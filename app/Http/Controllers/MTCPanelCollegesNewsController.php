@@ -49,7 +49,7 @@ class MTCPanelCollegesNewsController extends Controller
 
     // ------------------------------- Display View ----------------------------------------------
     public function show($parent_id = null, $id = null){
-        $data = $this->model->findOrFail($id);
+        $data = $this->model->where('college_id', $parent_id)->findOrFail($id);
         return view($this->view.'.display',['data'=>$data]);  
     }
 
@@ -61,59 +61,55 @@ class MTCPanelCollegesNewsController extends Controller
 
     // ------------------------------- Edit View ----------------------------------------------
     public function edit($parent_id = null, $id = null){
-        $data = $this->model->findOrFail($id);
+        $data = $this->model->where('college_id', $parent_id)->findOrFail($id);
         return view($this->view.'.edit',['data'=>$data]);        
     }
 
     // ------------------------------- Add Action ----------------------------------------------
     public function store(Request $request, $parent_id = null){
-        $rules = [
-            // 'title' => 'required|max:255',
-        ];
+        $rules = $this->rules();
 
         $validator = Validator::make($request->all(), $rules)->validate();
         // dd($request->all());
-        $data = $request->all();
+        $data = $this->payload($request);
         $data['college_id'] = $parent_id;
 
         $data = $this->model->create( $data );
-        return redirect()->route($this->view.'.index',['parent_id'=>$parent_id])->withInput(['added' => true, 'id' => $data->id]);
+        return redirect()->route($this->view.'.index',['college'=>$parent_id])->withInput(['added' => true, 'id' => $data->id]);
 
     }
 
     // ------------------------------- Edit Action ----------------------------------------------
     public function update(Request $request, $parent_id = null, $id = null){
-        $rules = [
-            // 'title' => 'required|max:255',
-        ];
+        $rules = $this->rules();
 
         $validator = Validator::make($request->all(), $rules)->validate();
         // dd($request->all());
-        $data = $request->all();
+        $data = $this->payload($request);
 
-        $this->model->findOrFail( $id )->update( $data );
-        return redirect()->route($this->view.'.show',['parent_id'=>$parent_id, 'id'=>$id])->withInput(['updated' => true]);
+        $this->model->where('college_id', $parent_id)->findOrFail($id)->update($data);
+        return redirect()->route($this->view.'.show',['college'=>$parent_id, 'news'=>$id])->withInput(['updated' => true]);
 
     }
 
     // ------------------------------- Delete Action ----------------------------------------------
     public function destroy(Request $request, $parent_id = null, $id = null){
-        $data = $this->model->findOrFail( $id );
+        $data = $this->model->where('college_id', $parent_id)->findOrFail($id);
         $data->delete();
-        return redirect()->route($this->view.'.index', ['parent_id'=>$this->parent_id])->withInput(['deleted' => true])->status(200);
+        return redirect()->route($this->view.'.index', ['college'=>$parent_id])->withInput(['deleted' => true]);
     }
 
     // ------------------------------- Dropzone ----------------------------------------------
     public function dropzone(Request $request){
         $id = $request->input('id');
-        $data = $this->model->find($id);
+        $data = $this->model->findOrFail($id);
         $response = [];
         if(isset($data->picture)){
             $response = [
                 [
                     'name' => $data->picture,
                     'path' => $data->getPicture(),
-                    'size' => filesize(public_path($this->folder.$data->picture))
+                    'size' => $this->pictureSize($data)
                 ]
             ];
         }
@@ -124,14 +120,53 @@ class MTCPanelCollegesNewsController extends Controller
      public function dropzoneRemove(Request $request){
         $id = $request->input('id');
         $file_name = $request->input('name');
-        $file = public_path($this->folder.$file_name);
-        unlink($file);
+        $data = $this->model->findOrFail($id);
+        $file = public_path('includes/colleges/'.$data->college_id.'/news/'.$file_name);
+        if (is_file($file)) {
+            unlink($file);
+        }
         
-        $data = $this->model->find($id);
         $data->picture = null;
         $data->save();
 
-       exit;
+        return response()->json(['success' => true]);
+    }
+
+    private function rules(): array
+    {
+        return [
+            'title' => 'required|string|max:255',
+            'txt' => 'nullable|string',
+            'news_date' => 'required|date',
+            'lang' => 'nullable|in:1,2',
+            'picture' => 'nullable|string|max:255',
+        ];
+    }
+
+    private function payload(Request $request): array
+    {
+        $data = [
+            'newsDate' => $request->input('news_date'),
+            'picture' => $request->input('picture'),
+        ];
+
+        // The legacy database keeps Arabic and English in separate columns;
+        // the old form sent non-existent `lang` and `news_date` columns.
+        if ((int) $request->input('lang', 1) === 2) {
+            $data['titleEn'] = $request->input('title');
+            $data['txtEn'] = $request->input('txt');
+        } else {
+            $data['title'] = $request->input('title');
+            $data['txt'] = $request->input('txt');
+        }
+
+        return $data;
+    }
+
+    private function pictureSize(CollegesNews $news): int
+    {
+        $path = public_path('includes/colleges/'.$news->college_id.'/news/'.$news->picture);
+        return is_file($path) ? filesize($path) : 0;
     }
 
 }

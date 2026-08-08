@@ -12,19 +12,25 @@ if (! function_exists('mtGetRoute')) {
         if($type == 'show')     { $page .= '.show'; }
         if($type == 'destroy')  { $page .= '.destroy'; }
         
-        if(isset($id) && !isset($parent_id)) { 
-            $route = route( $page, ['id' => $id] ); 
+        $values = [];
+        if (isset($id)) {
+            $values[] = $id;
         }
-        if(!isset($id) && isset($parent_id)) { 
-            $route = route( $page, ['parent_id' => $parent_id] ); 
+        if (isset($parent_id)) {
+            $values[] = $parent_id;
         }
-        if(isset($id) && isset($parent_id)) { 
-            $route = route( $page, ['id' => $id, 'parent_id' => $parent_id] ); 
+
+        // Resource routes use meaningful placeholders such as {college} and
+        // {staff}; the legacy helper always sent {id}/{parent_id}, which Laravel
+        // treated as query values and could generate broken nested URLs.
+        $routeDefinition = app('router')->getRoutes()->getByName($page);
+        if (!$routeDefinition || empty($values)) {
+            return route($page);
         }
-        if(!isset($id) && !isset($parent_id)) { 
-            $route = route($page); 
-        }
-        
-        return $route; 
+
+        return route($page, array_combine(
+            array_slice($routeDefinition->parameterNames(), 0, count($values)),
+            $values
+        ));
     }
 }

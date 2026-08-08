@@ -6,26 +6,21 @@
         <meta name="author" content="Theme Starz">
         <meta name="csrf-token" content="{{ csrf_token() }}">
     
-        <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Tajawal:400,700' rel='stylesheet' type='text/css'>
         <link href="{{ asset('universo/assets/css/font-awesome.css') }}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="{{ asset('universo/assets/bootstrap/css/' . (Config::get('app.locale') == 'ar' ? 'bootstrap.ar.css' : 'bootstrap.css')) }}" type="text/css">
         @if(Config::get('app.locale') == 'ar')
             <link rel="stylesheet" href="{{ asset('universo/assets/bootstrap/css/bootstrap-rtl.min.css') }}" type="text/css">
         @endif
-        <link rel="stylesheet" href="{{ asset('universo/assets/css/selectize.css') }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset('universo/assets/css/owl.carousel.css') }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset('universo/assets/css/vanillabox/vanillabox.css') }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset('universo/assets/css/layerslider.css') }}" type="text/css">
         
         <link rel="stylesheet" href="{{ asset('universo/assets/css/' . (Config::get('app.locale') == 'ar' ? 'style-rtl.css' : 'style.css')) }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('css/' . (Config::get('app.locale') == 'ar' ? 'mt-rtl.css' : 'mt.css')) }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('universo/assets/css/college-modern.css') }}" type="text/css">
     
         <title>@lang('site.siteName') - {{ $college->title }}</title>
     
     </head>
     
-    <body class="page-sub-page page-microsite">
+    <body class="page-sub-page page-microsite college-experience">
     <!-- Wrapper -->
     <div class="wrapper">
     <!-- Header -->
@@ -45,7 +40,7 @@
                 </div>
                 
                 <div class="search pull-right">
-                    <h2 style="color:black; margin-right:30px;">@lang('site.getContent',['ar'=>$college->title,'en'=>$college->titleEn])</h2>
+                    <h2 class="college-title">@lang('site.getContent',['ar'=>$college->title,'en'=>$college->titleEn])</h2>
                 </div>
             </div>
         </div>
@@ -81,7 +76,7 @@
                                 @endif
                                 @if(isset($college->email))
                                     <br>
-                                    <abbr title="@lang('site.email')">@lang('site.email'):</abbr> <a href="#">{{ $college->email }}</a>
+                                    <abbr title="@lang('site.email')">@lang('site.email'):</abbr> <a href="mailto:{{ $college->email }}">{{ $college->email }}</a>
                                 @endif
                             </address>
                         </aside>
@@ -91,7 +86,7 @@
                             <header><h4>@lang('site.getContent',['ar'=>$college->type->title, 'en'=>$college->type->titleEn])</h4></header>
                             <ul class="list-links">
                                 @foreach($college->type->colleges()->orderByRaw('rand()')->limit(5)->get() as $otherCollege)
-                                    <li><a href="#">@lang('site.getContent',['ar'=>$otherCollege->title, 'en'=>$otherCollege->titleEn])</a></li>
+                                    <li><a href="{{ $otherCollege->getUrl() }}">@lang('site.getContent',['ar'=>$otherCollege->title, 'en'=>$otherCollege->titleEn])</a></li>
                                 @endforeach
                             </ul>
                         </aside>
@@ -127,21 +122,7 @@
     <!-- end Wrapper -->
     
     <script type="text/javascript" src="{{ asset('universo/assets/js/jquery-2.1.0.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('universo/assets/js/jquery-migrate-1.2.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('universo/assets/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('universo/assets/js/selectize.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('universo/assets/js/owl.carousel.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('universo/assets/js/jquery.validate.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('universo/assets/js/jquery.placeholder.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('universo/assets/js/jQuery.equalHeights.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('universo/assets/js/icheck.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('universo/assets/js/jquery.vanillabox-0.1.5.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('universo/assets/js/jquery.tablesorter.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('universo/assets/js/jquery.flexslider-min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('universo/assets/js/retina-1.1.0.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('universo/assets/js/fullcalendar.min.js') }}"></script>
-    
-    <script type="text/javascript" src="{{ asset('universo/assets/js/custom.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var url = window.location;

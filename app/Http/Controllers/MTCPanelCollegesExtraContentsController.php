@@ -49,7 +49,7 @@ class MTCPanelCollegesExtraContentsController extends Controller
 
     // ------------------------------- Display View ----------------------------------------------
     public function show($parent_id = null, $id = null){
-        $data = $this->model->findOrFail($id);
+        $data = $this->model->where('college_id', $parent_id)->findOrFail($id);
         return view($this->view.'.display',['data'=>$data]);  
     }
 
@@ -61,7 +61,7 @@ class MTCPanelCollegesExtraContentsController extends Controller
 
     // ------------------------------- Edit View ----------------------------------------------
     public function edit($parent_id = null, $id = null){
-        $data = $this->model->findOrFail($id);
+        $data = $this->model->where('college_id', $parent_id)->findOrFail($id);
         return view($this->view.'.edit',['data'=>$data]);        
     }
 
@@ -73,11 +73,11 @@ class MTCPanelCollegesExtraContentsController extends Controller
 
         $validator = Validator::make($request->all(), $rules)->validate();
         // dd($request->all());
-        $data = $request->all();
+        $data = $request->except(['_token', '_method']);
         $data['college_id'] = $parent_id;
 
         $data = $this->model->create( $data );
-        return redirect()->route($this->view.'.index',['parent_id'=>$parent_id])->withInput(['added' => true, 'id' => $data->id]);
+        return redirect()->route($this->view.'.index',['college'=>$parent_id])->withInput(['added' => true, 'id' => $data->id]);
 
     }
 
@@ -89,31 +89,31 @@ class MTCPanelCollegesExtraContentsController extends Controller
 
         $validator = Validator::make($request->all(), $rules)->validate();
         // dd($request->all());
-        $data = $request->all();
+        $data = $request->except(['_token', '_method']);
 
-        $this->model->findOrFail( $id )->update( $data );
-        return redirect()->route($this->view.'.show',['parent_id'=>$parent_id, 'id'=>$id])->withInput(['updated' => true]);
+        $this->model->where('college_id', $parent_id)->findOrFail($id)->update($data);
+        return redirect()->route($this->view.'.show',['college'=>$parent_id, 'extraContent'=>$id])->withInput(['updated' => true]);
 
     }
 
     // ------------------------------- Delete Action ----------------------------------------------
     public function destroy(Request $request, $parent_id = null, $id = null){
-        $data = $this->model->findOrFail( $id );
+        $data = $this->model->where('college_id', $parent_id)->findOrFail($id);
         $data->delete();
-        return redirect()->route($this->view.'.index', ['parent_id'=>$this->parent_id])->withInput(['deleted' => true])->status(200);
+        return redirect()->route($this->view.'.index', ['college'=>$parent_id])->withInput(['deleted' => true]);
     }
 
     // ------------------------------- Dropzone ----------------------------------------------
     public function dropzone(Request $request){
         $id = $request->input('id');
-        $data = $this->model->find($id);
+        $data = $this->model->findOrFail($id);
         $response = [];
         if(isset($data->picture)){
             $response = [
                 [
                     'name' => $data->picture,
                     'path' => $data->getPicture(),
-                    'size' => filesize(public_path($this->folder.$data->picture))
+                    'size' => $this->pictureSize($data)
                 ]
             ];
         }
@@ -124,14 +124,22 @@ class MTCPanelCollegesExtraContentsController extends Controller
      public function dropzoneRemove(Request $request){
         $id = $request->input('id');
         $file_name = $request->input('name');
-        $file = public_path($this->folder.$file_name);
-        unlink($file);
+        $data = $this->model->findOrFail($id);
+        $file = public_path('includes/colleges/'.$data->college_id.'/extraContents/'.$file_name);
+        if (is_file($file)) {
+            unlink($file);
+        }
         
-        $data = $this->model->find($id);
         $data->picture = null;
         $data->save();
 
-       exit;
+        return response()->json(['success' => true]);
+    }
+
+    private function pictureSize(CollegeExtraContent $content): int
+    {
+        $path = public_path('includes/colleges/'.$content->college_id.'/extraContents/'.$content->picture);
+        return is_file($path) ? filesize($path) : 0;
     }
 
 }

@@ -65,6 +65,21 @@
                     <fieldset>
                         <div class="row">
 							<div class="col-md-12">
+                                <div class="form-group"><div class="col-md-12 padding-top-15"><h4>ملف العميد</h4><hr></div></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 padding-top-15"><label>اسم العميد</label><input name="dean_name" value="{{ old('dean_name', $data->dean_name) }}" class="form-control"></div>
+                                    <div class="col-md-6 padding-top-15"><label>Dean name (English)</label><input name="dean_name_en" value="{{ old('dean_name_en', $data->dean_name_en) }}" class="form-control"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 padding-top-15"><label>المسمى الوظيفي</label><input name="dean_title" value="{{ old('dean_title', $data->dean_title) }}" class="form-control"></div>
+                                    <div class="col-md-6 padding-top-15"><label>Title (English)</label><input name="dean_title_en" value="{{ old('dean_title_en', $data->dean_title_en) }}" class="form-control"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 padding-top-15"><label>البريد الإلكتروني</label><input type="email" name="dean_email" value="{{ old('dean_email', $data->dean_email) }}" class="form-control"></div>
+                                    <div class="col-md-6 padding-top-15"><label>صورة العميد</label><input type="file" name="dean_picture" accept="image/*" class="form-control">@if($data->dean_picture)<small>{{ $data->dean_picture }}</small>@endif</div>
+                                </div>
+                                <div class="form-group"><div class="col-md-12 padding-top-15"><label>السيرة المختصرة</label><textarea name="dean_bio" class="summernote form-control" data-height="180">{!! old('dean_bio', $data->dean_bio) !!}</textarea></div></div>
+                                <div class="form-group"><div class="col-md-12 padding-top-15"><label>Biography (English)</label><textarea name="dean_bio_en" class="summernote form-control" data-height="180">{!! old('dean_bio_en', $data->dean_bio_en) !!}</textarea></div></div>
                                 <div class="form-group">
                                     <div class="col-md-12 col-sm-12 padding-top-15">
                                         <label>@lang('admin.vision')</label>

@@ -16,7 +16,10 @@ class CollegesController extends Controller
     {
              if(isset($slug)){
 
-              $college = \App\College::where('slug',$slug)->firstOrFail();
+              $college = \App\College::with(['type', 'details', 'departments', 'staff.degree', 'staff.department'])
+                  ->where('slug', $slug)
+                  ->where('status', 1)
+                  ->firstOrFail();
 
               // if(!$college){
               //   return abort(404);
@@ -56,16 +59,20 @@ class CollegesController extends Controller
                   break;
                   case 'dept' :
                     if(isset($id)){
+					  $department = $college->departments->find($id);
+					  if (!$department) {
+						  abort(404);
+					  }
                       if(isset($deptSection)){
                         switch($deptSection){
-                          case 'staff' : return view('site.collegesDepartmentStaff',array('college' => $college));
+                          case 'staff' : return view('site.collegesDepartmentStaff',array('college' => $college, 'dept' => $department));
                           break;
-                          case 'content' : return view('site.collegesDepartmentContent',array('college' => $college));
+                          case 'content' : return view('site.collegesDepartmentContent',array('college' => $college, 'dept' => $department));
                           break;
-                          default: return view('site.collegesDepartment',array('college' => $college));
+                          default: return view('site.collegesDepartment',array('college' => $college, 'dept' => $department));
                         }
                       }else{
-                        return view('site.collegesDepartment',array('college' => $college, 'dept' => $college->departments->find($id)));
+                        return view('site.collegesDepartment',array('college' => $college, 'dept' => $department));
                       }
                     }else{
                       return view('site.collegesAbout',array('college' => $college));
@@ -73,14 +80,17 @@ class CollegesController extends Controller
                   break;
                   case 'staff' :
                     if(isset($id)){
-                        return view('site.collegesStaffDisplay',array('college' => $college));
+                        $staff = $college->staff->find($id);
+                        if (!$staff) { abort(404); }
+                        return redirect()->route('staffDetails', [$staff->id, \Illuminate\Support\Str::slug($staff->nameEn)]);
                       }else{
                         return view('site.collegesStaff',array('college' => $college));
                       }
                   break;
                   case 'prof' :
                     if(isset($id)){
-                        return view('site.collegesStaffDisplay',array('college' => $college));
+                        $staff = $college->professors()->findOrFail($id);
+                        return redirect()->route('staffDetails', [$staff->id, \Illuminate\Support\Str::slug($staff->nameEn)]);
                       }else{
                         return view('site.collegesProf',array('college' => $college));
                       }

@@ -29,6 +29,7 @@
 @endsection
 
 @section('content')
+@php($isEnglish = empty($data->title) && !empty($data->titleEn))
 <style>
 .dz-message{
 	text-align: center;
@@ -68,7 +69,7 @@
                                 <div class="form-group">
                                     <div class="col-md-12 col-sm-12">
                                         <label>عنوان الخبر</label>
-                                        <input type="text" name="title" value="{{ $data->title }}" class="form-control required {{ $errors->has('title')? 'error' : '' }}">
+                                        <input type="text" name="title" value="{{ old('title', $isEnglish ? $data->titleEn : $data->title) }}" class="form-control required {{ $errors->has('title')? 'error' : '' }}">
                                         @if ($errors->has('title'))
                                             <span class="help-block text-danger">
                                                 <strong>{{ $errors->first('title') }}</strong>
@@ -80,7 +81,7 @@
                                 <div class="form-group">
                                     <div class="col-md-12 col-sm-12">
                                         <label>@lang('admin.date')</label>
-                                        <input type="date" name="news_date" value="{{ date('Y-m-d', strtotime($data->news_date)) }}" class="form-control required {{ $errors->has('news_date')? 'error' : '' }}">
+                                        <input type="date" name="news_date" value="{{ old('news_date', date('Y-m-d', strtotime($data->newsDate))) }}" class="form-control required {{ $errors->has('news_date')? 'error' : '' }}">
                                         @if ($errors->has('news_date'))
                                             <span class="help-block text-danger">
                                                 <strong>{{ $errors->first('news_date') }}</strong>
@@ -93,8 +94,8 @@
                                     <div class="col-md-12 col-sm-12">
                                         <label>اللغة</label>
                                         <select name="lang" class="form-control pointer required">
-                                            <option value="1" {{ ($data->lang == 1)? 'selected' : '' }}>العربية</option>
-                                            <option value="2" {{ ($data->lang == 2)? 'selected' : '' }}>English</option>
+                                            <option value="1" {{ (!$isEnglish)? 'selected' : '' }}>العربية</option>
+                                            <option value="2" {{ ($isEnglish)? 'selected' : '' }}>English</option>
                                         </select>
                                     </div>
                                 </div>
@@ -103,7 +104,7 @@
                                     <div class="col-md-12 col-sm-12">
                                         <label>@lang('admin.details')</label>
                                         <textarea name="txt" class="summernote form-control" data-height="200" data-lang="en-US">
-                                            {!! $data->txt !!}
+                                            {!! old('txt', $isEnglish ? $data->txtEn : $data->txt) !!}
                                         </textarea>
                                     </div>
                                 </div>

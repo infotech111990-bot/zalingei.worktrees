@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('universo/assets/css/owl.carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('universo/assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/mt.css') }}">
-    <link rel="stylesheet" href="{{ asset('universo/assets/css/zalingei-redesign.css') }}">
+    <link rel="stylesheet" href="{{ asset('universo/assets/css/zalingei-redesign.css') }}?v=202608071">
 
     <style>
         /* Topbar text color and logo sizing (can be overridden in CSS files) */

@@ -64,6 +64,21 @@
                     <fieldset>
                         <div class="row">
 							<div class="col-md-12">
+                                <div class="form-group"><div class="col-md-12 padding-top-15"><h4>ملف العميد</h4><hr></div></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 padding-top-15"><label>اسم العميد</label><input name="dean_name" value="{{ old('dean_name') }}" class="form-control"></div>
+                                    <div class="col-md-6 padding-top-15"><label>Dean name (English)</label><input name="dean_name_en" value="{{ old('dean_name_en') }}" class="form-control"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 padding-top-15"><label>المسمى الوظيفي</label><input name="dean_title" value="{{ old('dean_title') }}" class="form-control" placeholder="عميد الكلية"></div>
+                                    <div class="col-md-6 padding-top-15"><label>Title (English)</label><input name="dean_title_en" value="{{ old('dean_title_en') }}" class="form-control" placeholder="Dean of the Faculty"></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 padding-top-15"><label>البريد الإلكتروني</label><input type="email" name="dean_email" value="{{ old('dean_email') }}" class="form-control"></div>
+                                    <div class="col-md-6 padding-top-15"><label>صورة العميد</label><input type="file" name="dean_picture" accept="image/*" class="form-control"></div>
+                                </div>
+                                <div class="form-group"><div class="col-md-12 padding-top-15"><label>السيرة المختصرة</label><textarea name="dean_bio" class="summernote form-control" data-height="180">{!! old('dean_bio') !!}</textarea></div></div>
+                                <div class="form-group"><div class="col-md-12 padding-top-15"><label>Biography (English)</label><textarea name="dean_bio_en" class="summernote form-control" data-height="180">{!! old('dean_bio_en') !!}</textarea></div></div>
                                 <div class="form-group">
                                     <div class="col-md-12 col-sm-12 padding-top-15">
                                         <label>@lang('admin.vision')</label>

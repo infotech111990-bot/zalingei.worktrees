@@ -187,10 +187,12 @@ Route::prefix('mtCPanel')->group(function() {
     
   });
 
-  Route::get('{slug?}/{section?}/{id?}/{deptSection?}/{cID?}', 'CollegesController@display');
+  // College micro-sites are intentionally explicit.  The previous optional
+  // catch-all rendered the home page for typos and masked genuine 404 errors.
+  Route::get('{slug}/{section?}/{id?}/{deptSection?}/{cID?}', 'CollegesController@display')
+    ->where('slug', '[A-Za-z0-9-]+')
+    ->name('college.display');
 
-  Route::get('/{any?}', function () {
-    
-      return view('site.main');
-
-  })->where('any', '^(?!api\/)[\/\w\.-]*');
+  Route::fallback(function () {
+      abort(404);
+  });

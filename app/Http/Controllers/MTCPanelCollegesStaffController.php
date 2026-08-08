@@ -49,7 +49,7 @@ class MTCPanelCollegesStaffController extends Controller
 
     // ------------------------------- Display View ----------------------------------------------
     public function show($parent_id = null, $id = null){
-        $data = $this->model->findOrFail($id);
+        $data = $this->model->where('college_id', $parent_id)->findOrFail($id);
         return view($this->view.'.display',['data'=>$data]);  
     }
 
@@ -61,7 +61,7 @@ class MTCPanelCollegesStaffController extends Controller
 
     // ------------------------------- Edit View ----------------------------------------------
     public function edit($parent_id = null, $id = null){
-        $data = $this->model->findOrFail($id);
+        $data = $this->model->where('college_id', $parent_id)->findOrFail($id);
         return view($this->view.'.edit',['data'=>$data]);        
     }
 
@@ -73,7 +73,7 @@ class MTCPanelCollegesStaffController extends Controller
 
         $validator = Validator::make($request->all(), $rules)->validate();
         // dd($request->all());
-        $data = $request->all();
+        $data = $request->except(['_token', '_method']);
         $data['college_id'] = $parent_id;
 
         $data = $this->model->create( $data );
@@ -89,18 +89,18 @@ class MTCPanelCollegesStaffController extends Controller
 
         $validator = Validator::make($request->all(), $rules)->validate();
         // dd($request->all());
-        $data = $request->all();
+        $data = $request->except(['_token', '_method']);
 
-        $this->model->findOrFail( $id )->update( $data );
+        $this->model->where('college_id', $parent_id)->findOrFail($id)->update($data);
         return redirect()->route($this->view.'.show',['parent_id'=>$parent_id, 'id'=>$id])->withInput(['updated' => true]);
 
     }
 
     // ------------------------------- Delete Action ----------------------------------------------
     public function destroy(Request $request, $parent_id = null, $id = null){
-        $data = $this->model->findOrFail( $id );
+        $data = $this->model->where('college_id', $parent_id)->findOrFail($id);
         $data->delete();
-        return redirect()->route($this->view.'.index', ['parent_id'=>$this->parent_id])->withInput(['deleted' => true])->status(200);
+        return redirect()->route($this->view.'.index', ['college' => $parent_id])->withInput(['deleted' => true]);
     }
 
     // ------------------------------- Dropzone ----------------------------------------------

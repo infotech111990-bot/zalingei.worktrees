@@ -28,7 +28,7 @@ class College extends Model {
 	}
 
 	function departments(){
-		return $this->hasMany(CollegesDepartments::class);
+		return $this->hasMany(CollegesDepartments::class)->orderBy('title');
 	}
 	
 	function extraDetails(){
@@ -119,12 +119,12 @@ class College extends Model {
 	}
 
 	public function staff(){
-		return $this->hasMany(Staff::class);
+		return $this->hasMany(Staff::class)->with(['degree', 'department'])->orderBy('name');
 	}
 
 
 	public function getUrl(){
-		return url($this->slug);
+		return route('college.display', ['slug' => $this->slug]);
 	}
 	
 }

@@ -63,7 +63,7 @@
 									<td width="22%">
 										<a href="{{ mtGetRoute('show','mtCPanel.'.$page, $parent->id, $d->id) }}" class="btn btn-aqua btn-xs btn-3d btn-reveal"><i class="fa fa-eye white"></i> <span>عرض</span> </a>
 										<a href="{{ mtGetRoute('edit','mtCPanel.'.$page, $parent->id, $d->id) }}" class="btn btn-yellow btn-xs btn-3d btn-reveal"><i class="fa fa-edit white"></i> <span>تحرير</span> </a>
-										<a 	data-route="{{ route('mtCPanel.'.$page.'.destroy', ['parent_id' => $parent->id, 'id' => $d->id]) }}" 
+										<a 	data-route="{{ mtGetRoute('destroy','mtCPanel.'.$page, $parent->id, $d->id) }}" 
 											data-afterdeleteurl="{{ url('/') }}/mtCPanel/{{ $parentPage }}/{{ $parent->id }}/{{ $childPage }}" 
 											class="deleteBtn btn btn-danger btn-xs btn-3d btn-reveal">
 											<i class="fa fa-times white"></i> <span>حذف</span>

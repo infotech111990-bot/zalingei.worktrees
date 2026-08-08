@@ -49,7 +49,7 @@ class MTCPanelCollegesDetailsController extends Controller
 
     // ------------------------------- Display View ----------------------------------------------
     public function show($parent_id = null, $id = null){
-        $data = $this->model->findOrFail($id);
+        $data = $this->model->where('college_id', $parent_id)->findOrFail($id);
         return view($this->view.'.display',['data'=>$data]);  
     }
 
@@ -61,46 +61,74 @@ class MTCPanelCollegesDetailsController extends Controller
 
     // ------------------------------- Edit View ----------------------------------------------
     public function edit($parent_id = null, $id = null){
-        $data = $this->model->findOrFail($id);
+        $data = $this->model->where('college_id', $parent_id)->findOrFail($id);
         return view($this->view.'.edit',['data'=>$data]);        
     }
 
     // ------------------------------- Add Action ----------------------------------------------
     public function store(Request $request, $parent_id = null){
-        $rules = [
-            // 'title' => 'required|max:255',
-        ];
+        $rules = $this->rules();
 
         $validator = Validator::make($request->all(), $rules)->validate();
         // dd($request->all());
-        $data = $request->all();
+        $data = $this->payload($request, $parent_id);
         $data['college_id'] = $parent_id;
 
-        $data = $this->model->create( $data );
+        // A college has one academic profile.  Updating it here prevents
+        // conflicting dean messages and duplicate public records.
+        $data = $this->model->updateOrCreate(['college_id' => $parent_id], $data);
         return redirect()->route($this->view.'.index',['parent_id'=>$parent_id])->withInput(['added' => true, 'id' => $data->id]);
 
     }
 
     // ------------------------------- Edit Action ----------------------------------------------
     public function update(Request $request, $parent_id = null, $id = null){
-        $rules = [
-            // 'title' => 'required|max:255',
-        ];
+        $rules = $this->rules();
 
         $validator = Validator::make($request->all(), $rules)->validate();
         // dd($request->all());
-        $data = $request->all();
+        $data = $this->payload($request, $parent_id);
 
-        $this->model->findOrFail( $id )->update( $data );
+        $this->model->where('college_id', $parent_id)->findOrFail($id)->update($data);
         return redirect()->route($this->view.'.show',['parent_id'=>$parent_id, 'id'=>$id])->withInput(['updated' => true]);
 
     }
 
+    private function rules(): array
+    {
+        return [
+            'dean_name' => 'nullable|string|max:255',
+            'dean_name_en' => 'nullable|string|max:255',
+            'dean_title' => 'nullable|string|max:255',
+            'dean_title_en' => 'nullable|string|max:255',
+            'dean_email' => 'nullable|email|max:255',
+            'dean_picture' => 'nullable|image|max:4096',
+            'dean_bio' => 'nullable|string',
+            'dean_bio_en' => 'nullable|string',
+        ];
+    }
+
+    private function payload(Request $request, $collegeId): array
+    {
+        $data = $request->except(['_token', '_method', 'dean_picture']);
+        if ($request->hasFile('dean_picture')) {
+            $folder = public_path('includes/colleges/deans');
+            if (!is_dir($folder)) {
+                mkdir($folder, 0755, true);
+            }
+            $file = $request->file('dean_picture');
+            $filename = $collegeId . '-' . time() . '.' . $file->getClientOriginalExtension();
+            $file->move($folder, $filename);
+            $data['dean_picture'] = $filename;
+        }
+        return $data;
+    }
+
     // ------------------------------- Delete Action ----------------------------------------------
     public function destroy(Request $request, $parent_id = null, $id = null){
-        $data = $this->model->findOrFail( $id );
+        $data = $this->model->where('college_id', $parent_id)->findOrFail($id);
         $data->delete();
-        return redirect()->route($this->view.'.index', ['parent_id'=>$this->parent_id])->withInput(['deleted' => true])->status(200);
+        return redirect()->route($this->view.'.index', ['college' => $parent_id])->withInput(['deleted' => true]);
     }
 
     // ------------------------------- Dropzone ----------------------------------------------

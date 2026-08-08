@@ -7,7 +7,7 @@
         $childPage = "staff";
         $parentPage = "colleges";
         $page = $parentPage.".".$childPage;
-        $folder = 'public/includes/colleges/staff';
+        $folder = 'public/includes/staff';
         $pic_dimensions =  " أبعاد الصورة (العرض:500px - الطول:500px)";
     @endphp
 @endsection
