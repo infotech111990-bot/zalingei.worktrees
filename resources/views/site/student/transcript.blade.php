@@ -15,7 +15,7 @@
 @empty
 @endforelse
 <div style="margin-top:25px;padding:18px;background:#f7f9fb"><strong>CGPA: {{ $totalHours ? number_format($totalPoints/$totalHours,2) : '0.00' }} / 4.00</strong> &nbsp; | &nbsp; Total Credit Hours: {{ $totalHours }}</div>
-@elseif($legacyResults->isNotEmpty())
+@elseif(isset($legacyResults) && $legacyResults->isNotEmpty())
 <div class="alert alert-info"><strong>Legacy academic results</strong><br>The new academic records have not yet been populated for this student. Existing results are shown below.</div>
 <div class="table-responsive"><table class="table table-bordered"><thead><tr><th>Academic Year</th><th>Semester</th><th>Subject</th><th>Marks</th><th>Grade</th></tr></thead><tbody>
 @foreach($legacyResults as $result)<tr><td>{{ $result->academic_year }}</td><td>{{ $result->semester }}</td><td>{{ $result->subject_name }}</td><td>{{ $result->marks }}</td><td><strong>{{ $result->grade }}</strong></td></tr>@endforeach
