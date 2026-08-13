@@ -7,8 +7,7 @@ $pages = App\Page::where('parent_id',0)->where('publish',1)
     <div class="container">
         <div class="zr-nav-inner">
             <a class="zr-brand" href="{{ url('/') }}" aria-label="@lang('site.siteName')">
-                <img src="{{ asset('universo/assets/img/logo.png') }}" alt="@lang('site.siteName')" style="max-height:58px;vertical-align:middle;margin-right:10px;">
-                <span class="zr-brand-text"><strong>@lang('site.siteName')</strong></span>
+                <img src="{{ asset('universo/assets/img/logo.png') }}" alt="@lang('site.siteName')" style="max-height:58px;vertical-align:middle;">
             </a>
             <button class="navbar-toggle zr-toggle" type="button" data-toggle="collapse" data-target="#zr-main-nav" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span><span></span><span></span><span></span>
@@ -38,7 +37,6 @@ $pages = App\Page::where('parent_id',0)->where('publish',1)
                     <li><a href="{{ url('contactUs') }}"><i class="fa fa-phone"></i> @lang('site.contactUs')</a></li>
                 </ul>
             </nav>
-            <a class="zr-search-btn" href="{{ route('search','all') }}" aria-label="Search"><i class="fa fa-search"></i></a>
         </div>
     </div>
 </header>
