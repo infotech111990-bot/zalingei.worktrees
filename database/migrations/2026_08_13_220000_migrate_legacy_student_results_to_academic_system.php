@@ -14,16 +14,15 @@ return new class extends Migration
 
         if (Schema::hasTable('students') && Schema::hasTable('college')) {
             $collegeId = DB::table('college')->where('slug', 'csit')->value('id') ?: 7;
-            DB::table('students')
-                ->where('student_number', '20231234')
-                ->whereNull('college_id')
-                ->update(['college_id' => $collegeId, 'updated_at' => now()]);
+            DB::table('students')->where('student_number', '20231234')->whereNull('college_id')->update([
+                'college_id' => $collegeId,
+                'updated_at' => now(),
+            ]);
         }
 
-        $legacy = DB::table('student_results')
-            ->select('id', 'student_number', 'subject_name', 'marks', 'grade', 'semester', 'academic_year')
-            ->orderBy('id')
-            ->get();
+        $legacy = DB::table('student_results')->select(
+            'id', 'student_number', 'subject_name', 'marks', 'grade', 'semester', 'academic_year'
+        )->orderBy('id')->get();
 
         $semesterNumbers = [];
 
@@ -45,26 +44,18 @@ return new class extends Migration
             $semesterNumber = $this->semesterNumber($semesterSource);
 
             if ($semesterNumber === null) {
-                if (!isset($semesterNumbers[$yearName])) {
-                    $semesterNumbers[$yearName] = [];
-                }
-                if (!array_key_exists($semesterSource, $semesterNumbers[$yearName])) {
-                    $semesterNumbers[$yearName][$semesterSource] = count($semesterNumbers[$yearName]) + 1;
-                }
+                $semesterNumbers[$yearName] ??= [];
+                $semesterNumbers[$yearName][$semesterSource] ??= count($semesterNumbers[$yearName]) + 1;
                 $semesterNumber = min(2, $semesterNumbers[$yearName][$semesterSource]);
             }
 
             $semesterCode = 'LEGACY-' . substr(sha1($semesterKey), 0, 12);
-            $semesterName = 'Semester ' . $semesterNumber;
-            $semesterId = DB::table('semesters')
-                ->where('academic_year_id', $yearId)
-                ->where('code', $semesterCode)
-                ->value('id');
+            $semesterId = DB::table('semesters')->where('academic_year_id', $yearId)->where('code', $semesterCode)->value('id');
 
             if (!$semesterId) {
                 $semesterId = DB::table('semesters')->insertGetId([
                     'academic_year_id' => $yearId,
-                    'name' => $semesterName,
+                    'name' => 'Semester ' . $semesterNumber,
                     'code' => $semesterCode,
                     'is_current' => false,
                     'created_at' => now(),
@@ -80,7 +71,7 @@ return new class extends Migration
                 $courseId = DB::table('courses')->insertGetId([
                     'department_id' => null,
                     'code' => $courseCode,
-                    'name' => $subject,
+                    'name' => 'Legacy Course ' . $result->id,
                     'name_ar' => $subject,
                     'credit_hours' => 3,
                     'is_active' => true,
