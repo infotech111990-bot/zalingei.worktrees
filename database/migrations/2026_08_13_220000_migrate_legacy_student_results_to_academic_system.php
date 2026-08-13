@@ -12,8 +12,6 @@ return new class extends Migration
             return;
         }
 
-        // Link the known sample student to the existing Computer Science and
-        // Information Technology college without changing any legacy results.
         if (Schema::hasTable('students') && Schema::hasTable('college')) {
             $collegeId = DB::table('college')->where('slug', 'csit')->value('id') ?: 7;
             DB::table('students')
@@ -27,10 +25,12 @@ return new class extends Migration
             ->orderBy('id')
             ->get();
 
+        $semesterNumbers = [];
+
         foreach ($legacy as $result) {
             $yearName = trim((string) $result->academic_year) ?: 'Unknown Academic Year';
-
             $yearId = DB::table('academic_years')->where('name', $yearName)->value('id');
+
             if (!$yearId) {
                 $yearId = DB::table('academic_years')->insertGetId([
                     'name' => $yearName,
@@ -41,10 +41,21 @@ return new class extends Migration
             }
 
             $semesterSource = trim((string) $result->semester);
+            $semesterKey = $yearName . '|' . $semesterSource;
             $semesterNumber = $this->semesterNumber($semesterSource);
-            $semesterCode = 'LEGACY-' . substr(sha1($yearName . '|' . $semesterSource), 0, 12);
-            $semesterName = 'Semester ' . $semesterNumber;
 
+            if ($semesterNumber === null) {
+                if (!isset($semesterNumbers[$yearName])) {
+                    $semesterNumbers[$yearName] = [];
+                }
+                if (!array_key_exists($semesterSource, $semesterNumbers[$yearName])) {
+                    $semesterNumbers[$yearName][$semesterSource] = count($semesterNumbers[$yearName]) + 1;
+                }
+                $semesterNumber = min(2, $semesterNumbers[$yearName][$semesterSource]);
+            }
+
+            $semesterCode = 'LEGACY-' . substr(sha1($semesterKey), 0, 12);
+            $semesterName = 'Semester ' . $semesterNumber;
             $semesterId = DB::table('semesters')
                 ->where('academic_year_id', $yearId)
                 ->where('code', $semesterCode)
@@ -87,13 +98,7 @@ return new class extends Migration
             $grade = strtoupper(trim((string) $result->grade));
             $points = $this->gradePoints($grade);
 
-            $enrollmentExists = DB::table('enrollments')
-                ->where('student_id', $studentId)
-                ->where('course_id', $courseId)
-                ->where('semester_id', $semesterId)
-                ->exists();
-
-            if (!$enrollmentExists) {
+            if (!DB::table('enrollments')->where('student_id', $studentId)->where('course_id', $courseId)->where('semester_id', $semesterId)->exists()) {
                 DB::table('enrollments')->insert([
                     'student_id' => $studentId,
                     'course_id' => $courseId,
@@ -104,13 +109,7 @@ return new class extends Migration
                 ]);
             }
 
-            $gradeExists = DB::table('grades')
-                ->where('student_id', $studentId)
-                ->where('course_id', $courseId)
-                ->where('semester_id', $semesterId)
-                ->exists();
-
-            if (!$gradeExists) {
+            if (!DB::table('grades')->where('student_id', $studentId)->where('course_id', $courseId)->where('semester_id', $semesterId)->exists()) {
                 DB::table('grades')->insert([
                     'student_id' => $studentId,
                     'course_id' => $courseId,
@@ -129,17 +128,13 @@ return new class extends Migration
         }
     }
 
-    private function semesterNumber(string $source): int
+    private function semesterNumber(string $source): ?int
     {
         $source = strtolower($source);
-        if (preg_match('/(?:semester|term|الفصل|الترم)\\s*([12])/u', $source, $match)) {
+        if (preg_match('/(?:semester|term|الفصل|الترم)\s*([12])/u', $source, $match)) {
             return max(1, min(2, (int) $match[1]));
         }
-
-        // Legacy Arabic text may already be stored as question marks. For
-        // those records, the first distinct legacy semester is treated as 1
-        // and the next as 2 by the stable hash ordering used below.
-        return 1;
+        return null;
     }
 
     private function gradePoints(string $grade): float
@@ -162,7 +157,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        // Intentionally non-destructive: legacy results remain the source of
-        // truth and migrated academic records should not be deleted on rollback.
+        // Non-destructive by design: legacy results remain the source of truth.
     }
 };
