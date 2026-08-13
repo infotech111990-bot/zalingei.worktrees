@@ -15,6 +15,17 @@ Route::get('/student-portal/semesters', 'StudentPortalController@semesters')->na
 Route::get('/student-portal/transcript', 'StudentPortalController@transcript')->name('student.transcript');
 
 Route::get('/', 'HomeController@main');
+
+// Public academic directory pages.
+Route::get('/faculties', function () {
+    $colleges = App\College::query()->orderBy('colleges_type_id', 'asc')->orderBy('id', 'asc')->get();
+    return view('site.faculties', compact('colleges'));
+})->name('faculties');
+
+Route::get('/institutes-and-centers', function () {
+    return view('site.institutes-and-centers');
+})->name('institutes.centers');
+
 Route::get('/page/{id}/{slug?}', 'PageController@show');
 Route::get('/associations', 'UnavailableFeatureController@show');
 Route::get('/associations/{id}', 'UnavailableFeatureController@show');
