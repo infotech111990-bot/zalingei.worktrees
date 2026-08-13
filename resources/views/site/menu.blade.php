@@ -56,6 +56,7 @@ $pages = App\Page::where('parent_id',0)->where('publish',1)
                     @endforeach
                     <li><a href="{{ url('news') }}"><i class="fa fa-newspaper-o"></i> @lang('site.news')</a></li>
                     <li><a href="{{ url('student-portal') }}" class="zr-nav-portal"><i class="fa fa-graduation-cap"></i> @lang('site.getContent',['ar'=>'بوابة الطالب','en'=>'Student Portal'])</a></li>
+                    <li><a href="https://me.classera.com/" class="zr-nav-e-learning" target="_blank" rel="noopener noreferrer"><i class="fa fa-laptop"></i> @lang('site.getContent',['ar'=>'التعلم الإلكتروني','en'=>'E-Learning'])</a></li>
                     <li><a href="{{ url('contactUs') }}"><i class="fa fa-phone"></i> @lang('site.contactUs')</a></li>
                 </ul>
             </nav>
