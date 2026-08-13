@@ -28,11 +28,7 @@ Route::get('/institutes-and-centers', function () {
 
 // Safe public landing route for the legacy About Us button.
 Route::get('/about', function () {
-    $page = App\Page::find(4);
-    if ($page) {
-        return redirect('/page/4/about-university-of-zalingie');
-    }
-    return redirect('/');
+    return view('site.about');
 })->name('about');
 
 // Prevent the legacy employee-mail link from falling through to the 404 page.
@@ -40,14 +36,18 @@ Route::get('/webmail', function () {
     return redirect()->away('mailto:info@zalingei.edu.sd');
 })->name('webmail');
 
+// Public aliases for common modern URL spellings.
+Route::get('/contact-us', function () {
+    return redirect('/contactUs');
+});
+Route::get('/e-learning', function () {
+    return redirect()->away('https://me.classera.com/');
+})->name('e-learning');
+
 Route::get('/page/{id}/{slug?}', 'PageController@show');
 Route::get('/associations', 'UnavailableFeatureController@show');
 Route::get('/associations/{id}', 'UnavailableFeatureController@show');
 Route::get('/associations/{id}/news', 'UnavailableFeatureController@show');
-Route::get('/services', 'ServiceController@show');
-Route::get('/services/{id}', 'ServiceController@display');
-Route::get('/associations/{id}/news/{newsID}', 'UnavailableFeatureController@show');
-Route::get('/associations/{id}/details/{aboutID}', 'UnavailableFeatureController@show');
 Route::post('/associations/likeThis', 'UnavailableFeatureController@show');
 Route::get('/managers/profile/{id}', 'UnavailableFeatureController@show');
 Route::get('/managers/{id}', 'UnavailableFeatureController@show');
@@ -56,13 +56,43 @@ Route::get('/council/{year?}', 'UnavailableFeatureController@show');
 Route::get('/news', 'NewsController@show');
 Route::get('/news/{newsID}', 'NewsController@display');
 Route::get('/staff/{staffID}/{slug?}', 'StaffController@display')->name('staffDetails');
-Route::get('/events', 'UnavailableFeatureController@show');
-Route::get('/events/{eventsID}', 'UnavailableFeatureController@show');
+
+// Events currently have no restored database controller, so expose a real public page instead of a dead route.
+Route::get('/events', function () {
+    return view('site.events');
+})->name('events');
+Route::get('/events/{eventsID}', function () {
+    return view('site.events');
+});
+
 Route::get('/polls', 'PollController@show');
 Route::get('/polls/{polls}', 'PollController@display');
 Route::post('/polls/voteNow', 'PollController@voteNow');
 Route::get('/contactUs', 'PageController@showContactUs');
-Route::get('/search/{section}', 'UnavailableFeatureController@show')->name('search');
+
+// Lightweight public search page. It searches published news and pages without requiring the old search controller.
+Route::get('/search/{section}', function ($section) {
+    $q = trim(request('q', ''));
+    $news = collect();
+    $pages = collect();
+
+    if ($q !== '') {
+        $news = App\News::query()->where(function ($query) use ($q) {
+            $query->where('title', 'like', "%{$q}%")
+                  ->orWhere('titleEn', 'like', "%{$q}%")
+                  ->orWhere('txt', 'like', "%{$q}%")
+                  ->orWhere('txtEn', 'like', "%{$q}%");
+        })->orderBy('created_at', 'desc')->limit(20)->get();
+
+        $pages = App\Page::query()->where('publish', 1)->where(function ($query) use ($q) {
+            $query->where('title', 'like', "%{$q}%")
+                  ->orWhere('titleEn', 'like', "%{$q}%");
+        })->orderBy('order', 'asc')->limit(20)->get();
+    }
+
+    return view('site.search', compact('section', 'q', 'news', 'pages'));
+})->name('search');
+
 Route::get('/termsOfUse', function(){ return view('site.privacyPolicy'); });
 Route::get('/privacyPolicy', function(){ return view('site.privacyPolicy'); });
 
