@@ -61,19 +61,59 @@
                                         @if($student->college)
                                             <span><i class="fa fa-university"></i> @lang('site.getContent',['ar'=>'الكلية:','en'=>'College:']) {{ $student->college->name_ar }}</span>
                                         @endif
+                                        <span>
+                                            <i class="fa fa-sitemap"></i>
+                                            @lang('site.getContent',['ar'=>'القسم:','en'=>'Department:'])
+                                            {{ optional($student->department)->title ?: optional($student->department)->titleEn ?: __('site.getContent',['ar'=>'غير محدد','en'=>'Not assigned']) }}
+                                        </span>
                                         @if($student->academic_year)
                                             <span><i class="fa fa-calendar"></i> @lang('site.getContent',['ar'=>'العام الدراسي:','en'=>'Academic Year:']) {{ $student->academic_year }}</span>
+                                        @endif
+                                        @if($student->level)
+                                            <span><i class="fa fa-layer-group"></i> @lang('site.getContent',['ar'=>'المستوى:','en'=>'Level:']) {{ $student->level }}</span>
                                         @endif
                                     </div>
                                 </div>
                             </div>
 
+                            @if($academicGrades->count() > 0)
+                                <div class="zr-results-body">
+                                    <div class="zr-semester-block">
+                                        <h4><i class="fa fa-graduation-cap"></i> @lang('site.getContent',['ar'=>'الدرجات الأكاديمية الجديدة','en'=>'New Academic Grades'])</h4>
+                                        <div class="table-responsive">
+                                            <table class="table zr-results-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>@lang('site.getContent',['ar'=>'المقرر','en'=>'Course'])</th>
+                                                        <th>@lang('site.getContent',['ar'=>'الفصل','en'=>'Semester'])</th>
+                                                        <th>@lang('site.getContent',['ar'=>'الدرجة','en'=>'Score'])</th>
+                                                        <th>@lang('site.getContent',['ar'=>'التقدير','en'=>'Grade'])</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($academicGrades as $i => $grade)
+                                                        <tr>
+                                                            <td>{{ $i + 1 }}</td>
+                                                            <td>{{ optional($grade->course)->code }} — {{ optional($grade->course)->name ?: optional($grade->course)->name_ar }}</td>
+                                                            <td>{{ optional($grade->semester)->name ?: '—' }}</td>
+                                                            <td>{{ $grade->total_score ?? '—' }}</td>
+                                                            <td><strong>{{ $grade->letter_grade ?? '—' }}</strong></td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
                             @if($results->count() > 0)
                                 @php
                                     $grouped = $results->groupBy('semester');
-                                    $gradesMap = ['A+' => 4.0, 'A' => 3.7, 'B+' => 3.3, 'B' => 3.0, 'C+' => 2.7, 'C' => 2.3, 'D+' => 2.0, 'D' => 1.7, 'F' => 0.0];
                                 @endphp
                                 <div class="zr-results-body">
+                                    <h4 style="margin-top:20px"><i class="fa fa-history"></i> @lang('site.getContent',['ar'=>'النتائج السابقة','en'=>'Legacy Results'])</h4>
                                     @foreach($grouped as $semester => $semResults)
                                         <div class="zr-semester-block">
                                             <h4><i class="fa fa-folder-open"></i> @lang('site.getContent',['ar'=>'الفصل الدراسي:','en'=>'Semester:']) {{ $semester ?: __('site.getContent',['ar'=>'عام','en'=>'General']) }}</h4>
@@ -102,7 +142,7 @@
                                         </div>
                                     @endforeach
                                 </div>
-                            @else
+                            @elseif($academicGrades->count() === 0)
                                 <div class="zr-empty zr-empty-results">
                                     <i class="fa fa-inbox"></i>
                                     <p>@lang('site.getContent',['ar'=>'لا توجد نتائج مسجلة لهذا الطالب حالياً.','en'=>'No results recorded for this student yet.'])</p>
