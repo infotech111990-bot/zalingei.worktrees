@@ -20,11 +20,11 @@
     <link rel="stylesheet" href="{{ asset('universo/assets/css/zalingei-redesign.css') }}?v=202608071">
 
     <style>
-        /* Topbar text color and logo sizing (can be overridden in CSS files) */
         .zr-topbar .zr-topbar-links a {
             color: #ffffff !important;
             margin-right: 12px;
             display: inline-block;
+            white-space: nowrap;
         }
         .zr-topbar .zr-topbar-links a i {
             color: #ffffff !important;
@@ -32,12 +32,28 @@
         }
         .zr-topbar .zr-topbar-brand img {
             height: 30px;
+            width: auto;
             vertical-align: middle;
             margin-right: 8px;
         }
         .zr-topbar .zr-topbar-links a.active {
             font-weight: 700;
             text-decoration: underline;
+        }
+        @media (max-width: 767px) {
+            .zr-topbar-inner,
+            .zr-topbar-left {
+                flex-wrap: wrap;
+            }
+            .zr-topbar-links {
+                width: 100%;
+                margin: 8px 0 0 !important;
+                line-height: 1.9;
+            }
+            .zr-topbar .zr-topbar-links a {
+                margin-right: 9px;
+                font-size: 13px;
+            }
         }
     </style>
 
@@ -57,16 +73,14 @@
                     <div class="zr-topbar-links" style="margin-left:10px;">
                         <a href="{{ url('lang/ar') }}" class="{{ Config::get('app.locale')=='ar' ? 'active' : '' }}">العربية</a>
                         <a href="{{ url('lang/en') }}" class="{{ Config::get('app.locale')=='en' ? 'active' : '' }}">English</a>
-                        <a href="{{ url('webmail') }}" target="_blank"><i class="fa fa-envelope-o"></i> بريد الموظفين</a>
+                        <a href="{{ url('webmail') }}" target="_blank" rel="noopener"><i class="fa fa-envelope-o"></i> بريد الموظفين</a>
                         <a href="https://me.classera.com/" target="_blank" rel="noopener"><i class="fa fa-laptop"></i> E-Learning</a>
                         <a href="{{ url('mtCPanel/login') }}" target="_blank" rel="noopener"><i class="fa fa-lock"></i> @lang('site.getContent',['ar'=>'دخول الإدارة','en'=>'Admin Login'])</a>
                         <a href="https://www.facebook.com/zalingei.university" target="_blank" rel="noopener"><i class="fa fa-facebook"></i> Facebook</a>
                         <a href="https://www.youtube.com/channel/UCf0rdG0JaJk_VHnxNlnYogQ" target="_blank" rel="noopener"><i class="fa fa-youtube-play"></i> YouTube</a>
                     </div>
                 </div>
-                <div class="zr-topbar-right">
-                    <!-- right-side reserved -->
-                </div>
+                <div class="zr-topbar-right"></div>
             </div>
         </div>
     </div>
@@ -129,6 +143,7 @@
 <script>
 (function () {
     var nav = document.querySelector('.zr-navbar');
+    if (!nav) return;
     function updateNav() {
         if (window.scrollY > 20) nav.classList.add('is-scrolled');
         else nav.classList.remove('is-scrolled');
