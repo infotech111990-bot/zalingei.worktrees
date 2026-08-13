@@ -26,6 +26,11 @@ Route::get('/institutes-and-centers', function () {
     return view('site.institutes-and-centers');
 })->name('institutes.centers');
 
+// Prevent the legacy employee-mail link from falling through to the 404 page.
+Route::get('/webmail', function () {
+    return redirect()->away('mailto:info@zalingei.edu.sd');
+})->name('webmail');
+
 Route::get('/page/{id}/{slug?}', 'PageController@show');
 Route::get('/associations', 'UnavailableFeatureController@show');
 Route::get('/associations/{id}', 'UnavailableFeatureController@show');
