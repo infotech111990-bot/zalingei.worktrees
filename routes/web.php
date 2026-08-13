@@ -5,7 +5,6 @@ Route::get('lang/{locale}', function ($locale) {
     return redirect()->back();
 });
 
-// Public student portal: registration and result lookup remain available without admin access.
 Route::get('/student-portal', 'StudentPortalController@index')->name('student.portal');
 Route::get('/student-portal/register', 'StudentPortalController@registerForm')->name('student.register');
 Route::post('/student-portal/register', 'StudentPortalController@register')->name('student.register.submit');
@@ -16,7 +15,6 @@ Route::get('/student-portal/transcript', 'StudentPortalController@transcript')->
 
 Route::get('/', 'HomeController@main');
 
-// Public academic directory pages.
 Route::get('/faculties', function () {
     $colleges = App\College::query()->orderBy('colleges_type_id', 'asc')->orderBy('id', 'asc')->get();
     return view('site.faculties', compact('colleges'));
@@ -26,29 +24,22 @@ Route::get('/institutes-and-centers', function () {
     return view('site.institutes-and-centers');
 })->name('institutes.centers');
 
-// Safe public landing route for the legacy About Us button.
 Route::get('/about', function () {
-    return view('site.about');
+    $page = App\Page::find(4);
+    if ($page) {
+        return redirect('/page/4/about-university-of-zalingie');
+    }
+    return redirect('/');
 })->name('about');
 
-// Prevent the legacy employee-mail link from falling through to the 404 page.
 Route::get('/webmail', function () {
     return redirect()->away('mailto:info@zalingei.edu.sd');
 })->name('webmail');
-
-// Public aliases for common modern URL spellings.
-Route::get('/contact-us', function () {
-    return redirect('/contactUs');
-});
-Route::get('/e-learning', function () {
-    return redirect()->away('https://me.classera.com/');
-})->name('e-learning');
 
 Route::get('/page/{id}/{slug?}', 'PageController@show');
 Route::get('/associations', 'UnavailableFeatureController@show');
 Route::get('/associations/{id}', 'UnavailableFeatureController@show');
 Route::get('/associations/{id}/news', 'UnavailableFeatureController@show');
-Route::post('/associations/likeThis', 'UnavailableFeatureController@show');
 Route::get('/managers/profile/{id}', 'UnavailableFeatureController@show');
 Route::get('/managers/{id}', 'UnavailableFeatureController@show');
 Route::get('/managers', 'UnavailableFeatureController@show');
@@ -56,43 +47,13 @@ Route::get('/council/{year?}', 'UnavailableFeatureController@show');
 Route::get('/news', 'NewsController@show');
 Route::get('/news/{newsID}', 'NewsController@display');
 Route::get('/staff/{staffID}/{slug?}', 'StaffController@display')->name('staffDetails');
-
-// Events currently have no restored database controller, so expose a real public page instead of a dead route.
-Route::get('/events', function () {
-    return view('site.events');
-})->name('events');
-Route::get('/events/{eventsID}', function () {
-    return view('site.events');
-});
-
+Route::get('/events', 'UnavailableFeatureController@show');
+Route::get('/events/{eventsID}', 'UnavailableFeatureController@show');
 Route::get('/polls', 'PollController@show');
 Route::get('/polls/{polls}', 'PollController@display');
 Route::post('/polls/voteNow', 'PollController@voteNow');
 Route::get('/contactUs', 'PageController@showContactUs');
-
-// Lightweight public search page. It searches published news and pages without requiring the old search controller.
-Route::get('/search/{section}', function ($section) {
-    $q = trim(request('q', ''));
-    $news = collect();
-    $pages = collect();
-
-    if ($q !== '') {
-        $news = App\News::query()->where(function ($query) use ($q) {
-            $query->where('title', 'like', "%{$q}%")
-                  ->orWhere('titleEn', 'like', "%{$q}%")
-                  ->orWhere('txt', 'like', "%{$q}%")
-                  ->orWhere('txtEn', 'like', "%{$q}%");
-        })->orderBy('created_at', 'desc')->limit(20)->get();
-
-        $pages = App\Page::query()->where('publish', 1)->where(function ($query) use ($q) {
-            $query->where('title', 'like', "%{$q}%")
-                  ->orWhere('titleEn', 'like', "%{$q}%");
-        })->orderBy('order', 'asc')->limit(20)->get();
-    }
-
-    return view('site.search', compact('section', 'q', 'news', 'pages'));
-})->name('search');
-
+Route::get('/search/{section}', 'UnavailableFeatureController@show')->name('search');
 Route::get('/termsOfUse', function(){ return view('site.privacyPolicy'); });
 Route::get('/privacyPolicy', function(){ return view('site.privacyPolicy'); });
 
@@ -104,15 +65,12 @@ Route::prefix('mtCPanel')->group(function() {
     Route::group(['middleware' => ['auth:admin']], function(){
         Route::get('/', 'AdminController@index')->name('mtCPanel.dashboard');
         Route::post('/logout', 'HomeController@logout')->name('mtCPanel.logout');
-
-        // Academic management routes.
         Route::get('academic-management', 'AcademicManagementController@index')->name('academic.management');
         Route::post('academic-management/academic-year', 'AcademicManagementController@storeAcademicYear')->name('academic.year.store');
         Route::post('academic-management/semester', 'AcademicManagementController@storeSemester')->name('academic.semester.store');
         Route::post('academic-management/course', 'AcademicManagementController@storeCourse')->name('academic.course.store');
         Route::post('academic-management/enrollment', 'AcademicManagementController@storeEnrollment')->name('academic.enrollment.store');
         Route::post('academic-management/grade', 'AcademicManagementController@storeGrade')->name('academic.grade.store');
-
         Route::any('languages_options', ['before' => 'auth.admin', 'uses' => 'JTableControllerLanguages@languagesOptions']);
         Route::post('dropzone/upload', ['before' => 'auth.admin|admin.hasAuthToAccess:dropzone', 'uses' => 'MTCPanelDropzoneController@upload'])->name('mtCPanel.dropzone.upload');
         Route::get('dropzone/get', function(){ return json_encode([]); })->name('mtCPanel.dropzone.get');
