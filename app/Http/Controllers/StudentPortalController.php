@@ -73,10 +73,31 @@ class StudentPortalController extends Controller
     {
         $studentNumber = trim((string) $request->input('student_number'));
         abort_if($studentNumber === '', 404);
-        $student = Student::with(['college','department'])->where('student_number',$studentNumber)->firstOrFail();
-        $grades = Schema::hasTable('grades') ? $student->grades()->with(['course','semester.academicYear'])->get() : collect();
-        $semesters = $grades->pluck('semester')->filter()->unique('id')->sortByDesc('id');
-        return view('site.student.dashboard', compact('student','grades','semesters'));
+
+        $student = Student::with(['college','department'])->where('student_number', $studentNumber)->firstOrFail();
+        $grades = Schema::hasTable('grades')
+            ? $student->grades()->with(['course','semester.academicYear'])->get()
+            : collect();
+        $legacyResults = StudentResult::where('student_number', $studentNumber)
+            ->orderByDesc('academic_year')
+            ->orderByDesc('semester')
+            ->orderBy('subject_name')
+            ->get();
+        $semesters = $grades->pluck('semester')->filter()->unique('id')->sortByDesc('id')->values();
+
+        $academicGpa = $student->calculateGPA();
+        $credits = $grades->sum(fn($grade) => (int) optional($grade->course)->credit_hours);
+        $hasAcademicRecords = $grades->isNotEmpty();
+
+        return view('site.student.dashboard', compact(
+            'student',
+            'grades',
+            'legacyResults',
+            'semesters',
+            'academicGpa',
+            'credits',
+            'hasAcademicRecords'
+        ));
     }
 
     public function transcript(Request $request)
