@@ -14,6 +14,11 @@ Route::get('/student-portal/dashboard', 'StudentPortalController@dashboard')->na
 Route::get('/student-portal/semesters', 'StudentPortalController@semesters')->name('student.semesters');
 Route::get('/student-portal/transcript', 'StudentPortalController@transcript')->name('student.transcript');
 
+// Public e-learning entry point. This is intentionally outside the dashboard so it can be used from the main website navigation.
+Route::get('/e-learning', function () {
+    return redirect()->away('https://me.classera.com/');
+})->name('elearning');
+
 Route::get('/', 'HomeController@main');
 Route::get('/page/{id}/{slug?}', 'PageController@show');
 Route::get('/associations', 'UnavailableFeatureController@show');
