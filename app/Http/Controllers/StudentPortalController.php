@@ -29,12 +29,7 @@ class StudentPortalController extends Controller
     public function register(Request $request)
     {
         $validated = $request->validate([
-            'student_number' => [
-                'required',
-                'string',
-                'max:50',
-                Rule::unique('students', 'student_number'),
-            ],
+            'student_number' => ['required', 'string', 'max:50', Rule::unique('students', 'student_number')],
             'national_id' => 'nullable|string|max:50',
             'name_ar' => 'required|string|max:255',
             'name_en' => 'nullable|string|max:255',
@@ -42,15 +37,11 @@ class StudentPortalController extends Controller
             'phone' => 'nullable|string|max:50',
             'college_id' => 'required|integer|exists:college,id',
             'department_id' => [
-                'nullable',
-                'integer',
-                'exists:dept,id',
+                'nullable', 'integer', 'exists:dept,id',
                 function ($attribute, $value, $fail) use ($request) {
                     if ($value && $request->filled('college_id')) {
                         $belongsToCollege = CollegesDepartments::whereKey($value)
-                            ->where('college_id', $request->college_id)
-                            ->exists();
-
+                            ->where('college_id', $request->college_id)->exists();
                         if (!$belongsToCollege) {
                             $fail(__('site.getContent', [
                                 'ar' => 'القسم المختار لا يتبع الكلية المحددة.',
@@ -76,6 +67,24 @@ class StudentPortalController extends Controller
             ->with('success', 'تم إرسال طلب التسجيل بنجاح. حالة إشعار الدفع: قيد المراجعة. / Registration submitted successfully. Payment receipt: pending review.');
     }
 
+    private function findStudent(string $studentNumber)
+    {
+        return Student::with(['college', 'department'])
+            ->where('student_number', $studentNumber)
+            ->firstOrFail();
+    }
+
+    private function academicGrades(Student $student)
+    {
+        if (!Schema::hasTable('grades')) {
+            return collect();
+        }
+
+        return $student->grades()
+            ->with(['course', 'semester.academicYear'])
+            ->get();
+    }
+
     public function results(Request $request)
     {
         $studentNumber = trim((string) $request->input('student_number'));
@@ -85,21 +94,12 @@ class StudentPortalController extends Controller
 
         if ($studentNumber !== '') {
             $student = Student::with(['college', 'department'])
-                ->where('student_number', $studentNumber)
-                ->first();
+                ->where('student_number', $studentNumber)->first();
 
             if ($student) {
                 $results = StudentResult::where('student_number', $studentNumber)
-                    ->orderBy('academic_year')
-                    ->orderBy('semester')
-                    ->orderBy('subject_name')
-                    ->get();
-
-                if (Schema::hasTable('grades')) {
-                    $academicGrades = $student->grades()
-                        ->with(['course', 'semester.academicYear'])
-                        ->get();
-                }
+                    ->orderBy('academic_year')->orderBy('semester')->orderBy('subject_name')->get();
+                $academicGrades = $this->academicGrades($student);
             }
         }
 
@@ -111,38 +111,18 @@ class StudentPortalController extends Controller
         $studentNumber = trim((string) $request->input('student_number'));
         abort_if($studentNumber === '', 404);
 
-        $student = Student::with(['college', 'department'])
-            ->where('student_number', $studentNumber)
-            ->firstOrFail();
-
-        $grades = Schema::hasTable('grades')
-            ? $student->grades()->with(['course', 'semester.academicYear'])->get()
-            : collect();
-
+        $student = $this->findStudent($studentNumber);
+        $grades = $this->academicGrades($student);
         $legacyResults = StudentResult::where('student_number', $studentNumber)
-            ->orderByDesc('academic_year')
-            ->orderByDesc('semester')
-            ->orderBy('subject_name')
-            ->get();
+            ->orderByDesc('academic_year')->orderByDesc('semester')->orderBy('subject_name')->get();
 
-        $semesters = $grades->pluck('semester')
-            ->filter()
-            ->unique('id')
-            ->sortByDesc('id')
-            ->values();
-
+        $semesters = $grades->pluck('semester')->filter()->unique('id')->sortByDesc('id')->values();
         $academicGpa = $student->calculateGPA();
-        $credits = $grades->sum(fn($grade) => (int) optional($grade->course)->credit_hours);
+        $credits = $grades->sum(fn ($grade) => (int) optional($grade->course)->credit_hours);
         $hasAcademicRecords = $grades->isNotEmpty();
 
         return view('site.student.dashboard', compact(
-            'student',
-            'grades',
-            'legacyResults',
-            'semesters',
-            'academicGpa',
-            'credits',
-            'hasAcademicRecords'
+            'student', 'grades', 'legacyResults', 'semesters', 'academicGpa', 'credits', 'hasAcademicRecords'
         ));
     }
 
@@ -151,15 +131,12 @@ class StudentPortalController extends Controller
         $studentNumber = trim((string) $request->input('student_number'));
         abort_if($studentNumber === '', 404);
 
-        $student = Student::with(['college', 'department'])
-            ->where('student_number', $studentNumber)
-            ->firstOrFail();
+        $student = $this->findStudent($studentNumber);
+        $grades = $this->academicGrades($student);
+        $legacyResults = StudentResult::where('student_number', $studentNumber)
+            ->orderBy('academic_year')->orderBy('semester')->orderBy('subject_name')->get();
 
-        $grades = Schema::hasTable('grades')
-            ? $student->grades()->with(['course', 'semester.academicYear'])->get()
-            : collect();
-
-        return view('site.student.transcript', compact('student', 'grades'));
+        return view('site.student.transcript', compact('student', 'grades', 'legacyResults'));
     }
 
     public function semesters(Request $request)
@@ -167,17 +144,9 @@ class StudentPortalController extends Controller
         $studentNumber = trim((string) $request->input('student_number'));
         abort_if($studentNumber === '', 404);
 
-        $student = Student::where('student_number', $studentNumber)->firstOrFail();
-
-        $semesters = Schema::hasTable('grades')
-            ? $student->grades()
-                ->with('semester.academicYear')
-                ->get()
-                ->pluck('semester')
-                ->filter()
-                ->unique('id')
-                ->sortByDesc('id')
-            : collect();
+        $student = $this->findStudent($studentNumber);
+        $grades = $this->academicGrades($student);
+        $semesters = $grades->pluck('semester')->filter()->unique('id')->sortByDesc('id')->values();
 
         return view('site.student.semesters.index', compact('student', 'semesters'));
     }
