@@ -50,7 +50,7 @@ Route::prefix('mtCPanel')->group(function() {
         Route::get('/', 'AdminController@index')->name('mtCPanel.dashboard');
         Route::post('/logout', 'HomeController@logout')->name('mtCPanel.logout');
 
-        // Academic management: keep all CRUD operations behind admin authentication.
+        // Academic management routes.
         Route::get('academic-management', 'AcademicManagementController@index')->name('academic.management');
         Route::post('academic-management/academic-year', 'AcademicManagementController@storeAcademicYear')->name('academic.year.store');
         Route::post('academic-management/semester', 'AcademicManagementController@storeSemester')->name('academic.semester.store');
