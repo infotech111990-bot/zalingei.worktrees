@@ -124,7 +124,7 @@
                 <span class="zr-eyebrow">@lang('site.getContent',['ar'=>'جامعة زالنجي','en'=>'UNIVERSITY OF ZALINGEI'])</span>
                 <h2>@lang('site.getContent',['ar'=>'معرفة، بحث، وخدمة للمجتمع','en'=>'Knowledge, research and service to the community'])</h2>
             </div>
-            <a href="{{ url('/') }}/page/4/about-university-of-zalingie" class="zr-btn zr-btn-light">@lang('site.aboutUs') <i class="fa fa-arrow-left"></i></a>
+            <a href="{{ route('about') }}" class="zr-btn zr-btn-light">@lang('site.aboutUs') <i class="fa fa-arrow-left"></i></a>
         </div>
     </section>
 </main>
