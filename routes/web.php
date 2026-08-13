@@ -15,14 +15,21 @@ Route::get('/student-portal/transcript', 'StudentPortalController@transcript')->
 
 Route::get('/', 'HomeController@main');
 
+// Public academic and digital-service landing pages.
 Route::get('/faculties', function () {
-    $colleges = App\College::query()->orderBy('colleges_type_id', 'asc')->orderBy('id', 'asc')->get();
+    $colleges = App\College::query()->where('status', 1)
+        ->orderBy('colleges_type_id', 'asc')->orderBy('sort_order', 'asc')->orderBy('id', 'asc')->get();
     return view('site.faculties', compact('colleges'));
 })->name('faculties');
 
 Route::get('/institutes-and-centers', function () {
     return view('site.institutes-and-centers');
 })->name('institutes.centers');
+
+// Public E-Learning entry point. Keep this on the public website, not only in the student dashboard.
+Route::get('/e-learning', function () {
+    return redirect()->away('https://me.classera.com/');
+})->name('elearning');
 
 Route::get('/about', function () {
     $page = App\Page::find(4);
