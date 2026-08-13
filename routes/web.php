@@ -44,11 +44,20 @@ Route::get('/privacyPolicy', function(){ return view('site.privacyPolicy'); });
 Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::prefix('mtCPanel')->group(function() {
-    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('mtCPanel.login');
-    Route::post('/login', 'Auth\AdminLoginController@login')->name('mtCPanel.login.submit');
+    Route::get('/login', 'Auth\\AdminLoginController@showLoginForm')->name('mtCPanel.login');
+    Route::post('/login', 'Auth\\AdminLoginController@login')->name('mtCPanel.login.submit');
     Route::group(['middleware' => ['auth:admin']], function(){
         Route::get('/', 'AdminController@index')->name('mtCPanel.dashboard');
         Route::post('/logout', 'HomeController@logout')->name('mtCPanel.logout');
+
+        // Academic management: keep all CRUD operations behind admin authentication.
+        Route::get('academic-management', 'AcademicManagementController@index')->name('academic.management');
+        Route::post('academic-management/academic-year', 'AcademicManagementController@storeAcademicYear')->name('academic.year.store');
+        Route::post('academic-management/semester', 'AcademicManagementController@storeSemester')->name('academic.semester.store');
+        Route::post('academic-management/course', 'AcademicManagementController@storeCourse')->name('academic.course.store');
+        Route::post('academic-management/enrollment', 'AcademicManagementController@storeEnrollment')->name('academic.enrollment.store');
+        Route::post('academic-management/grade', 'AcademicManagementController@storeGrade')->name('academic.grade.store');
+
         Route::any('languages_options', ['before' => 'auth.admin', 'uses' => 'JTableControllerLanguages@languagesOptions']);
         Route::post('dropzone/upload', ['before' => 'auth.admin|admin.hasAuthToAccess:dropzone', 'uses' => 'MTCPanelDropzoneController@upload'])->name('mtCPanel.dropzone.upload');
         Route::get('dropzone/get', function(){ return json_encode([]); })->name('mtCPanel.dropzone.get');
