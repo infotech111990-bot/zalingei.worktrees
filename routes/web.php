@@ -116,6 +116,11 @@ Route::prefix('mtCPanel')->group(function() {
         Route::post('polls/answers/dropzone/remove','MTCPanelTestamonialsController@dropzoneRemove')->name('mtCPanel.polls.answers.dropzone.remove');
         Route::resource('polls', 'MTCPanelPollsController', ['as' => 'mtCPanel']);
         Route::resource('polls.answers', 'MTCPanelPollsAnswersController', ['as' => 'mtCPanel']);
+
+        // Student management and validated Excel/CSV import. Keep these routes before the resource route so /students/import is not treated as a student ID.
+        Route::get('students/import', 'MTCPanelStudentsController@importForm')->name('mtCPanel.students.import');
+        Route::post('students/import/preview', 'MTCPanelStudentsController@importPreview')->name('mtCPanel.students.import.preview');
+        Route::post('students/import/store', 'MTCPanelStudentsController@importStore')->name('mtCPanel.students.import.store');
         Route::resource('students', 'MTCPanelStudentsController', ['as' => 'mtCPanel']);
         Route::get('students/{id}/results', 'MTCPanelStudentsController@results')->name('mtCPanel.students.results');
         Route::post('students/{id}/results', 'MTCPanelStudentsController@addResult')->name('mtCPanel.students.addResult');
