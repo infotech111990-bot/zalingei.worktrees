@@ -26,6 +26,15 @@ Route::get('/institutes-and-centers', function () {
     return view('site.institutes-and-centers');
 })->name('institutes.centers');
 
+// Safe public landing route for the legacy About Us button.
+Route::get('/about', function () {
+    $page = App\Page::find(4);
+    if ($page) {
+        return redirect('/page/4/about-university-of-zalingie');
+    }
+    return redirect('/');
+})->name('about');
+
 // Prevent the legacy employee-mail link from falling through to the 404 page.
 Route::get('/webmail', function () {
     return redirect()->away('mailto:info@zalingei.edu.sd');
