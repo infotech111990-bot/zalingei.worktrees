@@ -1,0 +1,3 @@
+Railway deployment refresh marker for the student transcript view.
+
+The transcript view exists at resources/views/site/student/transcript.blade.php.
