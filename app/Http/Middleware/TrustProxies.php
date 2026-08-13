@@ -8,15 +8,15 @@ use Symfony\Component\HttpFoundation\Request;
 class TrustProxies extends Middleware
 {
     /**
-     * The trusted proxies for this application.
+     * Railway terminates TLS at the edge and forwards the request to the
+     * Laravel container. Trust the forwarded headers so Laravel generates
+     * HTTPS URLs and secure form actions behind the proxy.
      *
      * @var array|string|null
      */
-    protected $proxies;
+    protected $proxies = '*';
 
     /**
-     * The headers that should be used to detect proxies.
-     *
      * @var int
      */
     protected $headers =
