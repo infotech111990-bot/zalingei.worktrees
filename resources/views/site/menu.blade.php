@@ -21,6 +21,8 @@ $pages = App\Page::where('parent_id',0)->where('publish',1)
             <nav id="zr-main-nav" class="collapse navbar-collapse zr-main-nav">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/') }}"><i class="fa fa-home"></i> @lang('site.home')</a></li>
+                    <li><a href="{{ route('faculties') }}"><i class="fa fa-university"></i> @lang('site.getContent',['ar'=>'الكليات','en'=>'Faculties'])</a></li>
+                    <li><a href="{{ route('institutes.centers') }}"><i class="fa fa-building"></i> @lang('site.getContent',['ar'=>'المعاهد والمراكز','en'=>'Institutes & Centers'])</a></li>
                     @foreach ($pages as $page)
                         <li class="@if($page->hasChild() || in_array($page->id,[21,22,23,99])) dropdown @endif">
                             <a href="@if($page->hasChild() || in_array($page->id,[21,22,23,99])) javascript:void(0) @else {{$page->getLink()}} @endif"
