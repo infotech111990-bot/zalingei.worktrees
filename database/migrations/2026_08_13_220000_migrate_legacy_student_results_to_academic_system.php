@@ -12,24 +12,24 @@ return new class extends Migration
             return;
         }
 
-        if (Schema::hasTable('students') && Schema::hasTable('college')) {
-            $collegeId = DB::table('college')->where('slug', 'csit')->value('id') ?: 7;
-            DB::table('students')->where('student_number', '20231234')->whereNull('college_id')->update([
-                'college_id' => $collegeId,
-                'updated_at' => now(),
-            ]);
+        // Preserve existing student data. Only fill the known CSIT college for the legacy demo record.
+        if (Schema::hasTable('students') && Schema::hasTable('college') && Schema::hasColumn('students', 'college_id')) {
+            $collegeId = DB::table('college')->where('slug', 'csit')->value('id');
+            if ($collegeId) {
+                DB::table('students')->where('student_number', '20231234')->whereNull('college_id')->update([
+                    'college_id' => $collegeId,
+                    'updated_at' => now(),
+                ]);
+            }
         }
 
         $legacy = DB::table('student_results')->select(
             'id', 'student_number', 'subject_name', 'marks', 'grade', 'semester', 'academic_year'
         )->orderBy('id')->get();
 
-        $semesterNumbers = [];
-
         foreach ($legacy as $result) {
             $yearName = trim((string) $result->academic_year) ?: 'Unknown Academic Year';
             $yearId = DB::table('academic_years')->where('name', $yearName)->value('id');
-
             if (!$yearId) {
                 $yearId = DB::table('academic_years')->insertGetId([
                     'name' => $yearName,
@@ -40,44 +40,32 @@ return new class extends Migration
             }
 
             $semesterSource = trim((string) $result->semester);
-            $semesterKey = $yearName . '|' . $semesterSource;
             $semesterNumber = $this->semesterNumber($semesterSource);
+            $semesterNumber = $semesterNumber ?: 1;
+            $semesterCode = 'LEGACY-' . substr(sha1($yearName . '|' . $semesterSource), 0, 12);
 
-            if ($semesterNumber === null) {
-                $semesterNumbers[$yearName] ??= [];
-                $semesterNumbers[$yearName][$semesterSource] ??= count($semesterNumbers[$yearName]) + 1;
-                $semesterNumber = min(2, $semesterNumbers[$yearName][$semesterSource]);
+            $semesterQuery = DB::table('semesters')->where('academic_year_id', $yearId);
+            if (Schema::hasColumn('semesters', 'code')) {
+                $semesterId = (clone $semesterQuery)->where('code', $semesterCode)->value('id');
+            } else {
+                $semesterId = (clone $semesterQuery)->where('term', $semesterNumber)->value('id');
             }
 
-            $semesterCode = 'LEGACY-' . substr(sha1($semesterKey), 0, 12);
-            $semesterId = DB::table('semesters')->where('academic_year_id', $yearId)->where('code', $semesterCode)->value('id');
-
             if (!$semesterId) {
-                $semesterId = DB::table('semesters')->insertGetId([
+                $semesterData = [
                     'academic_year_id' => $yearId,
                     'name' => 'Semester ' . $semesterNumber,
-                    'code' => $semesterCode,
                     'is_current' => false,
                     'created_at' => now(),
                     'updated_at' => now(),
-                ]);
-            }
-
-            $subject = trim((string) $result->subject_name) ?: ('Legacy Course ' . $result->id);
-            $courseCode = 'LEGACY-' . substr(sha1($subject), 0, 12);
-            $courseId = DB::table('courses')->where('code', $courseCode)->value('id');
-
-            if (!$courseId) {
-                $courseId = DB::table('courses')->insertGetId([
-                    'department_id' => null,
-                    'code' => $courseCode,
-                    'name' => 'Legacy Course ' . $result->id,
-                    'name_ar' => $subject,
-                    'credit_hours' => 3,
-                    'is_active' => true,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
+                ];
+                if (Schema::hasColumn('semesters', 'code')) {
+                    $semesterData['code'] = $semesterCode;
+                }
+                if (Schema::hasColumn('semesters', 'term')) {
+                    $semesterData['term'] = $semesterNumber;
+                }
+                $semesterId = DB::table('semesters')->insertGetId($semesterData);
             }
 
             $studentId = DB::table('students')->where('student_number', $result->student_number)->value('id');
@@ -85,37 +73,62 @@ return new class extends Migration
                 continue;
             }
 
+            $subject = trim((string) $result->subject_name) ?: ('Legacy Course ' . $result->id);
+            $courseCode = 'LEGACY-' . substr(sha1($subject), 0, 12);
+            $courseId = DB::table('courses')->where('code', $courseCode)->value('id');
+
+            if (!$courseId) {
+                $courseData = [
+                    'department_id' => Schema::hasColumn('courses', 'department_id') ? DB::table('students')->where('id', $studentId)->value('department_id') : null,
+                    'code' => $courseCode,
+                    'credit_hours' => 3,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
+                if (Schema::hasColumn('courses', 'name')) {
+                    $courseData['name'] = 'Legacy Course ' . $result->id;
+                }
+                if (Schema::hasColumn('courses', 'name_en')) {
+                    $courseData['name_en'] = 'Legacy Course ' . $result->id;
+                }
+                if (Schema::hasColumn('courses', 'name_ar')) {
+                    $courseData['name_ar'] = $subject;
+                }
+                if (Schema::hasColumn('courses', 'active')) {
+                    $courseData['active'] = true;
+                }
+                if (Schema::hasColumn('courses', 'is_active')) {
+                    $courseData['is_active'] = true;
+                }
+                $courseId = DB::table('courses')->insertGetId($courseData);
+            }
+
             $total = is_numeric($result->marks) ? (float) $result->marks : null;
-            $grade = strtoupper(trim((string) $result->grade));
-            $points = $this->gradePoints($grade);
+            $letterGrade = strtoupper(trim((string) $result->grade));
+            $points = $this->gradePoints($letterGrade);
 
-            if (!DB::table('enrollments')->where('student_id', $studentId)->where('course_id', $courseId)->where('semester_id', $semesterId)->exists()) {
-                DB::table('enrollments')->insert([
-                    'student_id' => $studentId,
-                    'course_id' => $courseId,
-                    'semester_id' => $semesterId,
-                    'status' => 'completed',
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
+            DB::table('enrollments')->updateOrInsert(
+                ['student_id' => $studentId, 'course_id' => $courseId, 'semester_id' => $semesterId],
+                ['status' => 'completed', 'updated_at' => now(), 'created_at' => now()]
+            );
+
+            $gradeData = [
+                'midterm' => null,
+                'final' => null,
+                'practical' => null,
+                'total_score' => $total,
+                'letter_grade' => $letterGrade ?: null,
+                'grade_points' => $points,
+                'updated_at' => now(),
+            ];
+            if (Schema::hasColumn('grades', 'remarks')) {
+                $gradeData['remarks'] = 'Migrated from legacy student_results record #' . $result->id;
             }
 
-            if (!DB::table('grades')->where('student_id', $studentId)->where('course_id', $courseId)->where('semester_id', $semesterId)->exists()) {
-                DB::table('grades')->insert([
-                    'student_id' => $studentId,
-                    'course_id' => $courseId,
-                    'semester_id' => $semesterId,
-                    'midterm' => null,
-                    'final' => null,
-                    'practical' => null,
-                    'total_score' => $total,
-                    'letter_grade' => $grade ?: null,
-                    'grade_points' => $points,
-                    'remarks' => 'Migrated from legacy student_results record #' . $result->id,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
+            DB::table('grades')->updateOrInsert(
+                ['student_id' => $studentId, 'course_id' => $courseId, 'semester_id' => $semesterId],
+                $gradeData + ['created_at' => now()]
+            );
         }
     }
 
@@ -148,6 +161,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        // Non-destructive by design: legacy results remain the source of truth.
+        // Non-destructive by design: legacy results remain intact.
     }
 };
