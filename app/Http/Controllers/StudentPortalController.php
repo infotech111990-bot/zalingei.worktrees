@@ -12,35 +12,20 @@ use Illuminate\Validation\Rule;
 
 class StudentPortalController extends Controller
 {
-    /**
-     * Show the student portal landing page.
-     */
     public function index()
     {
-        $colleges = College::orderBy('name_ar', 'asc')->get();
-        $departments = Schema::hasTable('dept')
-            ? CollegesDepartments::orderBy('title', 'asc')->get()
-            : collect();
-
+        $colleges = College::where('status', 1)->orderBy('sort_order')->orderBy('name_ar')->get();
+        $departments = Schema::hasTable('dept') ? CollegesDepartments::orderBy('title')->get() : collect();
         return view('site.studentPortal', compact('colleges', 'departments'));
     }
 
-    /**
-     * Student registration form.
-     */
     public function registerForm()
     {
-        $colleges = College::orderBy('name_ar', 'asc')->get();
-        $departments = Schema::hasTable('dept')
-            ? CollegesDepartments::orderBy('title', 'asc')->get()
-            : collect();
-
+        $colleges = College::where('status', 1)->orderBy('sort_order')->orderBy('name_ar')->get();
+        $departments = Schema::hasTable('dept') ? CollegesDepartments::orderBy('title')->get() : collect();
         return view('site.studentRegister', compact('colleges', 'departments'));
     }
 
-    /**
-     * Store a new student registration.
-     */
     public function register(Request $request)
     {
         $validated = $request->validate([
@@ -50,12 +35,12 @@ class StudentPortalController extends Controller
                 'max:50',
                 Rule::unique('students', 'student_number'),
             ],
-            'national_id'   => 'nullable|string|max:50',
-            'name_ar'       => 'required|string|max:255',
-            'name_en'       => 'nullable|string|max:255',
-            'email'         => 'nullable|email|max:191',
-            'phone'         => 'nullable|string|max:50',
-            'college_id'    => 'nullable|integer|exists:college,id',
+            'national_id' => 'nullable|string|max:50',
+            'name_ar' => 'required|string|max:255',
+            'name_en' => 'nullable|string|max:255',
+            'email' => 'nullable|email|max:191',
+            'phone' => 'nullable|string|max:50',
+            'college_id' => 'required|integer|exists:college,id',
             'department_id' => [
                 'nullable',
                 'integer',
@@ -76,37 +61,124 @@ class StudentPortalController extends Controller
                 },
             ],
             'academic_year' => 'nullable|string|max:20',
+            'level' => 'nullable|string|max:30',
+            'payment_receipt' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
-        Student::create($validated);
+        $data = collect($validated)->except('payment_receipt')->all();
+        $data['payment_receipt_path'] = $request->file('payment_receipt')->store('receipts', 'public');
+        $data['payment_status'] = 'pending';
+        $data['academic_status'] = 'pending';
+        $data['status'] = 1;
+        Student::create($data);
 
         return redirect()->route('student.portal')
-            ->with('success', __('site.getContent', [
-                'ar' => 'تم تسجيل الطالب بنجاح!',
-                'en' => 'Student registered successfully!',
-            ]));
+            ->with('success', 'تم إرسال طلب التسجيل بنجاح. حالة إشعار الدفع: قيد المراجعة. / Registration submitted successfully. Payment receipt: pending review.');
     }
 
-    /**
-     * Look up a student's results by their student number.
-     */
     public function results(Request $request)
     {
-        $studentNumber = $request->input('student_number');
+        $studentNumber = trim((string) $request->input('student_number'));
         $student = null;
         $results = collect();
+        $academicGrades = collect();
 
-        if ($studentNumber) {
-            $student = Student::where('student_number', $studentNumber)->first();
+        if ($studentNumber !== '') {
+            $student = Student::with(['college', 'department'])
+                ->where('student_number', $studentNumber)
+                ->first();
 
             if ($student) {
                 $results = StudentResult::where('student_number', $studentNumber)
-                    ->orderBy('semester', 'asc')
-                    ->orderBy('subject_name', 'asc')
+                    ->orderBy('academic_year')
+                    ->orderBy('semester')
+                    ->orderBy('subject_name')
                     ->get();
+
+                if (Schema::hasTable('grades')) {
+                    $academicGrades = $student->grades()
+                        ->with(['course', 'semester.academicYear'])
+                        ->get();
+                }
             }
         }
 
-        return view('site.studentResults', compact('student', 'results', 'studentNumber'));
+        return view('site.studentResults', compact('student', 'results', 'studentNumber', 'academicGrades'));
+    }
+
+    public function dashboard(Request $request)
+    {
+        $studentNumber = trim((string) $request->input('student_number'));
+        abort_if($studentNumber === '', 404);
+
+        $student = Student::with(['college', 'department'])
+            ->where('student_number', $studentNumber)
+            ->firstOrFail();
+
+        $grades = Schema::hasTable('grades')
+            ? $student->grades()->with(['course', 'semester.academicYear'])->get()
+            : collect();
+
+        $legacyResults = StudentResult::where('student_number', $studentNumber)
+            ->orderByDesc('academic_year')
+            ->orderByDesc('semester')
+            ->orderBy('subject_name')
+            ->get();
+
+        $semesters = $grades->pluck('semester')
+            ->filter()
+            ->unique('id')
+            ->sortByDesc('id')
+            ->values();
+
+        $academicGpa = $student->calculateGPA();
+        $credits = $grades->sum(fn($grade) => (int) optional($grade->course)->credit_hours);
+        $hasAcademicRecords = $grades->isNotEmpty();
+
+        return view('site.student.dashboard', compact(
+            'student',
+            'grades',
+            'legacyResults',
+            'semesters',
+            'academicGpa',
+            'credits',
+            'hasAcademicRecords'
+        ));
+    }
+
+    public function transcript(Request $request)
+    {
+        $studentNumber = trim((string) $request->input('student_number'));
+        abort_if($studentNumber === '', 404);
+
+        $student = Student::with(['college', 'department'])
+            ->where('student_number', $studentNumber)
+            ->firstOrFail();
+
+        $grades = Schema::hasTable('grades')
+            ? $student->grades()->with(['course', 'semester.academicYear'])->get()
+            : collect();
+
+        return view('site.student.transcript', compact('student', 'grades'));
+    }
+
+    public function semesters(Request $request)
+    {
+        $studentNumber = trim((string) $request->input('student_number'));
+        abort_if($studentNumber === '', 404);
+
+        $student = Student::where('student_number', $studentNumber)->firstOrFail();
+
+        $semesters = Schema::hasTable('grades')
+            ? $student->grades()
+                ->with('semester.academicYear')
+                ->get()
+                ->pluck('semester')
+                ->filter()
+                ->unique('id')
+                ->sortByDesc('id')
+            : collect();
+
+        return view('site.student.semesters.index', compact('student', 'semesters'));
     }
 }
